@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|集|团|简|介| - |安|徽|宁|商|科|技|集|团|有|限|公|司')">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/1.jpg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
+<div class="subnav-tabs">
+  <div class="wrap">
+    <a th:href="@{/about-intro}" class="on">集团简介</a>
+    <a th:href="@{/about-speech}">董事长致词</a>
+    <a th:href="@{/about-events}">发展大事记</a>
+    <a th:href="@{/about-team}">管理团队</a>
+    <a th:href="@{/about-honor}">企业荣誉</a>
+    <a th:href="@{/about-party}">党建工作</a>
+    <a th:href="@{/about-culture}">企业文化</a>
+  </div>
+</div>
+<div class="section about-text-section">
+  <div class="wrap">
+    <div class="content-detail">
+      <div class="detail-head">
+        <h1>安徽宁商科技集团有限公司</h1>
+        <div class="meta">一徽藏一城，一潮见格局</div>
+      </div>
+      <div class="detail-body">
+        <div class="intro-section">
+          <h3>徽韵承城，扎根本土根基</h3>
+          <p>安徽宁商科技集团有限公司扎根安徽合肥。</p>
+        </div>
+        <div class="intro-section">
+          <h3>五子联动，共筑产业潮头</h3>
+          <div class="sub-grid-new">
+            <div class="sub-item" th:each="sub : ${subsidiaries}">
+              <div class="logo-area"><img th:src="${sub.logo}" alt=""></div>
+              <div class="info-area">
+                <h4 th:text="${sub.name}">子公司名称</h4>
+                <div class="rich-content" th:utext="${@richText.clean(sub.description)}">子公司描述</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="stats">
+  <div class="wrap">
+    <div class="item"><div class="num">2018</div><div class="lbl">成立年份</div></div>
+    <div class="item"><div class="num">4</div><div class="lbl">成员企业</div></div>
+    <div class="item"><div class="num">10<small>+</small></div><div class="lbl">知识产权</div></div>
+    <div class="item"><div class="num">4</div><div class="lbl">业务领域</div></div>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="about">
+</body>
+</html>

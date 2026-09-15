@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|企|业|文|化| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/1.jpg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
+<div class="subnav-tabs"><div class="wrap">
+<a th:href="@{/about-intro}">集团简介</a>
+<a th:href="@{/about-speech}">董事长致词</a>
+<a th:href="@{/about-events}">发展大事记</a>
+<a th:href="@{/about-team}">管理团队</a>
+<a th:href="@{/about-honor}">企业荣誉</a>
+<a th:href="@{/about-party}">党建工作</a>
+<a th:href="@{/about-culture}" class="on">企业文化</a>
+</div></div>
+<div class="section"><div class="wrap">
+<div class="content-detail">
+<div class="detail-head"><h1>企业文化理念</h1><div class="meta">以文化铸牢企魂 · 以理念凝聚共识</div></div>
+<div class="culture-content">
+<div class="culture-section">
+<h3>扎根本土，做有根的事业</h3>
+<p class="lead">安徽宁商科技集团生长于合肥科创热土，扎根巢湖之滨。</p>
+<p>从成立之初我们就认准一个道理：企业从来不是孤立的个体，它的根基在这座城市。</p>
+</div>
+<div class="culture-section">
+<h3>核心价值理念</h3>
+<div class="culture-values">
+<div class="cv-item"><div class="cv-label">MISSION</div><div class="cv-text">科创赋能城乡，数字服务实业</div></div>
+<div class="cv-item"><div class="cv-label">CORE VALUES</div><div class="cv-text">徽商固本 · 科创致远 · 协同共生 · 开放共赢</div></div>
+<div class="cv-item"><div class="cv-label">VISION</div><div class="cv-text">城湖共生处，笃行向远方</div></div>
+<div class="cv-item"><div class="cv-label">SPIRIT</div><div class="cv-text">务实笃行 · 创新赋能 · 诚信致远</div></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="about">
+</body></html>

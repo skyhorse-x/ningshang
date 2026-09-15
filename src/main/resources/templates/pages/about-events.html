@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|发|展|大|事|记| - |安|徽|宁|商|科|技|集|团|有|限|公|司')">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner with-overlay" style="background-image:url('/images/dashiji.jpg')">
+  <div class="wrap cap">
+    <div class="crumb"><a th:href="@{/}">首页</a> / <a th:href="@{/about-intro}">集团概况</a> / 发展大事记</div>
+    <span class="en">MILESTONES</span>
+    <h2>发展大事记</h2>
+  </div>
+</div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
+<div class="subnav-tabs">
+  <div class="wrap">
+    <a th:href="@{/about-intro}">集团简介</a>
+    <a th:href="@{/about-speech}">董事长致词</a>
+    <a th:href="@{/about-events}" class="on">发展大事记</a>
+    <a th:href="@{/about-team}">管理团队</a>
+    <a th:href="@{/about-honor}">企业荣誉</a>
+    <a th:href="@{/about-party}">党建工作</a>
+    <a th:href="@{/about-culture}">企业文化</a>
+  </div>
+</div>
+<div class="section text-bg-events">
+  <div class="wrap">
+    <div class="content-detail">
+      <div class="detail-head">
+        <h1>集团大事记</h1>
+        <div class="meta">记录宁商发展历程中的每一个重要时刻</div>
+      </div>
+      <div class="detail-body">
+        <div class="timeline">
+          <div class="tl-item" th:each="ms : ${milestones}">
+            <div class="dot"></div>
+            <div class="yr" th:text="${ms.year}">2026.07</div>
+            <div class="card">
+              <h5 th:text="${ms.title}">事件标题</h5>
+              <div class="rich-content" th:utext="${@richText.clean(ms.description)}">事件描述</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="about">
+</body>
+</html>

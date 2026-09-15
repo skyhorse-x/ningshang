@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|新|闻|中|心| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/news-center-banner.jpeg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
+<div class="subnav-tabs news-tabs"><div class="wrap">
+<a href="#all" data-cat="all" class="on">全部新闻</a>
+<a href="#group" data-cat="group">集团新闻</a>
+<a href="#industry" data-cat="industry">产业动态</a>
+<a href="#trend" data-cat="trend">行业资讯</a>
+<a href="#staff" data-cat="staff">员工风采</a>
+</div></div>
+<div class="section text-bg-news"><div class="wrap">
+<ul class="content-list news-waterfall">
+<li class="nitem" th:each="news : ${newsList}" th:data-cat="${news.category}">
+<div class="list-item">
+<a class="thumb" th:href="@{|/news-detail?id=${news.newsId}|}"><img th:src="${news.image}" alt=""></a>
+<div class="info">
+<h4><a th:href="@{|/news-detail?id=${news.newsId}|}" th:text="${news.title}">新闻标题</a></h4>
+<div class="meta"><span class="cat" th:text="${news.categoryName}">分类</span> | <span th:text="${news.date}">2026-07</span></div>
+<p th:text="${news.summary}">摘要</p>
+</div>
+</div>
+</li>
+</ul>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="news">
+</body></html>

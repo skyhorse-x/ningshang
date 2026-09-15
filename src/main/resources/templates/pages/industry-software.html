@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|软|件|科|技| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/industry-banner.jpeg');height:auto;aspect-ratio:4134/940;background-size:100% 100%;"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团产业</span></div></div>
+<div class="subnav-tabs"><div class="wrap">
+<a th:href="@{/industry-construction}">建筑工程</a>
+<a th:href="@{/industry-software}" class="on">软件科技</a>
+</div></div>
+<div class="section"><div class="wrap">
+<div class="content-detail">
+<div class="detail-head"><h1>软件科技板块</h1><div class="meta">SOFTWARE TECHNOLOGY SECTOR</div></div>
+<div class="detail-body">
+<p>软件科技板块是安徽宁商科技集团数字产业战略的核心引擎，由安徽陆洲科技有限责任公司与安徽合州信息咨询有限责任公司共同构成。</p>
+</div>
+</div>
+</div></div>
+<div class="section soft"><div class="wrap">
+<div class="sec-head"><span class="en">CORE BUSINESS</span><h3>核心业务领域</h3><p>科技赋能产业，创新驱动发展</p></div>
+<div class="content-list">
+<div class="list-item"><div class="thumb"><div class="ico">🤖</div></div><div class="info"><h4>AI定制软件开发</h4><div class="meta">AI CUSTOM SOFTWARE</div><p>人工智能算法应用与定制化软件开发。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">🛰</div></div><div class="info"><h4>卫星信息系统集成</h4><div class="meta">SATELLITE INFORMATION</div><p>卫星数据应用与地理信息系统集成。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">🎓</div></div><div class="info"><h4>智慧校园基建</h4><div class="meta">SMART CAMPUS</div><p>智慧校园系统建设与基础设施升级。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">💼</div></div><div class="info"><h4>政企数字化转型</h4><div class="meta">DIGITAL TRANSFORMATION</div><p>数字化咨询、系统集成与技术支持。</p></div></div>
+</div>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="industry">
+</body></html>

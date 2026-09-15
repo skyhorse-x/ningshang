@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|建|筑|工|程| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/industry-banner.jpeg');height:auto;aspect-ratio:4134/940;background-size:100% 100%;"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团产业</span></div></div>
+<div class="subnav-tabs"><div class="wrap">
+<a th:href="@{/industry-construction}" class="on">建筑工程</a>
+<a th:href="@{/industry-software}">软件科技</a>
+</div></div>
+<div class="section"><div class="wrap">
+<div class="content-detail">
+<div class="detail-head"><h1>安徽利至高建设工程有限公司</h1><div class="meta">ANHUI LIZHIGAO CONSTRUCTION ENGINEERING CO., LTD.</div></div>
+<div class="detail-body">
+<p>安徽利至高建设工程有限公司是安徽宁商科技集团旗下建筑工程板块的核心企业，承载集团工程建设与基础设施配套服务的核心职能。</p>
+<p>公司业务覆盖房屋建筑、工业厂房、公共建筑施工总承包，以及城市道路、桥梁、给排水等市政公用工程。</p>
+</div>
+</div>
+</div></div>
+<div class="section soft"><div class="wrap">
+<div class="sec-head"><span class="en">CORE BUSINESS</span><h3>核心业务领域</h3><p>匠心铸就品质，专业服务城市</p></div>
+<div class="content-list">
+<div class="list-item"><div class="thumb"><div class="ico">🏗</div></div><div class="info"><h4>建筑工程施工</h4><div class="meta">CONSTRUCTION ENGINEERING</div><p>房屋建筑、工业厂房、公共建筑等施工总承包。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">🛣</div></div><div class="info"><h4>市政公用工程</h4><div class="meta">MUNICIPAL ENGINEERING</div><p>城市道路、桥梁、给排水等市政基础设施建设。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">🏙</div></div><div class="info"><h4>基础设施配套</h4><div class="meta">INFRASTRUCTURE</div><p>城市基础设施配套建设与服务。</p></div></div>
+<div class="list-item"><div class="thumb"><div class="ico">📋</div></div><div class="info"><h4>工程技术咨询</h4><div class="meta">ENGINEERING CONSULTING</div><p>工程咨询、项目管理、技术支持等全过程服务。</p></div></div>
+</div>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="industry">
+</body></html>

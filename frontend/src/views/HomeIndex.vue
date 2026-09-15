@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <HeroCarousel />
+    <NewsSection />
+    <IndustryGrid />
+    <section class="section">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="en">CORE BUSINESS</span>
+          <h3>核心业务领域</h3>
+          <p>科技赋能产业，服务贯穿全程</p>
+        </div>
+        <div class="biz-grid">
+          <div class="biz-card" style="background-image:url(/images/biz-1.png)">
+            <div class="ico"><i class="fas fa-building"></i></div><h5>建设工程</h5><p>建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。</p>
+          </div>
+          <div class="biz-card" style="background-image:url(/images/biz-2.png)">
+            <div class="ico"><i class="fas fa-microchip"></i></div><h5>数字科技</h5><p>建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。</p>
+          </div>
+          <div class="biz-card" style="background-image:url(/images/biz-3.png)">
+            <div class="ico"><i class="fas fa-chart-line"></i></div><h5>信息咨询</h5><p>企业全周期科创赋能与专业咨询，助力规范化高质量发展。</p>
+          </div>
+          <div class="biz-card" style="background-image:url(/images/biz-4.png)">
+            <div class="ico"><i class="fas fa-gears"></i></div><h5>智能装备</h5><p>智能装备研发智造与数字技术应用，赋能多领域数字化转型。</p>
+          </div>
+          <div class="biz-card" style="background-image:url(/images/biz-5.png)">
+            <div class="ico"><i class="fas fa-city"></i></div><h5>物业管理</h5><p>物业运营评估与城市综合配套服务，深耕多元城市服务板块。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script setup>
+import HeroCarousel from '@/components/business/HeroCarousel.vue'
+import NewsSection from '@/components/business/NewsSection.vue'
+import IndustryGrid from '@/components/business/IndustryGrid.vue'
+</script>
+
+<style scoped>
+.section { padding: 80px 0; }
+.wrap { width: 1200px; max-width: 94%; margin: 0 auto; }
+.sec-head { text-align: center; margin-bottom: 50px; }
+.sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+.sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
+.sec-head p { color: var(--c-text-light); margin-top: 12px; font-size: 15px; }
+.biz-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.biz-card { background: #fff; background-size: cover; background-position: center; border: 1px solid var(--c-line); padding: 38px 26px; transition: .3s; position: relative; overflow: hidden; }
+.biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
+.ico { width: 64px; height: 64px; border-radius: 50%; background: var(--c-bg-soft); display: flex; align-items: center; justify-content: center; font-size: 25px; color: var(--c-primary); margin-bottom: 20px; }
+.biz-card h5 { font-size: 19px; color: var(--c-primary); margin-bottom: 10px; }
+.biz-card p { font-size: 14px; color: var(--c-text-light); }
+@media (max-width: 1000px) {
+  .biz-grid { grid-template-columns: 1fr; }
+}
+</style>

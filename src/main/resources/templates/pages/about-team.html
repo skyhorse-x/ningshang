@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|管|理|团|队| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/1.jpg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
+<div class="subnav-tabs"><div class="wrap">
+<a th:href="@{/about-intro}">集团简介</a>
+<a th:href="@{/about-speech}">董事长致词</a>
+<a th:href="@{/about-events}">发展大事记</a>
+<a th:href="@{/about-team}" class="on">管理团队</a>
+<a th:href="@{/about-honor}">企业荣誉</a>
+<a th:href="@{/about-party}">党建工作</a>
+<a th:href="@{/about-culture}">企业文化</a>
+</div></div>
+<div class="section text-bg-team"><div class="wrap">
+<div class="content-detail">
+<div class="detail-head"><h1>管理团队</h1><div class="meta">专业领航 · 协同致远 · 凝聚宁商发展合力</div></div>
+<div class="detail-body"><p>集团汇聚了一批在工程建设、数字软件、法务信息、智能装备等领域经验丰富的专业管理人才。</p></div>
+</div>
+<div class="team-grid">
+<div class="team-card" th:each="member : ${teamMembers}">
+<div class="avatar" th:style="'background:' + ${member.gradient} + ';overflow:hidden;padding:0;'">
+<img th:src="${member.avatar}" alt="" style="width:100%;height:100%;object-fit:cover;">
+</div>
+<div class="info">
+<h5 th:text="${member.name}">姓名</h5>
+<span class="pos" th:text="${member.position}">职位</span>
+<div class="rich-content" th:utext="${@richText.clean(member.description)}">描述</div>
+</div>
+</div>
+</div>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="about">
+</body></html>

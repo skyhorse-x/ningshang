@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='安徽宁商科技集团有限公司 | 官方网站', keywords='安徽宁商科技集团,宁商科技,科创产业服务,建筑数字化,合肥科技公司', description='安徽宁商科技集团有限公司立足安徽本土，聚焦科创产业服务，秉持“徽商固本、科创致远、协同共生、开放共赢”的发展理念。')">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<!-- 轮播 -->
+<div class="hero">
+  <div class="slide on" style="background-image:url('/images/hero-1.jpeg')"></div>
+  <div class="slide" style="background-image:url('/images/hero-2.jpg')"></div>
+  <div class="slide" style="background-image:url('/images/hero-3.jpg')"></div>
+  <div class="dots"><span class="on"></span><span></span><span></span></div>
+</div>
+
+<!-- 新闻中心 -->
+<div class="section home-news-sec">
+  <div class="wrap">
+    <div class="home-news">
+      <!-- 左侧大图 -->
+      <a th:href="@{/news}" class="hn-feat">
+        <img th:src="@{/images/news-left-banner.png}" alt="集团新闻">
+        <div class="hn-feat-mask">
+          <h4>安徽宁商科技集团正式成立 扎根合肥赋能区域科创</h4>
+        </div>
+        <div class="hn-feat-meta">
+          <span class="cat">集团新闻</span>
+          <span class="date">2026-06</span>
+        </div>
+      </a>
+
+      <!-- 中间新闻列表 -->
+      <div class="hn-list">
+        <div class="hn-tabs">
+          <a href="javascript:;" class="on" data-cat="group">集团新闻</a>
+          <a href="javascript:;" data-cat="industry">产业动态</a>
+          <a href="javascript:;" data-cat="trend">行业资讯</a>
+          <a href="javascript:;" data-cat="staff">员工风采</a>
+        </div>
+        <ul class="hn-items">
+          <li th:each="news : ${newsList}" th:data-cat="${news.category}">
+            <a th:href="@{'/news-detail?id=' + ${news.newsId}}">
+              <span class="dot"></span>
+              <span class="title" th:text="${news.title}">新闻标题</span>
+              <span class="date" th:text="${news.date}">2026-07</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 右侧视频卡 -->
+      <div class="hn-side">
+        <a th:href="@{/about-intro}" class="hn-video">
+          <img th:src="@{/images/news-staff-training.jpeg}" alt="宁商宣传片">
+          <div class="hn-video-mask">
+            <div class="play-btn">▶</div>
+            <span>宁商集团宣传片</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 集团产业 -->
+<div class="ind-section">
+  <div class="wrap">
+    <div class="ind-row">
+      <a th:each="sub, iter : ${subsidiaries}" th:href="@{${iter.index} <= 2 ? '/industry-construction' : '/industry-software'}" class="ind-card" th:classappend="'ind-card-' + ${iter.index}">
+        <div class="ind-bg" th:style="'background-image:url(\'' + @{'/images/sub-bg-' + ${iter.index}} + '\')'"></div>
+        <div class="ind-body">
+          <div class="ind-logo"><img th:src="@{${sub.logo}}" alt=""></div>
+          <h4 th:text="${sub.name}">子公司名称</h4>
+          <span th:text="${sub.englishName}">ENGLISH NAME</span>
+          <div class="rich-content" th:utext="${@richText.clean(sub.description)}">子公司描述</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- 核心业务 -->
+<div class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="en">CORE BUSINESS</span>
+      <h3>核心业务领域</h3>
+      <p>科技赋能产业，服务贯穿全程</p>
+    </div>
+    <div class="biz-grid">
+      <div class="biz-card" style="background-image:url('/images/biz-1.png')">
+        <div class="ico">🏗</div>
+        <h5>建设工程</h5>
+        <p>建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。</p>
+      </div>
+      <div class="biz-card" style="background-image:url('/images/biz-2.png')">
+        <div class="ico">💻</div>
+        <h5>数字科技</h5>
+        <p>建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。</p>
+      </div>
+      <div class="biz-card" style="background-image:url('/images/biz-3.png')">
+        <div class="ico">📊</div>
+        <h5>信息咨询</h5>
+        <p>企业全周期科创赋能与专业咨询，助力规范化高质量发展。</p>
+      </div>
+      <div class="biz-card" style="background-image:url('/images/biz-4.png')">
+        <div class="ico">⚙</div>
+        <h5>智能装备</h5>
+        <p>智能装备研发智造与数字技术应用，赋能多领域数字化转型。</p>
+      </div>
+      <div class="biz-card" style="background-image:url('/images/biz-5.png')">
+        <div class="ico">🏢</div>
+        <h5>物业管理</h5>
+        <p>物业运营评估与城市综合配套服务，深耕多元城市服务板块。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="home">
+</body>
+</html>

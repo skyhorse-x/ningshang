@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='董事长致词 - 安徽宁商科技集团有限公司')">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/1.jpg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
+<div class="subnav-tabs">
+  <div class="wrap">
+    <a th:href="@{/about-intro}">集团简介</a>
+    <a th:href="@{/about-speech}" class="on">董事长致词</a>
+    <a th:href="@{/about-events}">发展大事记</a>
+    <a th:href="@{/about-team}">管理团队</a>
+    <a th:href="@{/about-honor}">企业荣誉</a>
+    <a th:href="@{/about-party}">党建工作</a>
+    <a th:href="@{/about-culture}">企业文化</a>
+  </div>
+</div>
+<div class="section">
+  <div class="wrap">
+    <div class="speech-layout">
+      <div class="speech-header">
+        <div class="chairman-photo">
+          <img th:src="@{/images/chairman.png}" alt="董事长王力">
+          <h3>王 力</h3>
+          <p class="title">安徽宁商科技集团 董事长</p>
+        </div>
+        <div class="chairman-info">
+          <div class="quote">徽商古训有云：<br>"诚为本，义为先，贾而好儒，行稳致远。"</div>
+        </div>
+      </div>
+      <div class="speech-body">
+        <p>尊敬的社会各界友人、合作伙伴，全体宁商同仁：</p>
+        <p>千载江淮文脉，沉淀出实业兴邦的厚重底色；长三角一体化浪潮，奔涌着数字赋能的蓬勃生机。</p>
+        <p>展望未来，集团将始终践行"科创赋能城乡，数字服务实业"的企业使命。</p>
+        <div class="signature-block">
+          <p class="sign-name">安徽宁商科技集团有限公司 董事长　王力</p>
+          <p class="sign-title">2026年8月</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="about">
+</body>
+</html>

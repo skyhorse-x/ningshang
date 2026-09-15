@@ -1,0 +1,46 @@
+/* Element Plus Style Overrides */
+.el-menu--horizontal {
+  border-bottom: none !important;
+}
+.el-menu--horizontal > .el-menu-item.is-active {
+  border-bottom: 3px solid var(--c-accent) !important;
+  color: var(--c-primary) !important;
+}
+.el-menu--horizontal > .el-menu-item:hover {
+  color: var(--c-primary) !important;
+}
+.el-button--primary {
+  background-color: var(--c-primary) !important;
+  border-color: var(--c-primary) !important;
+}
+.el-button--primary:hover {
+  background-color: var(--c-accent-dark) !important;
+  border-color: var(--c-accent-dark) !important;
+}
+.el-input__inner:focus {
+  border-color: var(--c-primary) !important;
+}
+.el-select .el-input.is-focus .el-input__inner {
+  border-color: var(--c-primary) !important;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: var(--c-primary) !important;
+}
+.el-tabs__item.is-active {
+  color: var(--c-primary) !important;
+}
+.el-tabs__active-bar {
+  background-color: var(--c-accent) !important;
+}
+.el-timeline-item__node {
+  background-color: var(--c-accent) !important;
+}
+.el-timeline-item__tail {
+  border-left-color: var(--c-line) !important;
+}
+.el-carousel__indicator--horizontal .el-carousel__button {
+  background: rgba(255,255,255,.4);
+}
+.el-carousel__indicator.is-active .el-carousel__button {
+  background: var(--c-accent) !important;
+}

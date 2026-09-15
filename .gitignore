@@ -1,0 +1,17 @@
+target/
+*.class
+*.jar
+.idea/
+*.iml
+.vscode/
+HELP.md
+.local/
+frontend/node_modules/
+frontend/dist/
+*.log
+uploads/
+*.zip
+old/
+frontend/build_exit.txt
+frontend/check_ep.txt
+frontend/npm_view.txt

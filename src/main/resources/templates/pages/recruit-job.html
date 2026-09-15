@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title='|招|聘|岗|位| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" style="background-image:url('/images/contact-banner.jpeg')"></div>
+<div class="subnav-section"><div class="wrap"><span class="title">联系宁商</span></div></div>
+<div class="subnav-tabs"><div class="wrap">
+<a th:href="@{/recruit}">人才理念</a>
+<a th:href="@{/recruit-job}" class="on">招聘岗位</a>
+<a th:href="@{/contact}">联系方式</a>
+<a th:href="@{/contact-message}">在线留言</a>
+</div></div>
+<div class="section text-bg-job"><div class="wrap">
+<div class="content-detail">
+<div class="detail-head"><h1>招聘岗位</h1></div>
+<div class="detail-body">
+<p>诚邀志同道合者，与宁商同心同行、共赴远方</p>
+<div class="job-list">
+<div class="job-item"><div class="job-head"><h4>软件开发工程师</h4><span class="job-dept">技术部</span></div><div class="job-tags"><span>✦ 招聘人数：3人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责AI定制软件开发与系统集成项目</div></div>
+<div class="job-item"><div class="job-head"><h4>建筑工程师</h4><span class="job-dept">工程部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责建筑工程施工管理与质量控制</div></div>
+<div class="job-item"><div class="job-head"><h4>智能装备研发工程师</h4><span class="job-dept">研发部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：硕士及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责智能装备产品研发与技术攻关</div></div>
+<div class="job-item"><div class="job-head"><h4>法务专员</h4><span class="job-dept">法务部</span></div><div class="job-tags"><span>✦ 招聘人数：1人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责集团法律合规与风险管控</div></div>
+<div class="job-item"><div class="job-head"><h4>市场拓展经理</h4><span class="job-dept">市场部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责市场调研与客户关系维护</div></div>
+<div class="job-item"><div class="job-head"><h4>财务会计</h4><span class="job-dept">财务部</span></div><div class="job-tags"><span>✦ 招聘人数：1人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责日常财务核算与报表编制</div></div>
+</div>
+</div>
+</div>
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="contact">
+</body></html>

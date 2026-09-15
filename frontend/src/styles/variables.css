@@ -1,0 +1,23 @@
+/* Element Plus Theme Override */
+:root {
+  --el-color-primary: #0d3a72;
+  --el-color-primary-light-3: #1e5aa8;
+  --el-color-primary-light-5: #3a7fd5;
+  --el-color-primary-light-7: #6aa3e8;
+  --el-color-primary-light-9: #b5d4f5;
+  --el-color-primary-dark-2: #0a2c57;
+}
+
+/* Brand Variables */
+:root {
+  --c-primary: #0d3a72;
+  --c-primary-dark: #0a2c57;
+  --c-primary-light: #1e5aa8;
+  --c-accent: #c8a45c;
+  --c-accent-dark: #a9863c;
+  --c-red: #b3241f;
+  --c-text: #2b2b2b;
+  --c-text-light: #6b6b6b;
+  --c-line: #e6e6e6;
+  --c-bg-soft: #f5f7fa;
+}
