@@ -278,11 +278,13 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(news, "新闻列表", "/ningshang-admin/news", "Document", 1);
         ensureMenu(industry, "建筑工程", "/ningshang-admin/content/construction", "School", 1);
         ensureMenu(industry, "软件科技", "/ningshang-admin/content/software", "Cpu", 2);
+        ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 3);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
         ensureMenu(interaction, "招聘岗位", "/ningshang-admin/jobs", "Briefcase", 2);
         ensureMenu(interaction, "在线留言", "/ningshang-admin/messages", "ChatDotRound", 3);
+        ensureMenu(interaction, "联系方式", "/ningshang-admin/chatline", "Document", 4);
         ensureMenu(system, "菜单管理", "/ningshang-admin/menus", "Menu", 1);
-        ensureMenu(system, "角色与权限", "/ningshang-admin/groups", "Avatar", 2);
+        ensureMenu(system, "管理员分组", "/ningshang-admin/groups", "Avatar", 2);
         ensureMenu(system, "管理员账号", "/ningshang-admin/admins", "UserFilled", 3);
         ensureMenu(system, "网站设置", "/ningshang-admin/site-settings", "Setting", 4);
     }
@@ -291,8 +293,7 @@ public class DataInitializer implements CommandLineRunner {
         java.util.Set<Long> removeIds = new java.util.LinkedHashSet<>();
         for (String path : java.util.List.of(
                 "/ningshang-admin/content/home",
-                "/ningshang-admin/content/other",
-                "/ningshang-admin/subsidiaries")) {
+                "/ningshang-admin/content/other")) {
             adminMenuRepository.findByPath(path).ifPresent(menu -> removeIds.add(menu.getId()));
         }
         for (String groupName : java.util.List.of("首页与全站", "内容管理", "内容运营")) {
@@ -308,8 +309,6 @@ public class DataInitializer implements CommandLineRunner {
             adminGroupMenuRepository.deleteByMenuIdIn(ids);
             adminMenuRepository.deleteAllById(ids);
         }
-        jdbcTemplate.update("DELETE gp FROM admin_group_permission gp JOIN admin_permission p ON gp.permission_id = p.id WHERE p.module = ?", "subsidiaries");
-        jdbcTemplate.update("DELETE FROM admin_permission WHERE module = ?", "subsidiaries");
     }
 
     private void mergeDuplicateRootGroups(String name) {
@@ -452,7 +451,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initPermissions() {
-        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","角色与权限"},{"admins","管理员账号"}};
+        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
         String[][] actions = {{"list","查看列表"},{"create","新增"},{"update","修改"},{"delete","删除"},{"batch_delete","批量删除"}};
         int order = 0;
         for (String[] m : modules) for (String[] a : actions) {

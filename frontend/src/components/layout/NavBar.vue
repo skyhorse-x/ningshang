@@ -22,7 +22,15 @@
             <li><router-link to="/about/culture" @click="menuOpen=false">企业文化</router-link></li>
           </ul>
         </li>
-        <li :class="{ on: route.path.startsWith('/news') }"><router-link to="/news" @click="menuOpen=false">新闻中心<span class="en">NEWS</span></router-link></li>
+        <li :class="{ on: route.path.startsWith('/news') }">
+          <router-link to="/news" class="nav-link" @click="menuOpen=false">新闻中心<span class="en">NEWS</span></router-link>
+          <ul class="subnav">
+            <li><router-link to="/news?category=group" @click="menuOpen=false">集团新闻</router-link></li>
+            <li><router-link to="/news?category=industry" @click="menuOpen=false">产业动态</router-link></li>
+            <li><router-link to="/news?category=trend" @click="menuOpen=false">行业资讯</router-link></li>
+            <li><router-link to="/news?category=staff" @click="menuOpen=false">员工风采</router-link></li>
+          </ul>
+        </li>
         <li :class="{ on: route.path.startsWith('/industry') }">
           <router-link to="/industry" class="nav-link" @click="menuOpen=false">集团产业<span class="en">INDUSTRY</span></router-link>
           <ul class="subnav">
@@ -104,6 +112,7 @@ const menuOpen = ref(false)
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+  transition: color .25s ease, background-color .25s ease;
 }
 .nav > li > a .en, .nav-link .en {
   font-size: 10px;
@@ -120,7 +129,7 @@ const menuOpen = ref(false)
   width: 0;
   height: 2px;
   background: var(--c-accent);
-  transition: .3s;
+  transition: width .25s ease;
   transform: translateX(-50%);
 }
 .nav > li:hover > a::after,
@@ -155,11 +164,11 @@ const menuOpen = ref(false)
   color: var(--c-text);
   white-space: nowrap;
   text-decoration: none;
+  transition: color .25s ease, background-color .25s ease;
 }
 .subnav li a:hover {
   background: var(--c-bg-soft);
   color: var(--c-primary);
-  padding-left: 30px;
 }
 .menu-btn { display: none; }
 

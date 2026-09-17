@@ -11,8 +11,6 @@
       <div class="content-detail">
         <div class="detail-head"><h1>在线留言</h1></div>
         <div class="detail-body">
-          <ContactForm />
-          <h3>在线留言</h3>
           <p>欢迎留下您的需求与建议，我们将尽快与您联系</p>
           <MessageForm />
         </div>
@@ -24,7 +22,6 @@
 <script setup>
 import PageBanner from '@/components/layout/PageBanner.vue'
 import SubNav from '@/components/layout/SubNav.vue'
-import ContactForm from '@/components/business/ContactForm.vue'
 import MessageForm from '@/components/business/MessageForm.vue'
 </script>
 
@@ -35,5 +32,5 @@ import MessageForm from '@/components/business/MessageForm.vue'
 .detail-head { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--c-line); }
 .detail-head h1 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .detail-body { font-size: 15px; color: var(--c-text); }
-.detail-body h3 { font-size: 22px; color: var(--c-primary); margin: 32px 0 16px; font-weight: 600; }
+.detail-body p { margin: 0 0 24px; color: var(--c-text-light); }
 </style>

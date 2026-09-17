@@ -16,6 +16,7 @@ const routes = [
   { path: '/industry/software', component: () => import('@/views/industry/IndustrySoftware.vue'), meta: { title: '软件科技' } },
   { path: '/contact', component: () => import('@/views/contact/ContactInfo.vue'), meta: { title: '联系方式' } },
   { path: '/contact/message', component: () => import('@/views/contact/ContactMessage.vue'), meta: { title: '在线留言' } },
+  { path: '/contact-message', redirect: '/contact/message' },
   { path: '/recruit', component: () => import('@/views/contact/RecruitConcept.vue'), meta: { title: '人才理念' } },
   { path: '/recruit/jobs', component: () => import('@/views/contact/RecruitJobs.vue'), meta: { title: '招聘岗位' } },
   // Admin routes
@@ -38,9 +39,11 @@ const routes = [
       { path: 'content/construction', component: () => import('@/views/admin/ContentManage.vue'), props: { section: 'construction' }, meta: { title: '建筑工程' } },
       { path: 'content/software', component: () => import('@/views/admin/ContentManage.vue'), props: { section: 'software' }, meta: { title: '软件科技' } },
       { path: 'content/recruit', component: () => import('@/views/admin/ContentManage.vue'), props: { section: 'recruit' }, meta: { title: '人才理念' } },
+      { path: 'subsidiaries', component: () => import('@/views/admin/SubsidiaryManage.vue'), meta: { title: '子公司管理' } },
+      { path: 'chatline', component: () => import('@/views/admin/ContentManage.vue'), props: { mode: 'settings' }, meta: { title: '联系方式' } },
       { path: 'site-settings', component: () => import('@/views/admin/ContentManage.vue'), props: { mode: 'settings' }, meta: { title: '网站设置' } },
       { path: 'menus', component: () => import('@/views/admin/MenuManage.vue'), meta: { title: '菜单管理' } },
-      { path: 'groups', component: () => import('@/views/admin/GroupManage.vue'), meta: { title: '角色管理' } },
+      { path: 'groups', component: () => import('@/views/admin/GroupManage.vue'), meta: { title: '管理员分组' } },
       { path: 'admins', component: () => import('@/views/admin/AdminManage.vue'), meta: { title: '管理员账号' } },
     ]
   }

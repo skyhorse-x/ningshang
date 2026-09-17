@@ -1,9 +1,9 @@
 <template>
   <div class="group-manage">
-    <!-- 左侧：角色列表 -->
+    <!-- 左侧：管理员分组 -->
     <div class="group-list">
       <div class="panel-header">
-        <h3>角色列表</h3>
+        <h3>管理员分组</h3>
         <el-button type="primary" size="small" @click="openDialog()">+ 新增</el-button>
       </div>
       <el-table :data="groups" stripe highlight-current-row @current-change="onSelectGroup">
@@ -26,7 +26,7 @@
     <!-- 右侧：权限配置 -->
     <div class="group-perm">
       <div class="panel-header">
-        <h3>权限配置 — {{ selectedGroup ? selectedGroup.name : '请选择角色' }}</h3>
+        <h3>权限配置 — {{ selectedGroup ? selectedGroup.name : '请选择分组' }}</h3>
         <el-button type="primary" size="small" :disabled="!selectedGroup" @click="onSavePermissions">保存权限</el-button>
       </div>
       <div v-if="selectedGroup" class="perm-tree">
@@ -46,16 +46,16 @@
           </el-table-column>
         </el-table>
       </div>
-      <el-empty v-else description="请在左侧选择一个角色" />
+      <el-empty v-else description="请在左侧选择一个分组" />
     </div>
 
   </div>
 
-  <!-- 新增/编辑角色对话框 -->
-  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑角色' : '新增角色'" width="460px">
+  <!-- 新增/编辑分组对话框 -->
+  <el-dialog v-model="dialogVisible" :title="form.id ? '编辑管理员分组' : '新增管理员分组'" width="460px">
     <el-form :model="form" label-width="80px">
       <el-form-item label="名称"><el-input v-model="form.name" placeholder="如 内容编辑" /></el-form-item>
-      <el-form-item label="描述"><el-input v-model="form.description" type="textarea" :rows="3" placeholder="角色说明" /></el-form-item>
+      <el-form-item label="描述"><el-input v-model="form.description" type="textarea" :rows="3" placeholder="分组说明" /></el-form-item>
       <el-form-item label="状态">
         <el-switch v-model="form.status" :active-value="1" :inactive-value="0" active-text="启用" inactive-text="禁用" />
       </el-form-item>
@@ -123,7 +123,7 @@ const openDialog = (row) => {
 }
 
 const onSave = async () => {
-  if (!form.value.name) { ElMessage.warning('请输入角色名称'); return }
+  if (!form.value.name) { ElMessage.warning('请输入分组名称'); return }
   saving.value = true
   try {
     const res = form.value.id
@@ -140,7 +140,7 @@ const onSave = async () => {
 }
 
 const onDelete = async (row) => {
-  await ElMessageBox.confirm(`确定删除角色「${row.name}」吗？`, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(`确定删除分组「${row.name}」吗？`, '提示', { type: 'warning' })
   try {
     const res = await api.adminGroupDelete(row.id)
     if (res.code === 200) {

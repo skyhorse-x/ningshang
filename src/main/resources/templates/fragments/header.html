@@ -17,7 +17,7 @@
       <span><i>✉</i>NStechnology@163.com</span>
     </div>
     <div class="tr">
-      <a th:href="@{/recruit}">人才招聘</a>
+      <a th:href="@{/recruit-job}">人才招聘</a>
       <a th:href="@{/contact}">联系宁商</a>
     </div>
   </div>
@@ -44,7 +44,10 @@
       </li>
       <li th:classappend="${currentPage} == 'news' ? 'on'"><a th:href="@{/news}">新闻中心<span class="en">NEWS</span></a>
         <ul class="subnav">
-          <li><a th:href="@{/news}">全部新闻</a></li>
+          <li><a th:href="@{/news(category='group')}">集团新闻</a></li>
+          <li><a th:href="@{/news(category='industry')}">产业动态</a></li>
+          <li><a th:href="@{/news(category='trend')}">行业资讯</a></li>
+          <li><a th:href="@{/news(category='staff')}">员工风采</a></li>
         </ul>
       </li>
       <li th:classappend="${currentPage} == 'industry' ? 'on'"><a th:href="@{/industry}">集团产业<span class="en">INDUSTRY</span></a>

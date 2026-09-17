@@ -3,11 +3,11 @@
     <PageBanner image="/images/news-center-banner.jpeg" title="新闻中心" />
     <div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
     <div class="subnav-tabs news-tabs"><div class="wrap">
-      <a href="#" :class="{on: activeCat==='all'}" @click.prevent="activeCat='all'">全部新闻</a>
-      <a href="#" :class="{on: activeCat==='group'}" @click.prevent="activeCat='group'">集团新闻</a>
-      <a href="#" :class="{on: activeCat==='industry'}" @click.prevent="activeCat='industry'">产业动态</a>
-      <a href="#" :class="{on: activeCat==='trend'}" @click.prevent="activeCat='trend'">行业资讯</a>
-      <a href="#" :class="{on: activeCat==='staff'}" @click.prevent="activeCat='staff'">员工风采</a>
+      <a href="#" :class="{on: activeCat==='all'}" @click.prevent="setCategory('all')">全部新闻</a>
+      <a href="#" :class="{on: activeCat==='group'}" @click.prevent="setCategory('group')">集团新闻</a>
+      <a href="#" :class="{on: activeCat==='industry'}" @click.prevent="setCategory('industry')">产业动态</a>
+      <a href="#" :class="{on: activeCat==='trend'}" @click.prevent="setCategory('trend')">行业资讯</a>
+      <a href="#" :class="{on: activeCat==='staff'}" @click.prevent="setCategory('staff')">员工风采</a>
     </div></div>
     <section class="section text-bg-news"><div class="wrap">
       <ul class="content-list news-waterfall">
@@ -27,16 +27,26 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import api from '@/api'
+const route = useRoute()
+const router = useRouter()
 const newsList = ref([])
 const activeCat = ref('all')
 const filteredNews = computed(() => activeCat.value === 'all' ? newsList.value : newsList.value.filter(n => n.category === activeCat.value))
+const normalizeCategory = value => ['group', 'industry', 'trend', 'staff'].includes(value) ? value : 'all'
+const setCategory = (category) => {
+  activeCat.value = category
+  router.replace({ path: '/news', query: category === 'all' ? {} : { category } })
+}
 onMounted(async () => {
+  activeCat.value = normalizeCategory(route.query.category)
   const res = await api.getNews()
   if (res.code === 200) newsList.value = res.data
 })
+watch(() => route.query.category, value => { activeCat.value = normalizeCategory(value) })
 </script>
 
 <style scoped>

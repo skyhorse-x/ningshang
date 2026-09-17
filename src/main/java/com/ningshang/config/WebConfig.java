@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.WebContentInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -32,6 +33,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        WebContentInterceptor apiNoCache = new WebContentInterceptor();
+        apiNoCache.setCacheSeconds(0);
+        apiNoCache.setUseExpiresHeader(true);
+        apiNoCache.setUseCacheControlHeader(true);
+        apiNoCache.setUseCacheControlNoStore(true);
+        registry.addInterceptor(apiNoCache).addPathPatterns("/api/**");
         registry.addInterceptor(adminAuthInterceptor)
                 .addPathPatterns("/api/admin/**");
     }

@@ -6,7 +6,7 @@
         <span><Mail theme="outline" :size="14" fill="#c7d6ec" class="topbar-icon" />{{ c('contact_email', 'NStechnology@163.com') }}</span>
       </div>
       <div class="tr">
-        <router-link to="/recruit">人才招聘</router-link>
+        <router-link to="/recruit/jobs">人才招聘</router-link>
         <router-link to="/contact">联系宁商</router-link>
       </div>
     </div>

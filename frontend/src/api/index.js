@@ -35,20 +35,21 @@ request.interceptors.response.use(
 
 export default {
   // Home
-  getHome: () => request.get("/home"),
+  getHome: () => request.get("/home", { params: { _t: Date.now() } }),
 
   // News
-  getNews: () => request.get("/news"),
-  getNewsDetail: (id) => request.get("/news/" + encodeURIComponent(id)),
+  getNews: () => request.get("/news", { params: { _t: Date.now() } }),
+  getNewsDetail: (id) => request.get("/news/" + encodeURIComponent(id), { params: { _t: Date.now() } }),
 
   // About
-  getTeam: () => request.get("/team"),
-  getHonors: () => request.get("/honors"),
-  getMilestones: () => request.get("/milestones"),
-  getContent: () => request.get("/content"),
+  getTeam: () => request.get("/team", { params: { _t: Date.now() } }),
+  getHonors: () => request.get("/honors", { params: { _t: Date.now() } }),
+  getMilestones: () => request.get("/milestones", { params: { _t: Date.now() } }),
+  getContent: () => request.get("/content", { params: { _t: Date.now() } }),
 
   // Contact
-  getJobs: () => request.get("/jobs"),
+  getJobs: () => request.get("/jobs", { params: { _t: Date.now() } }),
+  getSubsidiaries: () => request.get("/subsidiaries", { params: { _t: Date.now() } }),
   submitMessage: (data) => request.post("/messages", data),
 
   // Admin Auth（用户名由后端从 JWT 解析，前端不传）
