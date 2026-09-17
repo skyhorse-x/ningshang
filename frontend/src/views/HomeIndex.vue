@@ -3,6 +3,7 @@
     <HeroCarousel />
     <NewsSection />
     <IndustryGrid />
+    <CoverageMap />
     <section class="section">
       <div class="wrap">
         <div class="sec-head">
@@ -26,6 +27,7 @@
 import HeroCarousel from '@/components/business/HeroCarousel.vue'
 import NewsSection from '@/components/business/NewsSection.vue'
 import IndustryGrid from '@/components/business/IndustryGrid.vue'
+import CoverageMap from '@/components/business/CoverageMap.vue'
 import { ref, onMounted, computed } from 'vue'
 import api from '@/api'
 import { richTextPreview } from '@/utils/richText'

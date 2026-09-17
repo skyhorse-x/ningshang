@@ -81,7 +81,7 @@ const onSearch = () => {}
 const onReset = () => { searchForm.value = { name: '', phone: '', type: '' } }
 
 const onDelete = async (row) => {
-  await ElMessageBox.confirm('确定删除该留言吗？', '提示', { type: 'warning' })
+  await ElMessageBox.confirm('确定删除该留言吗？', '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminDelete('messages', row.id)
     if (res.code === 200) { ElMessage.success('删除成功'); load() }

@@ -38,6 +38,7 @@ public class AdminAuthInterceptor implements HandlerInterceptor {
         if (group == null || !Integer.valueOf(1).equals(group.getStatus())) return deny(response, 403, "权限组不存在或已禁用");
         request.setAttribute("adminUsername", username);
         if (uri.equals("/api/admin/upload") || uri.equals("/api/admin/password")
+            || uri.equals("/api/admin/cache/refresh")
             || uri.equals("/api/admin/menus/mine") || uri.equals("/api/admin/permissions/mine") || uri.equals("/api/admin/logout")) return true;
         // 系统权限取自数据库账号所属组，不能由可编辑的菜单路径推导。
         if (Long.valueOf(1).equals(admin.getGroupId())) return true;

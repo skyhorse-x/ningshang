@@ -42,18 +42,23 @@
             <el-breadcrumb-item>{{ route.meta?.title || '' }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
-        <el-dropdown @command="handleCommand">
-          <span class="admin-user">
-            <i class="fas fa-user user-icon"></i> {{ adminName }}
-            <el-tag size="small" :type="roleTagType" class="role-tag">{{ roleLabel }}</el-tag>
-          </span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="password">修改密码</el-dropdown-item>
-              <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <div class="header-actions">
+          <el-tooltip content="更新系统缓存" placement="bottom">
+            <el-button circle :loading="refreshingCache" @click="refreshCache"><el-icon><Refresh /></el-icon></el-button>
+          </el-tooltip>
+          <el-dropdown @command="handleCommand">
+            <span class="admin-user">
+              <i class="fas fa-user user-icon"></i> {{ adminName }}
+              <el-tag size="small" :type="roleTagType" class="role-tag">{{ roleLabel }}</el-tag>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="password">修改密码</el-dropdown-item>
+                <el-dropdown-item command="logout" divided>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </header>
       <main class="admin-content">
         <router-view />
@@ -74,7 +79,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { Expand, Fold } from '@element-plus/icons-vue'
+import { Expand, Fold, Refresh } from '@element-plus/icons-vue'
 import api from '@/api'
 
 const router = useRouter()
@@ -97,12 +102,17 @@ const myMenus = ref([])
 const activeMenu = computed(() => route.path)
 const defaultOpeneds = ref([])
 const isCollapsed = ref(localStorage.getItem('admin_sidebar_collapsed') === '1')
+const refreshingCache = ref(false)
 const toggleSidebar = () => {
   isCollapsed.value = !isCollapsed.value
   localStorage.setItem('admin_sidebar_collapsed', isCollapsed.value ? '1' : '0')
 }
 
 onMounted(async () => {
+  await loadMenus()
+})
+
+const loadMenus = async () => {
   try {
     const res = await api.adminMenuMine()
     if (res.code === 200) {
@@ -115,14 +125,29 @@ onMounted(async () => {
   } catch (e) {
     console.error('Failed to load menu:', e)
   }
-})
+}
+
+const refreshCache = async () => {
+  refreshingCache.value = true
+  try {
+    const res = await api.adminRefreshCache()
+    if (res.code === 200) {
+      await loadMenus()
+      ElMessage.success(res.data || '系统缓存已更新')
+    }
+  } catch (e) {
+    ElMessage.error(e?.response?.data?.message || '更新缓存失败')
+  } finally {
+    refreshingCache.value = false
+  }
+}
 
 const pwdDialogVisible = ref(false)
 const pwdForm = ref({ oldPassword: '', newPassword: '', confirmPassword: '' })
 
 const handleCommand = async (cmd) => {
   if (cmd === "logout") {
-    await ElMessageBox.confirm("确定要退出登录吗？", "提示", { type: "warning" })
+    await ElMessageBox.confirm("确定要退出登录吗？", "提示", { type: "warning", confirmButtonText: '确认', cancelButtonText: '取消' })
     try { await api.adminLogout() } catch (e) {
       if (e.response?.status !== 401) { ElMessage.error('退出失败，请重试'); return }
     }
@@ -176,6 +201,7 @@ const onChangePassword = async () => {
 .collapse-btn:hover { background: #eef3f8; color: #0d3a72; }
 .collapse-btn :deep(.el-icon) { font-size: 20px; }
 .admin-user { display: flex; align-items: center; gap: 6px; cursor: pointer; color: #6b6b6b; }
+.header-actions { display: flex; align-items: center; gap: 12px; }
 .admin-content { flex: 1; padding: 20px 24px 28px; overflow-y: auto; min-width: 0; }
 .admin-content > :deep(*) { max-width: 1600px; margin-left: auto; margin-right: auto; }
 .admin-content :deep(.page-header) { min-height: 36px; margin-bottom: 16px; }

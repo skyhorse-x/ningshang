@@ -48,6 +48,10 @@
 
       <el-tab-pane v-if="showSection('speech')" label="董事长致词" name="speech">
         <el-form :model="forms.speech" label-width="100px" class="content-form">
+          <el-row :gutter="20">
+            <el-col :span="12"><el-form-item label="姓名"><el-input v-model="forms.speech.speech_chairman_name" placeholder="王 力" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="职务"><el-input v-model="forms.speech.speech_chairman_title" placeholder="安徽宁商科技集团 董事长" /></el-form-item></el-col>
+          </el-row>
           <el-form-item label="引言"><RichEditor v-if="activeTab === 'speech'" v-model="forms.speech.speech_quote" height="220px" /></el-form-item>
           <el-form-item label="正文"><RichEditor v-if="activeTab === 'speech'" v-model="forms.speech.speech_body" height="420px" /></el-form-item>
           <el-row :gutter="20">
@@ -161,7 +165,7 @@ const knownKeys = {
   basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc'],
   intro: ['about_intro_meta', 'about_intro_s1_title', 'about_intro_s1_body', 'about_intro_s2_title', 'about_intro_s2_body', 'about_intro_s3_title'],
   stats: ['stat_founded', 'stat_companies', 'stat_ip', 'stat_fields'],
-  speech: ['speech_quote', 'speech_body', 'speech_sign', 'speech_date'],
+  speech: ['speech_chairman_name', 'speech_chairman_title', 'speech_quote', 'speech_body', 'speech_sign', 'speech_date'],
   culture: ['culture_lead', 'culture_mission', 'culture_values', 'culture_vision', 'culture_spirit'],
   party: ['party_title', 'party_meta', 'party_body'],
   construction: ['industry_construction_body'],
@@ -261,7 +265,7 @@ const onSave = async () => {
 }
 
 const onDelete = async (row) => {
-  await ElMessageBox.confirm(`确定删除配置「${row.title || row.contentKey}」吗？`, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(`确定删除配置「${row.title || row.contentKey}」吗？`, '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminDelete('content', row.id)
     if (res.code === 200) { clearContentCache(); ElMessage.success('删除成功'); load() }

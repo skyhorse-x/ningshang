@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <el-carousel height="320px" :interval="5500" arrow="never" indicator-position="outside">
+    <el-carousel height="520px" :interval="5500" arrow="never" indicator-position="outside">
       <el-carousel-item v-for="(slide, idx) in slides" :key="idx">
         <div class="slide" :style="'background-image:url(' + slide.image + ')'">
           <div class="cap">
@@ -24,20 +24,23 @@ const slides = [
 </script>
 
 <style scoped>
-.hero { position: relative; height: 320px; overflow: hidden; background: #0a2c57; }
+.hero { position: relative; height: 520px; overflow: hidden; background: #0a2c57; }
 .slide {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
+  position: relative;
   display: flex;
   align-items: center;
 }
+.slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,22,46,.82), rgba(13,58,114,.48), rgba(5,22,46,.32)); }
 .cap {
   position: relative;
   z-index: 2;
   color: #fff;
-  max-width: 680px;
+  max-width: 1200px;
+  width: 94%;
   margin: 0 auto;
   padding: 0 20px;
 }
@@ -50,7 +53,7 @@ const slides = [
   padding-left: 10px;
   margin-bottom: 12px;
 }
-.cap h2 { font-size: 32px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
+.cap h2 { font-size: 46px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
 .cap p { font-size: 15px; color: #dbe6f5; margin-bottom: 20px; }
 .more {
   display: inline-block;
@@ -64,7 +67,7 @@ const slides = [
 }
 .more:hover { background: var(--c-accent); border-color: var(--c-accent); }
 @media (max-width: 1000px) {
-  .hero { height: 260px; }
+  .hero { height: 320px; }
   .cap h2 { font-size: 24px; }
   .cap p { font-size: 13px; }
 }

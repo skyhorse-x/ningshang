@@ -38,7 +38,6 @@ const routes = [
       { path: 'content/party', component: () => import('@/views/admin/ContentManage.vue'), props: { section: 'party' }, meta: { title: '党建工作' } },
       { path: 'content/recruit', component: () => import('@/views/admin/ContentManage.vue'), props: { section: 'recruit' }, meta: { title: '人才理念' } },
       { path: 'subsidiaries', component: () => import('@/views/admin/SubsidiaryManage.vue'), meta: { title: '子公司管理' } },
-      { path: 'core-businesses', component: () => import('@/views/admin/CoreBusinessManage.vue'), meta: { title: '核心业务领域' } },
       { path: 'chatline', component: () => import('@/views/admin/ContentManage.vue'), props: { mode: 'settings' }, meta: { title: '联系方式' } },
       { path: 'site-settings', component: () => import('@/views/admin/ContentManage.vue'), props: { mode: 'settings' }, meta: { title: '网站设置' } },
       { path: 'menus', component: () => import('@/views/admin/MenuManage.vue'), meta: { title: '菜单管理' } },

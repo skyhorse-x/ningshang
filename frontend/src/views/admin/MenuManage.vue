@@ -94,7 +94,6 @@ const moduleByPath = {
   '/ningshang-admin/content/party': 'content',
   '/ningshang-admin/content/recruit': 'content',
   '/ningshang-admin/subsidiaries': 'subsidiaries',
-  '/ningshang-admin/core-businesses': 'core-businesses',
   '/ningshang-admin/team': 'team',
   '/ningshang-admin/honors': 'honors',
   '/ningshang-admin/milestones': 'milestones',
@@ -212,7 +211,7 @@ const onSave = async () => {
 
 const onDelete = async (row) => {
   const msg = row.parentId === 0 ? `删除分组「${row.name}」会同时删除其下所有菜单，确定吗？` : `确定删除菜单「${row.name}」吗？`
-  await ElMessageBox.confirm(msg, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(msg, '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminMenuDelete(row.id)
     if (res.code === 200) { ElMessage.success('删除成功'); load() }
@@ -222,7 +221,7 @@ const onDelete = async (row) => {
 
 const onBatchDelete = async () => {
   if (selectedIds.value.length === 0) return
-  await ElMessageBox.confirm(`确定删除选中的 ${selectedIds.value.length} 个菜单项吗？`, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(`确定删除选中的 ${selectedIds.value.length} 个菜单项吗？`, '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminMenuBatchDelete(selectedIds.value)
     if (res.code === 200) { ElMessage.success('批量删除成功'); load() }

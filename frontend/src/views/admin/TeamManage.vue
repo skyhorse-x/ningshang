@@ -11,7 +11,7 @@
       </el-form-item>
     </el-form>
 
-    <el-table :data="filteredList" stripe @selection-change="onSelectionChange">
+    <el-table :data="pagedList" stripe @selection-change="onSelectionChange">
       <el-table-column v-if="hasPermission('team:batch_delete')" type="selection" width="44" />
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column label="头像" width="80">
@@ -29,6 +29,9 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="pagination-row" v-if="filteredList.length > pagination.size">
+      <el-pagination background layout="total, sizes, prev, pager, next" :page-sizes="[10, 20, 50, 100]" :total="filteredList.length" v-model:current-page="pagination.page" v-model:page-size="pagination.size" />
+    </div>
 
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑成员' : '新增成员'" width="min(960px, 94vw)" destroy-on-close>
       <el-form :model="form" label-width="80px">
@@ -48,7 +51,7 @@
 
 <script setup>
 import RichEditor from '@/components/admin/RichEditor.vue'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, reactive } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import api from '@/api'
 import ImageUpload from '@/components/admin/ImageUpload.vue'
@@ -60,6 +63,7 @@ const searchForm = ref({ name: '' })
 const dialogVisible = ref(false)
 const saving = ref(false)
 const form = ref({})
+const pagination = reactive({ page: 1, size: 10 })
 
 const emptyForm = () => ({ id: null, name: '', position: '', description: '', avatar: '', gradient: 'linear-gradient(135deg,#1a365d 0%,#2c5282 100%)', sortOrder: list.value.length + 1 })
 
@@ -68,6 +72,7 @@ const filteredList = computed(() => {
   if (searchForm.value.name) result = result.filter(item => item.name && item.name.includes(searchForm.value.name))
   return result
 })
+const pagedList = computed(() => filteredList.value.slice((pagination.page - 1) * pagination.size, pagination.page * pagination.size))
 
 const formatTime = (t) => {
   if (!t) return '-'
@@ -83,8 +88,8 @@ const load = async () => {
 const { selectedIds, onSelectionChange, onBatchDelete } = useBatchDelete('team', load)
 onMounted(load)
 
-const onSearch = () => {}
-const onReset = () => { searchForm.value = { name: '' } }
+const onSearch = () => { pagination.page = 1 }
+const onReset = () => { searchForm.value = { name: '' }; pagination.page = 1 }
 
 const openDialog = (row) => {
   form.value = row ? { ...row } : emptyForm()
@@ -102,7 +107,7 @@ const onSave = async () => {
   } catch (e) { ElMessage.error('保存失败') } finally { saving.value = false }
 }
 const onDelete = async (row) => {
-  await ElMessageBox.confirm(`确定删除成员「${row.name}」吗？`, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(`确定删除成员「${row.name}」吗？`, '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminDelete('team', row.id)
     if (res.code === 200) { ElMessage.success('删除成功'); load() }
@@ -115,4 +120,5 @@ const onDelete = async (row) => {
 .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .page-header h3 { font-size: 20px; color: #0d3a72; margin: 0; }
 .search-form { background: #fff; padding: 16px 16px 0; border-radius: 8px; margin-bottom: 16px; }
+.pagination-row { display: flex; justify-content: flex-end; margin-top: 16px; }
 </style>

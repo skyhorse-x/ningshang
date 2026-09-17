@@ -117,7 +117,7 @@ const onSave = async () => {
 }
 
 const onDelete = async (row) => {
-  await ElMessageBox.confirm(`确定删除管理员「${row.nickname || row.username}」吗？`, '提示', { type: 'warning' })
+  await ElMessageBox.confirm(`确定删除管理员「${row.nickname || row.username}」吗？`, '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminDeleteAdmin(row.id)
     if (res.code === 200) { ElMessage.success('删除成功'); load() }

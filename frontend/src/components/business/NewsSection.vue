@@ -58,7 +58,7 @@ const categories = [
   { label: '行业资讯', value: 'trend' },
   { label: '员工风采', value: 'staff' }
 ]
-const filteredNews = computed(() => newsList.value.filter(n => n.category === activeTab.value))
+const filteredNews = computed(() => newsList.value.filter(n => n.category === activeTab.value).slice(0, 5))
 const featuredNews = computed(() => newsList.value.filter(n => n.category === 'group'))
 const videoUrl = (import.meta.env.VITE_HOME_VIDEO_URL || '').trim()
 const videoVisible = ref(false)

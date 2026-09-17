@@ -11,7 +11,7 @@
     </div></div>
     <section class="section text-bg-news"><div class="wrap">
       <ul class="content-list news-waterfall">
-        <li class="nitem" v-for="item in filteredNews" :key="item.id">
+        <li class="nitem" v-for="item in pagedNews" :key="item.id">
           <div class="list-item">
             <router-link class="thumb" :to="'/news/' + item.newsId"><img :src="item.image" alt=""></router-link>
             <div class="info">
@@ -22,6 +22,9 @@
           </div>
         </li>
       </ul>
+      <div class="pagination-row" v-if="filteredNews.length > pageSize">
+        <el-pagination background layout="prev, pager, next" :total="filteredNews.length" :page-size="pageSize" v-model:current-page="currentPage" />
+      </div>
     </div></section>
   </div>
 </template>
@@ -35,10 +38,14 @@ const route = useRoute()
 const router = useRouter()
 const newsList = ref([])
 const activeCat = ref('all')
+const currentPage = ref(1)
+const pageSize = 8
 const filteredNews = computed(() => activeCat.value === 'all' ? newsList.value : newsList.value.filter(n => n.category === activeCat.value))
+const pagedNews = computed(() => filteredNews.value.slice((currentPage.value - 1) * pageSize, currentPage.value * pageSize))
 const normalizeCategory = value => ['group', 'industry', 'trend', 'staff'].includes(value) ? value : 'all'
 const setCategory = (category) => {
   activeCat.value = category
+  currentPage.value = 1
   router.replace({ path: '/news', query: category === 'all' ? {} : { category } })
 }
 onMounted(async () => {
@@ -46,7 +53,7 @@ onMounted(async () => {
   const res = await api.getNews()
   if (res.code === 200) newsList.value = res.data
 })
-watch(() => route.query.category, value => { activeCat.value = normalizeCategory(value) })
+watch(() => route.query.category, value => { activeCat.value = normalizeCategory(value); currentPage.value = 1 })
 </script>
 
 <style scoped>
@@ -75,6 +82,7 @@ watch(() => route.query.category, value => { activeCat.value = normalizeCategory
 .meta { font-size: 13px; color: var(--c-text-light); margin-bottom: 10px; }
 .meta .cat { color: var(--c-accent); font-weight: 600; }
 .info p { font-size: 14px; color: var(--c-text-light); line-height: 1.7; }
+.pagination-row { display: flex; justify-content: center; margin-top: 32px; }
 @media (max-width: 1000px) {
   .list-item { flex-direction: column; gap: 16px; }
   .thumb { flex: none; width: 100%; height: 200px; }

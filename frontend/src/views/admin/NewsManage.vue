@@ -137,7 +137,7 @@ const onSave = async () => {
 }
 
 const onDelete = async (row) => {
-  await ElMessageBox.confirm('确定删除该新闻吗？', '提示', { type: 'warning' })
+  await ElMessageBox.confirm('确定删除该新闻吗？', '提示', { type: 'warning', confirmButtonText: '确认', cancelButtonText: '取消' })
   try {
     const res = await api.adminDelete('news', row.id)
     if (res.code === 200) {

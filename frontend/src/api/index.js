@@ -56,6 +56,7 @@ export default {
   // Admin Auth（用户名由后端从 JWT 解析，前端不传）
   adminLogin: (data) => request.post('/admin/login', data),
   adminLogout: () => request.post('/admin/logout'),
+  adminRefreshCache: () => request.post('/admin/cache/refresh'),
   adminChangePassword: (data) => request.post('/admin/password', data),
 
   // Admin CRUD（r: news / jobs / messages / team / honors / milestones / content）

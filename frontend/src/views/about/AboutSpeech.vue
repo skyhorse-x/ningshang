@@ -15,8 +15,8 @@
         <div class="speech-header">
           <div class="chairman-photo">
             <img src="/images/chairman.png" alt="董事长王力">
-            <h3>王 力</h3>
-            <p class="title">安徽宁商科技集团 董事长</p>
+            <h3>{{ c('speech_chairman_name', '王 力') }}</h3>
+            <p class="title">{{ c('speech_chairman_title', '安徽宁商科技集团 董事长') }}</p>
           </div>
           <div class="chairman-info">
             <RichContent class="quote" :content="quoteHtml" />

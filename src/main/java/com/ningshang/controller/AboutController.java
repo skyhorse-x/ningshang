@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class AboutController {
@@ -29,6 +31,9 @@ public class AboutController {
 
     @GetMapping("/about-speech")
     public String aboutSpeech(Model model) {
+        Map<String, String> content = siteContentService.findAll().stream()
+                .collect(Collectors.toMap(SiteContent::getContentKey, SiteContent::getContent, (a, b) -> a));
+        model.addAttribute("content", content);
         model.addAttribute("currentPage", "about");
         return "pages/about-speech";
     }

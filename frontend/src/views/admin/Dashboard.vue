@@ -3,7 +3,7 @@
     <!-- 统计卡片 -->
     <el-row :gutter="16" class="stat-cards">
       <el-col :span="6" v-for="card in cards" :key="card.key">
-        <el-card shadow="hover" class="stat-card" :style="{ borderTop: '3px solid ' + card.color }">
+        <el-card shadow="hover" class="stat-card" :style="{ borderTop: '3px solid ' + card.color }" @click="router.push(card.path)">
           <div class="stat-item">
             <div class="stat-icon" :style="{ background: card.bg, color: card.color }">
               <el-icon :size="26"><component :is="card.icon" /></el-icon>
@@ -53,16 +53,18 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, markRaw } from 'vue'
+import { useRouter } from 'vue-router'
 import * as echarts from 'echarts'
 import api from '@/api'
 import { Document, Message, Briefcase, User, TrophyBase, Flag, Setting } from '@element-plus/icons-vue'
 
 const cards = [
-  { key: 'news', label: '新闻数量', icon: markRaw(Document), color: '#409eff', bg: '#ecf5ff' },
-  { key: 'messages', label: '留言数量', icon: markRaw(Message), color: '#e6a23c', bg: '#fdf6ec' },
-  { key: 'jobs', label: '招聘岗位', icon: markRaw(Briefcase), color: '#67c23a', bg: '#f0f9eb' },
-  { key: 'team', label: '团队成员', icon: markRaw(User), color: '#9b59f6', bg: '#f5f0ff' },
+  { key: 'news', label: '新闻数量', icon: markRaw(Document), color: '#409eff', bg: '#ecf5ff', path: '/ningshang-admin/news' },
+  { key: 'messages', label: '留言数量', icon: markRaw(Message), color: '#e6a23c', bg: '#fdf6ec', path: '/ningshang-admin/messages' },
+  { key: 'jobs', label: '招聘岗位', icon: markRaw(Briefcase), color: '#67c23a', bg: '#f0f9eb', path: '/ningshang-admin/jobs' },
+  { key: 'team', label: '团队成员', icon: markRaw(User), color: '#9b59f6', bg: '#f5f0ff', path: '/ningshang-admin/team' },
 ]
+const router = useRouter()
 
 const loading = ref(true)
 const stats = ref({})
@@ -166,6 +168,8 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .stat-cards { margin-bottom: 16px; }
+.stat-card { cursor: pointer; transition: transform .18s ease, box-shadow .18s ease; }
+.stat-card:hover { transform: translateY(-2px); }
 .stat-card :deep(.el-card__body) { padding: 18px 20px; }
 .stat-item { display: flex; align-items: center; gap: 16px; }
 .stat-icon { width: 52px; height: 52px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }

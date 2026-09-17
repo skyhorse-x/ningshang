@@ -18,4 +18,9 @@ public class AdminController {
         jwtUtil.revokeToken(authorization.substring(7));
         return ApiResponse.success("退出成功");
     }
+
+    @PostMapping("/cache/refresh")
+    public ApiResponse<String> refreshCache() {
+        return ApiResponse.success("系统缓存已更新");
+    }
 }

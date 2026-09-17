@@ -146,6 +146,8 @@ public class DataInitializer implements CommandLineRunner {
         upsertContent("stat_companies", "统计-成员企业", "4", 21);
         upsertContent("stat_ip", "统计-知识产权", "10+", 22);
         upsertContent("stat_fields", "统计-业务领域", "4", 23);
+        upsertContent("speech_chairman_name", "董事长致词-董事长姓名", "王 力", 28);
+        upsertContent("speech_chairman_title", "董事长致词-董事长职位", "安徽宁商科技集团 董事长", 29);
         upsertContent("speech_quote", "董事长致词-引言", "徽商古训有云：\n\"诚为本，义为先，贾而好儒，行稳致远。\"", 30);
         upsertContent("speech_body", "董事长致词-正文",
                 "尊敬的社会各界友人、合作伙伴，全体宁商同仁：\n\n千载江淮文脉，沉淀出实业兴邦的厚重底色；长三角一体化浪潮，奔涌着数字赋能的蓬勃生机。\n\n展望未来，集团将始终践行\"科创赋能城乡，数字服务实业\"的企业使命，以诚信立品牌之基，以创新拓产业之局。", 31);
@@ -303,7 +305,6 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(about, "党建工作", "/ningshang-admin/content/party", "Star", 7);
         ensureMenu(news, "新闻列表", "/ningshang-admin/news", "Document", 1);
         ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 1);
-        ensureMenu(industry, "核心业务领域", "/ningshang-admin/core-businesses", "Grid", 2);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
         ensureMenu(interaction, "招聘岗位", "/ningshang-admin/jobs", "Briefcase", 2);
         ensureMenu(interaction, "在线留言", "/ningshang-admin/messages", "ChatDotRound", 3);
@@ -320,7 +321,8 @@ public class DataInitializer implements CommandLineRunner {
                 "/ningshang-admin/content/home",
                 "/ningshang-admin/content/other",
                 "/ningshang-admin/content/construction",
-                "/ningshang-admin/content/software")) {
+                "/ningshang-admin/content/software",
+                "/ningshang-admin/core-businesses")) {
             adminMenuRepository.findByPath(path).ifPresent(menu -> removeIds.add(menu.getId()));
         }
         for (String groupName : java.util.List.of("首页与全站", "内容管理", "内容运营")) {
