@@ -14,6 +14,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired private TeamMemberRepository teamMemberRepository;
     @Autowired private HonorRepository honorRepository;
     @Autowired private SubsidiaryRepository subsidiaryRepository;
+    @Autowired private CoreBusinessRepository coreBusinessRepository;
     @Autowired private MilestoneRepository milestoneRepository;
     @Autowired private JobRepository jobRepository;
     @Autowired private SiteContentRepository siteContentRepository;
@@ -46,7 +47,7 @@ public class DataInitializer implements CommandLineRunner {
         // ddl-auto:update 不会可靠扩展已有文本列，启动时执行幂等迁移。
         String[] richTextColumns = {
                 "news.body", "site_content.content", "job.description", "team_member.description",
-                "honor.description", "milestone.description", "subsidiary.description"
+                "honor.description", "milestone.description", "subsidiary.description", "core_business.description"
         };
         for (String column : richTextColumns) {
             String[] parts = column.split("\\.");
@@ -61,6 +62,7 @@ public class DataInitializer implements CommandLineRunner {
         if (teamMemberRepository.count() == 0) initTeamMembers();
         if (honorRepository.count() == 0) initHonors();
         if (subsidiaryRepository.count() == 0) initSubsidiaries();
+        if (coreBusinessRepository.count() == 0) initCoreBusinesses();
         if (milestoneRepository.count() == 0) initMilestones();
         if (jobRepository.count() == 0) initJobs();
         initSiteContent();
@@ -86,6 +88,12 @@ public class DataInitializer implements CommandLineRunner {
             if (isRelativeImage(s.getLogo())) { s.setLogo("/" + s.getLogo()); changed = true; }
             if (isRelativeImage(s.getBackground())) { s.setBackground("/" + s.getBackground()); changed = true; }
             if (changed) subsidiaryRepository.save(s);
+        }
+        for (CoreBusiness b : coreBusinessRepository.findAll()) {
+            if (isRelativeImage(b.getCoverImage())) {
+                b.setCoverImage("/" + b.getCoverImage());
+                coreBusinessRepository.save(b);
+            }
         }
         for (TeamMember m : teamMemberRepository.findAll()) {
             if (isRelativeImage(m.getAvatar())) {
@@ -242,6 +250,24 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 
+    private void initCoreBusinesses() {
+        String[][] data = {
+            {"建设工程", "建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。", "images/biz-1.png"},
+            {"数字科技", "建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。", "images/biz-2.png"},
+            {"信息咨询", "企业全周期科创赋能与专业咨询，助力规范化高质量发展。", "images/biz-3.png"},
+            {"智能装备", "智能装备研发智造与数字技术应用，赋能多领域数字化转型。", "images/biz-4.png"},
+            {"物业管理", "物业运营评估与城市综合配套服务，深耕多元城市服务板块。", "images/biz-5.png"}
+        };
+        for (int i = 0; i < data.length; i++) {
+            CoreBusiness b = new CoreBusiness();
+            b.setName(data[i][0]);
+            b.setDescription(data[i][1]);
+            b.setCoverImage(data[i][2]);
+            b.setSortOrder(i + 1);
+            coreBusinessRepository.save(b);
+        }
+    }
+
     private void initMilestones() {
         String[][] data = {
             {"2026.07.28", "宁商集团党支部启动筹备成立", "构建党建引领企业发展体系。"},
@@ -279,6 +305,7 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(industry, "建筑工程", "/ningshang-admin/content/construction", "School", 1);
         ensureMenu(industry, "软件科技", "/ningshang-admin/content/software", "Cpu", 2);
         ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 3);
+        ensureMenu(industry, "核心业务领域", "/ningshang-admin/core-businesses", "Grid", 4);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
         ensureMenu(interaction, "招聘岗位", "/ningshang-admin/jobs", "Briefcase", 2);
         ensureMenu(interaction, "在线留言", "/ningshang-admin/messages", "ChatDotRound", 3);
@@ -451,7 +478,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initPermissions() {
-        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
+        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"core-businesses","核心业务领域"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
         String[][] actions = {{"list","查看列表"},{"create","新增"},{"update","修改"},{"delete","删除"},{"batch_delete","批量删除"}};
         int order = 0;
         for (String[] m : modules) for (String[] a : actions) {
@@ -462,10 +489,9 @@ public class DataInitializer implements CommandLineRunner {
             adminPermissionRepository.save(p);
         }
         for (AdminGroup g : adminGroupRepository.findAll()) {
-            if (!adminGroupPermissionRepository.findByGroupId(g.getId()).isEmpty()) continue;
             for (AdminPermission p : adminPermissionRepository.findAll()) {
                 boolean grant = Long.valueOf(1).equals(g.getId()) || ("管理员".equals(g.getName()) && !java.util.Set.of("menus","groups","admins").contains(p.getModule())) || ("编辑".equals(g.getName()) && "news".equals(p.getModule()));
-                if (grant) { AdminGroupPermission gp = new AdminGroupPermission(); gp.setGroupId(g.getId()); gp.setPermissionId(p.getId()); adminGroupPermissionRepository.save(gp); }
+                if (grant && !adminGroupPermissionRepository.existsByGroupIdAndPermissionId(g.getId(), p.getId())) { AdminGroupPermission gp = new AdminGroupPermission(); gp.setGroupId(g.getId()); gp.setPermissionId(p.getId()); adminGroupPermissionRepository.save(gp); }
             }
         }
     }

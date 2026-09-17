@@ -11,20 +11,10 @@
           <p>科技赋能产业，服务贯穿全程</p>
         </div>
         <div class="biz-grid">
-          <div class="biz-card" style="background-image:url(/images/biz-1.png)">
-            <div class="ico"><i class="fas fa-building"></i></div><h5>建设工程</h5><p>建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。</p>
-          </div>
-          <div class="biz-card" style="background-image:url(/images/biz-2.png)">
-            <div class="ico"><i class="fas fa-microchip"></i></div><h5>数字科技</h5><p>建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。</p>
-          </div>
-          <div class="biz-card" style="background-image:url(/images/biz-3.png)">
-            <div class="ico"><i class="fas fa-chart-line"></i></div><h5>信息咨询</h5><p>企业全周期科创赋能与专业咨询，助力规范化高质量发展。</p>
-          </div>
-          <div class="biz-card" style="background-image:url(/images/biz-4.png)">
-            <div class="ico"><i class="fas fa-gears"></i></div><h5>智能装备</h5><p>智能装备研发智造与数字技术应用，赋能多领域数字化转型。</p>
-          </div>
-          <div class="biz-card" style="background-image:url(/images/biz-5.png)">
-            <div class="ico"><i class="fas fa-city"></i></div><h5>物业管理</h5><p>物业运营评估与城市综合配套服务，深耕多元城市服务板块。</p>
+          <div v-for="(item, index) in businessList" :key="item.id || item.name" class="biz-card" :style="{ backgroundImage: `url(${item.coverImage || fallbackImages[index % fallbackImages.length]})` }">
+            <div class="ico"><i :class="businessIcons[index % businessIcons.length]"></i></div>
+            <h5>{{ item.name }}</h5>
+            <p>{{ richTextPreview(item.description) }}</p>
           </div>
         </div>
       </div>
@@ -36,6 +26,26 @@
 import HeroCarousel from '@/components/business/HeroCarousel.vue'
 import NewsSection from '@/components/business/NewsSection.vue'
 import IndustryGrid from '@/components/business/IndustryGrid.vue'
+import { ref, onMounted, computed } from 'vue'
+import api from '@/api'
+import { richTextPreview } from '@/utils/richText'
+
+const fallbackImages = ['/images/biz-1.png', '/images/biz-2.png', '/images/biz-3.png', '/images/biz-4.png', '/images/biz-5.png']
+const businessIcons = ['fas fa-building', 'fas fa-microchip', 'fas fa-chart-line', 'fas fa-gears', 'fas fa-city']
+const defaultBusinesses = [
+  { name: '建设工程', description: '建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。', coverImage: '/images/biz-1.png' },
+  { name: '数字科技', description: '建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。', coverImage: '/images/biz-2.png' },
+  { name: '信息咨询', description: '企业全周期科创赋能与专业咨询，助力规范化高质量发展。', coverImage: '/images/biz-3.png' },
+  { name: '智能装备', description: '智能装备研发智造与数字技术应用，赋能多领域数字化转型。', coverImage: '/images/biz-4.png' },
+  { name: '物业管理', description: '物业运营评估与城市综合配套服务，深耕多元城市服务板块。', coverImage: '/images/biz-5.png' }
+]
+const coreBusinesses = ref([])
+const businessList = computed(() => coreBusinesses.value.length ? coreBusinesses.value : defaultBusinesses)
+
+onMounted(async () => {
+  const res = await api.getCoreBusinesses()
+  if (res.code === 200 && Array.isArray(res.data)) coreBusinesses.value = res.data
+})
 </script>
 
 <style scoped>

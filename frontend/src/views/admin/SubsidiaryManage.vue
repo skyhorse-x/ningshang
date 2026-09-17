@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="page-header"><h3>成员企业</h3><div><el-button v-if="hasPermission('subsidiaries:batch_delete')" type="danger" plain :disabled="!selectedIds.length" @click="onBatchDelete">批量删除</el-button><el-button v-if="hasPermission('subsidiaries:create')" type="primary" @click="openDialog()">+ 新建企业</el-button></div></div>
+    <div class="page-header"><h3>子公司管理</h3><div><el-button v-if="hasPermission('subsidiaries:batch_delete')" type="danger" plain :disabled="!selectedIds.length" @click="onBatchDelete">批量删除</el-button><el-button v-if="hasPermission('subsidiaries:create')" type="primary" @click="openDialog()">+ 新建子公司</el-button></div></div>
 
     <!-- 搜索表单 -->
     <el-form :inline="true" :model="searchForm" class="search-form" @submit.prevent="onSearch">
@@ -13,8 +13,11 @@
 
     <el-table :data="filteredList" stripe @selection-change="onSelectionChange"><el-table-column v-if="hasPermission('subsidiaries:batch_delete')" type="selection" width="44" />
       <el-table-column prop="id" label="ID" width="60" />
-      <el-table-column prop="name" label="公司名称" />
-      <el-table-column prop="category" label="类别" width="100" />
+      <el-table-column prop="name" label="公司名称" min-width="180" />
+      <el-table-column prop="category" label="子公司类型" width="140" />
+      <el-table-column label="内容介绍" min-width="260" show-overflow-tooltip>
+        <template #default="{ row }">{{ richTextPreview(row.description) }}</template>
+      </el-table-column>
       <el-table-column label="创建时间" width="180">
         <template #default="{ row }">{{ formatTime(row.createdAt) }}</template>
       </el-table-column>
@@ -27,14 +30,14 @@
     </el-table>
 
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑子公司' : '新建子公司'" width="min(960px, 94vw)" destroy-on-close>
-      <el-form :model="form" label-width="80px">
-        <el-form-item label="名称"><el-input v-model="form.name" /></el-form-item>
+      <el-form :model="form" label-width="100px">
+        <el-form-item label="公司名称"><el-input v-model="form.name" /></el-form-item>
         <el-form-item label="英文名"><el-input v-model="form.englishName" /></el-form-item>
-        <el-form-item label="类别"><el-input v-model="form.category" /></el-form-item>
+        <el-form-item label="子公司类型"><el-input v-model="form.category" placeholder="如 建设工程、智能科技、信息咨询" /></el-form-item>
         <el-form-item label="排序"><el-input-number v-model="form.sortOrder" :min="1" /></el-form-item>
         <el-form-item label="Logo图"><ImageUpload v-model="form.logo" /></el-form-item>
         <el-form-item label="背景图"><ImageUpload v-model="form.background" /></el-form-item>
-        <el-form-item label="描述"><RichEditor v-if="dialogVisible" :key="form.id || 'new'" v-model="form.description" height="380px" /></el-form-item>
+        <el-form-item label="内容介绍"><RichEditor v-if="dialogVisible" :key="form.id || 'new'" v-model="form.description" height="380px" /></el-form-item>
       </el-form>
       <template #footer><el-button @click="dialogVisible = false">取消</el-button><el-button type="primary" :loading="saving" @click="onSave">保存</el-button></template>
     </el-dialog>
@@ -49,6 +52,7 @@ import { ref, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import api from '@/api'
 import ImageUpload from '@/components/admin/ImageUpload.vue'
+import { richTextPreview } from '@/utils/richText'
 
 const list = ref([])
 const searchForm = ref({ name: '' })

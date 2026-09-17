@@ -88,30 +88,10 @@
       <p>科技赋能产业，服务贯穿全程</p>
     </div>
     <div class="biz-grid">
-      <div class="biz-card" style="background-image:url('/images/biz-1.png')">
-        <div class="ico">🏗</div>
-        <h5>建设工程</h5>
-        <p>建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。</p>
-      </div>
-      <div class="biz-card" style="background-image:url('/images/biz-2.png')">
-        <div class="ico">💻</div>
-        <h5>数字科技</h5>
-        <p>建筑数字化、人工智能与算法软件开发，打造科创服务核心引擎。</p>
-      </div>
-      <div class="biz-card" style="background-image:url('/images/biz-3.png')">
-        <div class="ico">📊</div>
-        <h5>信息咨询</h5>
-        <p>企业全周期科创赋能与专业咨询，助力规范化高质量发展。</p>
-      </div>
-      <div class="biz-card" style="background-image:url('/images/biz-4.png')">
-        <div class="ico">⚙</div>
-        <h5>智能装备</h5>
-        <p>智能装备研发智造与数字技术应用，赋能多领域数字化转型。</p>
-      </div>
-      <div class="biz-card" style="background-image:url('/images/biz-5.png')">
-        <div class="ico">🏢</div>
-        <h5>物业管理</h5>
-        <p>物业运营评估与城市综合配套服务，深耕多元城市服务板块。</p>
+      <div th:each="biz, iter : ${coreBusinesses}" class="biz-card" th:style="'background-image:url(\'' + @{${biz.coverImage ?: '/images/biz-1.png'}} + '\')'">
+        <div class="ico" th:text="${iter.index == 0 ? '🏗' : (iter.index == 1 ? '💻' : (iter.index == 2 ? '📊' : (iter.index == 3 ? '⚙' : '🏢')))}">🏗</div>
+        <h5 th:text="${biz.name}">建设工程</h5>
+        <div class="rich-content" th:utext="${@richText.clean(biz.description)}">业务介绍</div>
       </div>
     </div>
   </div>

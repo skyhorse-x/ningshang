@@ -25,6 +25,7 @@ public class AdminApiController {
     @Autowired private JobService jobService;
     @Autowired private MessageService messageService;
     @Autowired private SubsidiaryService subsidiaryService;
+    @Autowired private CoreBusinessService coreBusinessService;
     @Autowired private TeamService teamService;
     @Autowired private HonorService honorService;
     @Autowired private MilestoneService milestoneService;
@@ -43,6 +44,7 @@ public class AdminApiController {
                 case "jobs": jobService.delete(id); break;
                 case "messages": messageService.delete(id); break;
                 case "subsidiaries": subsidiaryService.delete(id); break;
+                case "core-businesses": coreBusinessService.delete(id); break;
                 case "team": teamService.delete(id); break;
                 case "honors": honorService.delete(id); break;
                 case "milestones": milestoneService.delete(id); break;
@@ -136,6 +138,29 @@ public class AdminApiController {
     @DeleteMapping("/subsidiaries/{id}")
     public ApiResponse<String> deleteSubsidiary(@PathVariable Long id) {
         subsidiaryService.delete(id);
+        return ApiResponse.success("删除成功");
+    }
+
+    // ==================== 核心业务领域 ====================
+    @GetMapping("/core-businesses")
+    public ApiResponse<List<CoreBusiness>> listCoreBusinesses() {
+        return ApiResponse.success(coreBusinessService.findAll());
+    }
+
+    @PostMapping("/core-businesses")
+    public ApiResponse<CoreBusiness> createCoreBusiness(@Valid @RequestBody CoreBusiness coreBusiness) {
+        return ApiResponse.success(coreBusinessService.save(coreBusiness));
+    }
+
+    @PutMapping("/core-businesses/{id}")
+    public ApiResponse<CoreBusiness> updateCoreBusiness(@PathVariable Long id, @Valid @RequestBody CoreBusiness coreBusiness) {
+        coreBusiness.setId(id);
+        return ApiResponse.success(coreBusinessService.save(coreBusiness));
+    }
+
+    @DeleteMapping("/core-businesses/{id}")
+    public ApiResponse<String> deleteCoreBusiness(@PathVariable Long id) {
+        coreBusinessService.delete(id);
         return ApiResponse.success("删除成功");
     }
 

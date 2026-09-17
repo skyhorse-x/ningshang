@@ -96,6 +96,7 @@ const moduleByPath = {
   '/ningshang-admin/content/software': 'content',
   '/ningshang-admin/content/recruit': 'content',
   '/ningshang-admin/subsidiaries': 'subsidiaries',
+  '/ningshang-admin/core-businesses': 'core-businesses',
   '/ningshang-admin/team': 'team',
   '/ningshang-admin/honors': 'honors',
   '/ningshang-admin/milestones': 'milestones',
