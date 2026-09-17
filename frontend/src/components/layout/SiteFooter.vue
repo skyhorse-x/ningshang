@@ -22,7 +22,7 @@
           <h6>快捷导航</h6>
           <ul class="flink">
             <li><router-link to="/news">新闻中心</router-link></li>
-            <li><router-link to="/industry/construction">集团产业</router-link></li>
+            <li><router-link to="/industry">集团产业</router-link></li>
             <li><router-link to="/recruit">人才理念</router-link></li>
             <li><router-link to="/contact">联系方式</router-link></li>
             <li><router-link to="/contact/message">在线留言</router-link></li>

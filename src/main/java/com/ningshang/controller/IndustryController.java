@@ -26,14 +26,12 @@ public class IndustryController {
 
     @GetMapping("/industry-construction")
     public String industryConstruction(Model model) {
-        model.addAttribute("currentPage", "industry");
-        return "pages/industry-construction";
+        return "redirect:/industry";
     }
 
     @GetMapping("/industry-software")
     public String industrySoftware(Model model) {
-        model.addAttribute("currentPage", "industry");
-        return "pages/industry-software";
+        return "redirect:/industry";
     }
 
     @GetMapping("/api/subsidiaries")

@@ -302,10 +302,8 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(about, "企业文化", "/ningshang-admin/content/culture", "Flag", 6);
         ensureMenu(about, "党建工作", "/ningshang-admin/content/party", "Star", 7);
         ensureMenu(news, "新闻列表", "/ningshang-admin/news", "Document", 1);
-        ensureMenu(industry, "建筑工程", "/ningshang-admin/content/construction", "School", 1);
-        ensureMenu(industry, "软件科技", "/ningshang-admin/content/software", "Cpu", 2);
-        ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 3);
-        ensureMenu(industry, "核心业务领域", "/ningshang-admin/core-businesses", "Grid", 4);
+        ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 1);
+        ensureMenu(industry, "核心业务领域", "/ningshang-admin/core-businesses", "Grid", 2);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
         ensureMenu(interaction, "招聘岗位", "/ningshang-admin/jobs", "Briefcase", 2);
         ensureMenu(interaction, "在线留言", "/ningshang-admin/messages", "ChatDotRound", 3);
@@ -320,7 +318,9 @@ public class DataInitializer implements CommandLineRunner {
         java.util.Set<Long> removeIds = new java.util.LinkedHashSet<>();
         for (String path : java.util.List.of(
                 "/ningshang-admin/content/home",
-                "/ningshang-admin/content/other")) {
+                "/ningshang-admin/content/other",
+                "/ningshang-admin/content/construction",
+                "/ningshang-admin/content/software")) {
             adminMenuRepository.findByPath(path).ifPresent(menu -> removeIds.add(menu.getId()));
         }
         for (String groupName : java.util.List.of("首页与全站", "内容管理", "内容运营")) {

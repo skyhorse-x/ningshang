@@ -33,10 +33,6 @@
         </li>
         <li :class="{ on: route.path.startsWith('/industry') }">
           <router-link to="/industry" class="nav-link" @click="menuOpen=false">集团产业<span class="en">INDUSTRY</span></router-link>
-          <ul class="subnav">
-            <li><router-link to="/industry/construction" @click="menuOpen=false">建筑工程</router-link></li>
-            <li><router-link to="/industry/software" @click="menuOpen=false">软件科技</router-link></li>
-          </ul>
         </li>
         <li :class="{ on: route.path.startsWith('/contact') || route.path.startsWith('/recruit') }">
           <router-link to="/contact" class="nav-link" @click="menuOpen=false">联系宁商<span class="en">CONTACT</span></router-link>

@@ -4,11 +4,6 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="pagebanner" style="background-image:url('/images/industry-banner.jpeg');height:auto;aspect-ratio:4134/940;background-size:100% 100%;"></div>
-<div class="subnav-section"><div class="wrap"><span class="title">集团产业</span></div></div>
-<div class="subnav-tabs"><div class="wrap">
-<a th:href="@{/industry-construction}">建筑工程</a>
-<a th:href="@{/industry-software}">软件科技</a>
-</div></div>
 <div class="section text-bg-industry"><div class="wrap">
 <div class="sec-head">
 <span class="en">SUBSIDIARIES</span>
@@ -24,20 +19,6 @@
 <div class="rich-content" th:utext="${@richText.clean(sub.description)}">描述</div>
 </div>
 </div>
-</div>
-</div></div>
-<div class="section soft"><div class="wrap">
-<div class="sec-head">
-<span class="en">CORE BUSINESS</span>
-<h3>核心业务领域</h3>
-<p>科技赋能产业，服务贯穿全程</p>
-</div>
-<div class="biz-grid">
-<div class="biz-card" style="background-image:url('/images/biz-1.png')"><div class="ico">🏗</div><h5>建设工程</h5><p>建筑施工、市政配套与城市基础设施服务。</p></div>
-<div class="biz-card" style="background-image:url('/images/biz-2.png')"><div class="ico">💻</div><h5>数字科技</h5><p>建筑数字化、人工智能与算法软件开发。</p></div>
-<div class="biz-card" style="background-image:url('/images/biz-3.png')"><div class="ico">📊</div><h5>信息咨询</h5><p>企业全周期科创赋能与专业咨询。</p></div>
-<div class="biz-card" style="background-image:url('/images/biz-4.png')"><div class="ico">⚙</div><h5>智能装备</h5><p>智能装备研发智造与数字技术应用。</p></div>
-<div class="biz-card" style="background-image:url('/images/biz-5.png')"><div class="ico">🏢</div><h5>物业管理</h5><p>物业运营评估与城市综合配套服务。</p></div>
 </div>
 </div></div>
 <div th:replace="fragments/footer :: footer"></div>

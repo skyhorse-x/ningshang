@@ -92,8 +92,6 @@ const moduleByPath = {
   '/ningshang-admin/content/speech': 'content',
   '/ningshang-admin/content/culture': 'content',
   '/ningshang-admin/content/party': 'content',
-  '/ningshang-admin/content/construction': 'content',
-  '/ningshang-admin/content/software': 'content',
   '/ningshang-admin/content/recruit': 'content',
   '/ningshang-admin/subsidiaries': 'subsidiaries',
   '/ningshang-admin/core-businesses': 'core-businesses',
