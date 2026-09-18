@@ -1,5 +1,5 @@
 <template>
-  <div class="header" :class="{ 'is-overlay': overlay }">
+  <div class="site-nav" :class="{ 'is-overlay': overlay }">
     <div class="wrap">
       <router-link to="/" class="brand">
         <img src="/images/logo.png" alt="安徽宁商科技集团" width="72" height="54">
@@ -64,7 +64,7 @@ const menuOpen = ref(false)
 </script>
 
 <style scoped>
-.header {
+.site-nav {
   background: #fff;
   position: sticky;
   top: 0;
@@ -72,7 +72,7 @@ const menuOpen = ref(false)
   box-shadow: 0 2px 12px rgba(0,0,0,.06);
   transition: background-color .25s ease, box-shadow .25s ease;
 }
-.header.is-overlay {
+.site-nav.is-overlay {
   position: absolute;
   top: 38px;
   left: 0;
@@ -100,18 +100,18 @@ const menuOpen = ref(false)
 .brand .bt { display: flex; flex-direction: column; line-height: 1.25; }
 .brand .bt b { font-size: 22px; color: var(--c-primary); letter-spacing: 1px; }
 .brand .bt small { font-size: 11px; color: var(--c-text-light); letter-spacing: 2px; text-transform: uppercase; }
-.header.is-overlay .brand .bt b,
-.header.is-overlay .brand .bt small,
-.header.is-overlay .nav > li > a,
-.header.is-overlay .nav-link {
+.site-nav.is-overlay .brand .bt b,
+.site-nav.is-overlay .brand .bt small,
+.site-nav.is-overlay .nav > li > a,
+.site-nav.is-overlay .nav-link {
   color: #fff;
 }
-.header.is-overlay .nav > li > a .en,
-.header.is-overlay .nav-link .en {
+.site-nav.is-overlay .nav > li > a .en,
+.site-nav.is-overlay .nav-link .en {
   color: rgba(255,255,255,.72);
 }
-.header.is-overlay .nav > li:hover > a,
-.header.is-overlay .nav > li.on > a {
+.site-nav.is-overlay .nav > li:hover > a,
+.site-nav.is-overlay .nav > li.on > a {
   color: #fff;
 }
 .nav {
@@ -201,13 +201,13 @@ const menuOpen = ref(false)
 .menu-btn { display: none; }
 
 @media (max-width: 1000px) {
-  .header.is-overlay {
+  .site-nav.is-overlay {
     top: 0;
     background: rgba(5, 22, 46, .72);
   }
-  .header.is-overlay .wrap { height: 78px; }
-  .header.is-overlay .brand img { height: 48px; }
-  .header.is-overlay .menu-btn span { background: #fff; }
+  .site-nav.is-overlay .wrap { height: 78px; }
+  .site-nav.is-overlay .brand img { height: 48px; }
+  .site-nav.is-overlay .menu-btn span { background: #fff; }
   .menu-btn {
     display: flex;
     flex-direction: column;
@@ -231,7 +231,7 @@ const menuOpen = ref(false)
     transition: .4s;
     box-shadow: 0 8px 20px rgba(0,0,0,.12);
   }
-  .header.is-overlay .nav { top: 78px; }
+  .site-nav.is-overlay .nav { top: 78px; }
   .nav.open { max-height: 600px; }
   .nav > li { width: 100%; height: auto; border-bottom: 1px solid var(--c-line); }
   .nav > li > a { padding: 14px 20px; height: auto; }

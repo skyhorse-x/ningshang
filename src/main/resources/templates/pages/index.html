@@ -56,15 +56,21 @@
 
       <!-- 右侧视频卡 -->
       <div class="hn-side">
-        <a th:href="@{/about-intro}" class="hn-video">
+        <button type="button" class="hn-video" data-video-open>
           <img th:src="@{/images/news-staff-training.jpeg}" alt="宁商宣传片">
           <div class="hn-video-mask">
             <div class="play-btn">▶</div>
             <span>宁商集团宣传片</span>
           </div>
-        </a>
+        </button>
       </div>
     </div>
+  </div>
+</div>
+<div class="video-modal" id="home-video-modal" aria-hidden="true">
+  <div class="video-dialog">
+    <div class="video-dialog-head"><span>宁商集团宣传片</span><button type="button" class="video-dialog-close" data-video-close aria-label="关闭">×</button></div>
+    <video id="home-video-player" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" poster="/images/news-staff-training.jpeg" controls playsinline preload="metadata"></video>
   </div>
 </div>
 

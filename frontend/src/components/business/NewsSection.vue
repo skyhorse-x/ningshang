@@ -60,7 +60,7 @@ const categories = [
 ]
 const filteredNews = computed(() => newsList.value.filter(n => n.category === activeTab.value).slice(0, 5))
 const featuredNews = computed(() => newsList.value.filter(n => n.category === 'group'))
-const videoUrl = (import.meta.env.VITE_HOME_VIDEO_URL || '').trim()
+const videoUrl = (import.meta.env.VITE_HOME_VIDEO_URL || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4').trim()
 const videoVisible = ref(false)
 const videoFailed = ref(false)
 const videoPlayer = ref(null)
@@ -101,8 +101,8 @@ onMounted(async () => {
 .hn-list :deep(.el-tabs) { min-width: 0; }
 .hn-list :deep(.el-tabs__header) { margin-bottom: 0; }
 .hn-list ::v-deep(.el-tabs__nav-wrap::after) { background: var(--c-line); }
-.hn-list ::v-deep(.el-tabs__item) { font-size: 14px; padding: 0 8px; }
-.hn-list ::v-deep(.el-tabs__item.is-active) { color: var(--c-primary); }
+.hn-list ::v-deep(.el-tabs__item) { width: 25%; padding: 0; text-align: center; font-size: 14px; font-weight: 500; }
+.hn-list ::v-deep(.el-tabs__item.is-active) { color: var(--c-primary); font-weight: 500; }
 .hn-list ::v-deep(.el-tabs__active-bar) { background: var(--c-accent); }
 .hn-items { list-style: none; padding: 4px 0; margin: 0; flex: 1; min-height: 0; overflow-y: auto; }
 .hn-items li a { display: flex; align-items: center; gap: 10px; padding: 12px 18px; transition: .25s; font-size: 13px; text-decoration: none; color: inherit; }

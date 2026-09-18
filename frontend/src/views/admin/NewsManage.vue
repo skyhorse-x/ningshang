@@ -53,6 +53,7 @@
         <el-form-item label="标题"><el-input v-model="form.title" /></el-form-item>
         <el-form-item label="分类"><el-select v-model="form.category" placeholder="请选择" @change="onCategoryChange"><el-option label="集团新闻" value="group" /><el-option label="产业动态" value="industry" /><el-option label="行业资讯" value="trend" /><el-option label="员工风采" value="staff" /></el-select></el-form-item>
         <el-form-item label="作者"><el-input v-model="form.author" /></el-form-item>
+        <el-form-item label="发布时间"><el-date-picker v-model="form.date" type="month" value-format="YYYY-MM" placeholder="选择发布时间" style="width: 220px" /></el-form-item>
         <el-form-item label="封面图"><ImageUpload v-model="form.image" /></el-form-item>
         <el-form-item label="摘要"><el-input v-model="form.summary" type="textarea" :rows="3" /></el-form-item>
         <el-form-item label="正文"><RichEditor v-if="dialogVisible" :key="form.id || 'new'" v-model="form.body" height="380px" /></el-form-item>
@@ -80,7 +81,7 @@ const loading = ref(false)
 const form = ref({})
 const pagination = reactive({ page: 1, size: 10, total: 0 })
 
-const emptyForm = () => ({ id: null, title: '', category: 'group', categoryName: '集团新闻', date: '', author: '', source: '内部资料', image: '', summary: '', body: '', newsId: '' })
+const emptyForm = () => ({ id: null, title: '', category: 'group', categoryName: '集团新闻', date: new Date().toISOString().slice(0, 7), author: '', source: '内部资料', image: '', summary: '', body: '', newsId: '' })
 
 const formatTime = (t) => {
   if (!t) return '-'

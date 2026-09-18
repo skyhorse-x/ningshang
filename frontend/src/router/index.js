@@ -2,6 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   { path: '/', component: () => import('@/views/HomeIndex.vue'), meta: { title: '安徽宁商科技集团有限公司' } },
+
+  { path: '/about-intro', redirect: '/about/intro' },
+  { path: '/about-speech', redirect: '/about/speech' },
+  { path: '/about-events', redirect: '/about/events' },
+  { path: '/about-team', redirect: '/about/team' },
+  { path: '/about-honor', redirect: '/about/honor' },
+  { path: '/about-party', redirect: '/about/party' },
+  { path: '/about-culture', redirect: '/about/culture' },
+  { path: '/recruit-job', redirect: '/recruit/jobs' },
+  { path: '/news-detail', redirect: to => ({ path: '/news/' + (to.query.id || '') }) },
   { path: '/about/intro', component: () => import('@/views/about/AboutIntro.vue'), meta: { title: '集团简介' } },
   { path: '/about/speech', component: () => import('@/views/about/AboutSpeech.vue'), meta: { title: '董事长致词' } },
   { path: '/about/events', component: () => import('@/views/about/AboutEvents.vue'), meta: { title: '发展大事记' } },
@@ -44,7 +54,8 @@ const routes = [
       { path: 'groups', component: () => import('@/views/admin/GroupManage.vue'), meta: { title: '管理员分组' } },
       { path: 'admins', component: () => import('@/views/admin/AdminManage.vue'), meta: { title: '管理员账号' } },
     ]
-  }
+  },
+  { path: '/:pathMatch(.*)*', redirect: '/' }
 ]
 
 const router = createRouter({

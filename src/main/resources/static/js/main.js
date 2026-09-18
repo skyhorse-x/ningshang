@@ -259,6 +259,19 @@ var FOOTER_HTML = '\
     apply(active.getAttribute('data-cat'));
   }
 
+
+  function bindHomeVideo() {
+    var open = document.querySelector('[data-video-open]');
+    var modal = document.getElementById('home-video-modal');
+    var close = document.querySelector('[data-video-close]');
+    var video = document.getElementById('home-video-player');
+    if (!open || !modal) return;
+    function hide() { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); if (video) video.pause(); }
+    open.addEventListener('click', function () { modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); if (video) video.play().catch(function () {}); });
+    if (close) close.addEventListener('click', hide);
+    modal.addEventListener('click', function (e) { if (e.target === modal) hide(); });
+  }
+
   // 表单反馈
   function bindForm() {
     var form = document.querySelector('form.contact-form');
@@ -289,6 +302,7 @@ var FOOTER_HTML = '\
     heroCarousel();
     newsFilter();
     homeNewsTabs();
+    bindHomeVideo();
     bindForm();
     applyBg();
 

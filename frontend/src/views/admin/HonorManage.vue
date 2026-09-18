@@ -29,6 +29,7 @@
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑荣誉' : '新增荣誉'" width="min(960px, 94vw)" destroy-on-close>
       <el-form :model="form" label-width="80px">
         <el-form-item label="荣誉名称"><el-input v-model="form.title" /></el-form-item>
+        <el-form-item label="图标"><el-input v-model="form.icon" placeholder="可填 emoji 或图标名，如 🏅 / medal" /></el-form-item>
         <el-form-item label="图片"><ImageUpload v-model="form.image" /></el-form-item>
         <el-form-item label="排序"><el-input-number v-model="form.sortOrder" :min="1" /></el-form-item>
         <el-form-item label="说明"><RichEditor v-if="dialogVisible" :key="form.id || 'new'" v-model="form.description" height="380px" /></el-form-item>
@@ -53,7 +54,7 @@ const dialogVisible = ref(false)
 const saving = ref(false)
 const form = ref({})
 
-const emptyForm = () => ({ id: null, title: '', description: '', icon: 'medal', image: '', sortOrder: list.value.length + 1 })
+const emptyForm = () => ({ id: null, title: '', description: '', icon: '🏅', image: '', sortOrder: list.value.length + 1 })
 
 const filteredList = computed(() => {
   let result = list.value
