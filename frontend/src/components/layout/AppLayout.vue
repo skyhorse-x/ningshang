@@ -1,7 +1,7 @@
 <template>
   <div class="app-layout">
     <TopBar />
-    <NavBar />
+    <NavBar overlay />
     <main class="main-content">
       <router-view />
     </main>
@@ -20,6 +20,7 @@ import SiteFooter from './SiteFooter.vue'
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .main-content {
   flex: 1;

@@ -1,15 +1,10 @@
 <template>
   <div>
-    <div class="page-header"><h3>{{ pageTitle }}</h3><span class="tip">{{ mode === 'settings' ? '管理联系方式、备案与全站品牌信息' : '对应前台页面，修改保存后即时生效' }}</span></div>
+    <div class="page-header"><h3>{{ pageTitle }}</h3><span class="tip">{{ mode === 'settings' ? '管理与全站品牌信息' : '对应前台页面，修改保存后即时生效' }}</span></div>
 
     <el-tabs v-model="activeTab" class="content-tabs">
       <el-tab-pane v-if="mode === 'settings'" label="基本设置" name="basic">
         <el-form :model="forms.basic" label-width="100px" class="content-form">
-          <el-divider content-position="left">联系方式</el-divider>
-          <el-form-item label="地址"><el-input v-model="forms.basic.contact_address" placeholder="安徽省合肥市..." /></el-form-item>
-          <el-form-item label="电话"><el-input v-model="forms.basic.contact_phone" placeholder="13365745652" /></el-form-item>
-          <el-form-item label="邮箱"><el-input v-model="forms.basic.contact_email" placeholder="NStechnology@163.com" /></el-form-item>
-          <el-form-item label="办公时间"><el-input v-model="forms.basic.office_hours" placeholder="周一至周五 09:00 - 18:00" /></el-form-item>
           <el-divider content-position="left">备案信息</el-divider>
           <el-form-item label="备案号"><el-input v-model="forms.basic.icp_number" placeholder="皖ICP备2026XXXXXX号-1" /></el-form-item>
           <el-form-item label="底部品牌简介"><RichEditor v-if="activeTab === 'basic'" v-model="forms.basic.footer_brand_desc" height="220px" /></el-form-item>

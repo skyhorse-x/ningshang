@@ -6,6 +6,8 @@ import com.ningshang.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ public class AdminPermissionService {
     @Autowired private AdminGroupPermissionRepository groupPermissionRepository;
     @Autowired private AdminRepository adminRepository;
     @Autowired private AdminGroupRepository groupRepository;
+    @PersistenceContext private EntityManager entityManager;
 
     public List<AdminPermission> listAll() { return permissionRepository.findAllByOrderBySortOrderAscIdAsc(); }
     public List<Long> getIds(Long groupId) { return groupPermissionRepository.findByGroupId(groupId).stream().map(AdminGroupPermission::getPermissionId).collect(Collectors.toList()); }
@@ -27,9 +30,17 @@ public class AdminPermissionService {
     public boolean has(String username, String code) { return getCodes(username).contains(code); }
     @Transactional public void update(Long groupId, List<Long> ids) {
         if (!groupRepository.existsById(groupId)) throw new BusinessException(404, "权限组不存在");
-        groupPermissionRepository.deleteByGroupId(groupId);
-        if (ids == null) return;
-        Set<Long> valid = permissionRepository.findAllById(ids).stream().map(AdminPermission::getId).collect(Collectors.toSet());
-        for (Long id : new LinkedHashSet<>(ids)) if (valid.contains(id)) { AdminGroupPermission gp = new AdminGroupPermission(); gp.setGroupId(groupId); gp.setPermissionId(id); groupPermissionRepository.save(gp); }
+        if (ids == null || ids.contains(null)) throw new BusinessException(400, "权限列表不正确");
+        Set<Long> uniqueIds = new LinkedHashSet<>(ids);
+        if (permissionRepository.findAllById(uniqueIds).size() != uniqueIds.size()) throw new BusinessException(400, "操作权限不存在");
+        entityManager.createNativeQuery("DELETE FROM admin_group_permission WHERE group_id = :gid")
+            .setParameter("gid", groupId).executeUpdate();
+        entityManager.flush();
+        entityManager.clear();
+        if (uniqueIds.isEmpty()) return;
+        List<AdminGroupPermission> relations = uniqueIds.stream()
+            .map(id -> { AdminGroupPermission gp = new AdminGroupPermission(); gp.setGroupId(groupId); gp.setPermissionId(id); return gp; })
+            .collect(Collectors.toList());
+        groupPermissionRepository.saveAll(relations);
     }
 }

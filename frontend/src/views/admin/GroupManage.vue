@@ -112,12 +112,12 @@ onMounted(async () => {
 const openDialog = async (row) => {
   form.value = row ? { ...row } : { id: null, name: '', description: '', status: 1 }
   dialogVisible.value = true
-  const menuIds = []
-  const permissionIds = []
+  let menuIds = []
+  let permissionIds = []
   if (row?.id) {
     const [menuRes, permissionRes] = await Promise.all([api.adminGroupMenus(row.id), api.adminGroupPermissions(row.id)])
-    menuIds.push(...(menuRes.data || []))
-    permissionIds.push(...(permissionRes.data || []))
+    menuIds = [...new Set(menuRes.data || [])]
+    permissionIds = [...new Set(permissionRes.data || [])]
   }
   await nextTick()
   permissionTreeRef.value?.setCheckedKeys([
@@ -129,9 +129,10 @@ const openDialog = async (row) => {
 const splitChecked = () => {
   const checked = permissionTreeRef.value?.getCheckedKeys() || []
   const halfChecked = permissionTreeRef.value?.getHalfCheckedKeys() || []
+  const toId = key => Number(String(key).slice(5))
   return {
-    menuIds: [...checked, ...halfChecked].filter(key => String(key).startsWith('menu:')).map(key => Number(String(key).slice(5))),
-    permissionIds: checked.filter(key => String(key).startsWith('perm:')).map(key => Number(String(key).slice(5)))
+    menuIds: [...new Set([...checked, ...halfChecked].filter(key => String(key).startsWith('menu:')).map(toId))],
+    permissionIds: [...new Set(checked.filter(key => String(key).startsWith('perm:')).map(toId))]
   }
 }
 

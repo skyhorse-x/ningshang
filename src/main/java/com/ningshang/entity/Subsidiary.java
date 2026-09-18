@@ -5,6 +5,7 @@ import javax.validation.constraints.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -41,6 +42,9 @@ public class Subsidiary {
     private String background;
     
     private Integer sortOrder;
+
+    @Transient
+    private List<Long> coreBusinessIds;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createdAt;

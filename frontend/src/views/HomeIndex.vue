@@ -3,7 +3,6 @@
     <HeroCarousel />
     <NewsSection />
     <IndustryGrid />
-    <CoverageMap />
     <section class="section">
       <div class="wrap">
         <div class="sec-head">
@@ -27,7 +26,7 @@
 import HeroCarousel from '@/components/business/HeroCarousel.vue'
 import NewsSection from '@/components/business/NewsSection.vue'
 import IndustryGrid from '@/components/business/IndustryGrid.vue'
-import CoverageMap from '@/components/business/CoverageMap.vue'
+// import CoverageMap from '@/components/business/CoverageMap.vue'
 import { ref, onMounted, computed } from 'vue'
 import api from '@/api'
 import { richTextPreview } from '@/utils/richText'
@@ -60,9 +59,9 @@ onMounted(async () => {
 .biz-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
 .biz-card { background: #fff; background-size: cover; background-position: center; border: 1px solid var(--c-line); padding: 38px 26px; transition: .3s; position: relative; overflow: hidden; }
 .biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
-.ico { width: 64px; height: 64px; border-radius: 50%; background: var(--c-bg-soft); display: flex; align-items: center; justify-content: center; font-size: 25px; color: var(--c-primary); margin-bottom: 20px; }
-.biz-card h5 { font-size: 19px; color: var(--c-primary); margin-bottom: 10px; }
-.biz-card p { font-size: 14px; color: var(--c-text-light); }
+.ico { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: 25px; color: #fff; margin-bottom: 20px; }
+.biz-card h5 { font-size: 19px; color: #fff; margin-bottom: 10px; }
+.biz-card p { font-size: 14px; color: rgba(255,255,255,.85); }
 @media (max-width: 1000px) {
   .biz-grid { grid-template-columns: 1fr; }
 }

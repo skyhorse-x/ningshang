@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{ 'is-overlay': overlay }">
     <div class="wrap">
       <router-link to="/" class="brand">
         <img src="/images/logo.png" alt="安徽宁商科技集团" width="72" height="54">
@@ -51,6 +51,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
+
+defineProps({
+  overlay: {
+    type: Boolean,
+    default: false
+  }
+})
+
 const route = useRoute()
 const menuOpen = ref(false)
 </script>
@@ -62,6 +70,16 @@ const menuOpen = ref(false)
   top: 0;
   z-index: 200;
   box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  transition: background-color .25s ease, box-shadow .25s ease;
+}
+.header.is-overlay {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  right: 0;
+  background: rgb(4 4 4 / 0%);
+  box-shadow: none;
+  backdrop-filter: blur(8px);
 }
 .wrap {
   width: 1200px;
@@ -82,6 +100,20 @@ const menuOpen = ref(false)
 .brand .bt { display: flex; flex-direction: column; line-height: 1.25; }
 .brand .bt b { font-size: 22px; color: var(--c-primary); letter-spacing: 1px; }
 .brand .bt small { font-size: 11px; color: var(--c-text-light); letter-spacing: 2px; text-transform: uppercase; }
+.header.is-overlay .brand .bt b,
+.header.is-overlay .brand .bt small,
+.header.is-overlay .nav > li > a,
+.header.is-overlay .nav-link {
+  color: #fff;
+}
+.header.is-overlay .nav > li > a .en,
+.header.is-overlay .nav-link .en {
+  color: rgba(255,255,255,.72);
+}
+.header.is-overlay .nav > li:hover > a,
+.header.is-overlay .nav > li.on > a {
+  color: #fff;
+}
 .nav {
   margin-left: auto;
   display: flex;
@@ -169,6 +201,13 @@ const menuOpen = ref(false)
 .menu-btn { display: none; }
 
 @media (max-width: 1000px) {
+  .header.is-overlay {
+    top: 0;
+    background: rgba(5, 22, 46, .72);
+  }
+  .header.is-overlay .wrap { height: 78px; }
+  .header.is-overlay .brand img { height: 48px; }
+  .header.is-overlay .menu-btn span { background: #fff; }
   .menu-btn {
     display: flex;
     flex-direction: column;
@@ -192,6 +231,7 @@ const menuOpen = ref(false)
     transition: .4s;
     box-shadow: 0 8px 20px rgba(0,0,0,.12);
   }
+  .header.is-overlay .nav { top: 78px; }
   .nav.open { max-height: 600px; }
   .nav > li { width: 100%; height: auto; border-bottom: 1px solid var(--c-line); }
   .nav > li > a { padding: 14px 20px; height: auto; }

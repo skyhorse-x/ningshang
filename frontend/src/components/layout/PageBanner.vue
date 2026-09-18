@@ -29,7 +29,7 @@ const bannerStyle = computed(() => ({
 
 <style scoped>
 .pagebanner {
-  height: 280px;
+  height: 450px;
   background-size: cover;
   background-position: center;
   position: relative;
