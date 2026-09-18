@@ -1,6 +1,6 @@
 <template>
   <div class="hero">
-    <el-carousel height="400px" :interval="5500" arrow="never" indicator-position="outside">
+    <el-carousel height="450px" :interval="5500" arrow="never" indicator-position="outside">
       <el-carousel-item v-for="(slide, idx) in slides" :key="idx">
         <div class="slide" :style="'background-image:url(' + slide.image + ')'">
         </div>
@@ -18,7 +18,7 @@ const slides = [
 </script>
 
 <style scoped>
-.hero { position: relative; height: 400px; overflow: hidden; background: #0a2c57; top: 0px; }
+.hero { position: relative; height: 450px; overflow: hidden; background: #0a2c57; top: 0px; }
 .slide {
   width: 100%;
   height: 100%;
@@ -30,6 +30,6 @@ const slides = [
 }
 .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,22,46,.82), rgba(13,58,114,.48), rgba(5,22,46,.32)); }
 @media (max-width: 1000px) {
-  .hero { height: 400px; }
+  .hero { height: 450px; }
 }
 </style>
