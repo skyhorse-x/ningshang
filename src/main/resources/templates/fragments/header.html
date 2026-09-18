@@ -6,7 +6,7 @@
 <title th:text="${title}">安徽宁商科技集团有限公司</title>
 <meta name="keywords" th:content="${keywords} ?: '安徽宁商科技集团,宁商科技,科创产业服务'">
 <meta name="description" th:content="${description} ?: '安徽宁商科技集团有限公司立足安徽本土，聚焦科创产业服务。'">
-<link rel="stylesheet" th:href="@{/css/style.css(v=${#dates.createNow().time})}">
+<link rel="stylesheet" href="/css/style.css?v=20260918">
 </head>
 <body>
 <div th:fragment="header" id="site-header">
@@ -66,3 +66,4 @@
 </div>
 </body>
 </html>
+
