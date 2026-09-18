@@ -176,7 +176,7 @@ img{max-width:100%;display:block;}
 .intro-section .sub-item .logo-area img{max-width:120px;max-height:100px;object-fit:contain;}
 .intro-section .sub-item .info-area{padding:18px 20px;}
 .intro-section .sub-item .info-area h4{font-size:16px;color:var(--c-primary);margin-bottom:8px;}
-.intro-section .sub-item .info-area p{font-size:13px;color:var(--c-text-light);line-height:1.7;margin:0;}
+.intro-section .sub-item .info-area p,.intro-section .sub-item .info-area .rich-content p{font-size:13px;color:var(--c-text-light);line-height:1.7;margin:0;text-indent:0;}
 
 /* 企业文化页面优化 */
 .culture-content{max-width:900px;margin:0 auto;}
@@ -338,7 +338,7 @@ img{max-width:100%;display:block;}
 .timeline .tl-item .yr{font-size:24px;color:var(--c-primary);font-weight:700;font-family:Georgia,serif;}
 .timeline .tl-item .card{background:#fff;border:1px solid var(--c-line);padding:20px 24px;margin-top:10px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.05);}
 .timeline .tl-item .card h5{font-size:16px;color:var(--c-text);margin-bottom:6px;}
-.timeline .tl-item .card p{font-size:13px;color:var(--c-text-light);}
+.timeline .tl-item .card p{font-size:13px;color:var(--c-text-light);text-indent:0;}
 
 /* 党建 */
 .party-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}

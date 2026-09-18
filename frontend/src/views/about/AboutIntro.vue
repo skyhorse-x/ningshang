@@ -86,7 +86,7 @@ onMounted(async () => {
 .logo-area img { max-width: 120px; max-height: 100px; object-fit: contain; }
 .info-area { padding: 18px 20px; }
 .info-area h4 { font-size: 16px; color: var(--c-primary); margin-bottom: 8px; }
-.info-area p { font-size: 13px; color: var(--c-text-light); line-height: 1.7; margin: 0; }
+.info-area p { font-size: 13px; color: var(--c-text-light); line-height: 1.7; margin: 0; text-indent: 0; }
 .stats { background: var(--c-primary); color: #fff; }
 .stats .wrap { display: flex; justify-content: space-around; padding: 56px 0; text-align: center; }
 .stats .item .num { font-size: 48px; font-weight: 700; color: var(--c-accent); font-family: Georgia, serif; }

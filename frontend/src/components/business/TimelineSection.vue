@@ -32,6 +32,6 @@ onMounted(async () => {
 .timeline { margin: 30px 0; }
 .timeline .card { background: #fff; border: 1px solid var(--c-line); padding: 20px 24px; border-radius: 6px; box-shadow: 0 4px 14px rgba(0,0,0,.05); }
 .timeline .card h5 { font-size: 16px; color: var(--c-text); margin-bottom: 6px; }
-.timeline .card p { font-size: 13px; color: var(--c-text-light); }
+.timeline .card p { font-size: 13px; color: var(--c-text-light); text-indent: 0; }
 .timeline ::v-deep(.el-timeline-item__timestamp) { font-size: 24px; color: var(--c-primary); font-weight: 700; font-family: Georgia, serif; }
 </style>
