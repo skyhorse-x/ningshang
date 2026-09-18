@@ -571,3 +571,16 @@ img{max-width:100%;display:block;}
 .video-dialog-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--c-line);font-weight:600;color:var(--c-primary);}
 .video-dialog-close{border:0;background:transparent;font-size:28px;line-height:1;cursor:pointer;color:#666;}
 .video-dialog video{display:block;width:100%;aspect-ratio:16/9;background:#000;}
+
+/* 五大核心优势 / 合作伙伴 */
+.advantages-section{background:linear-gradient(180deg,#f7fbff 0%,#fff 100%);position:relative;overflow:hidden;}
+.advantages-section::before{content:"";position:absolute;left:0;right:0;bottom:0;height:150px;background:linear-gradient(0deg,rgba(13,58,114,.06),transparent);pointer-events:none;}
+.adv-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(5,1fr);gap:22px;}
+.adv-card{text-align:center;padding:14px 12px 0;}
+.adv-ico{width:68px;height:68px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;color:#256ce1;font-size:24px;font-weight:700;background:radial-gradient(circle at 35% 35%,#fff,#dce9ff);box-shadow:0 10px 24px rgba(37,108,225,.12);}
+.adv-card h5{font-size:18px;color:var(--c-primary);margin-bottom:10px;}
+.adv-card p{margin:0 auto;max-width:170px;color:var(--c-text-light);font-size:13px;line-height:1.7;}
+.partners-section{background:#f7f9fc;}
+.partner-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
+.partner-card{min-height:82px;border:1px solid var(--c-line);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--c-primary);font-weight:600;box-shadow:0 8px 24px rgba(13,58,114,.05);}
+@media (max-width:1000px){.section{padding:52px 0}.sec-head{margin-bottom:30px}.sec-head h3{font-size:26px}.adv-grid,.partner-grid,.biz-grid{grid-template-columns:1fr}.biz-card{min-height:190px;padding:30px 22px}.home-news{grid-template-columns:1fr}.hero{height:320px}.hero .cap h2{font-size:24px}.hero .cap p{font-size:13px}}
