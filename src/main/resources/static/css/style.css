@@ -88,11 +88,7 @@ img{max-width:100%;display:block;}
 .pagebanner .cap .en{font-size:13px;letter-spacing:4px;color:var(--c-accent);text-transform:uppercase;}
 .pagebanner .cap h2{font-size:40px;font-weight:700;margin:6px 0;}
 
-/* 两级子导航 */
-.subnav-section{background:var(--c-primary);color:#fff;padding:18px 0;}
-.subnav-section .wrap{display:flex;align-items:center;gap:16px;}
-.subnav-section .title{font-size:22px;font-weight:600;position:relative;padding-left:18px;}
-.subnav-section .title::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:24px;background:var(--c-accent);}
+/* 一级子导航（标题条 .subnav-section 已去除，仅保留标签页） */
 .subnav-tabs{background:var(--c-primary-light);padding:0;}
 .subnav-tabs .wrap{display:flex;gap:0;}
 .subnav-tabs a{padding:14px 32px;font-size:15px;color:rgba(255,255,255,.85);position:relative;transition:.25s;}
@@ -538,8 +534,6 @@ img{max-width:100%;display:block;}
   .timeline .tl-item,.timeline .tl-item:nth-child(even){width:100%;margin-left:0;padding:0 0 36px 40px;}
   .timeline .tl-item .dot{left:1px;right:auto;}
   .subtabs{top:70px;}.subtabs .wrap{overflow-x:auto;flex-wrap:nowrap;}
-  .subnav-section{padding:14px 0;}
-  .subnav-section .title{font-size:18px;}
   .subnav-tabs .wrap{overflow-x:auto;flex-wrap:nowrap;}
   .subnav-tabs a{padding:10px 20px;font-size:13px;white-space:nowrap;}
   .content-list .list-item{flex-direction:column;gap:16px;}

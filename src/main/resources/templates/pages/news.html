@@ -4,7 +4,6 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_news_banner'])} ? '/images/news-center-banner.jpeg' : ${siteContent['bg_news_banner']}) + '\')'"></div>
-<div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
 <div class="subnav-tabs news-tabs"><div class="wrap">
 <a href="#all" data-cat="all" class="on">全部新闻</a>
 <a href="#group" data-cat="group">集团新闻</a>

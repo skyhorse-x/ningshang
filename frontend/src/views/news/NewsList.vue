@@ -1,7 +1,6 @@
 <template>
   <div>
     <PageBanner :image="bg('bg_news_banner', '/images/news-center-banner.jpeg')" title="新闻中心" />
-    <div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
     <div class="subnav-tabs news-tabs"><div class="wrap">
       <a href="#" :class="{on: activeCat==='all'}" @click.prevent="setCategory('all')">全部新闻</a>
       <a href="#" :class="{on: activeCat==='group'}" @click.prevent="setCategory('group')">集团新闻</a>
@@ -65,9 +64,6 @@ watch(() => route.query.category, value => { activeCat.value = normalizeCategory
 .section { padding: 80px 0; }
 .wrap { width: 1200px; max-width: 94%; margin: 0 auto; }
 .text-bg-news { background-image: url(/images/43B3F7AAFD4D74BF80FA30DFA7B129CE.jpg); background-size: cover; background-position: center top; background-attachment: fixed; }
-.subnav-section { background: var(--c-primary); color: #fff; padding: 18px 0; }
-.subnav-section .title { font-size: 22px; font-weight: 600; position: relative; padding-left: 18px; }
-.subnav-section .title::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 3px; height: 24px; background: var(--c-accent); }
 .subnav-tabs { background: var(--c-primary-light); }
 .subnav-tabs .wrap { display: flex; gap: 0; }
 .subnav-tabs a { flex: 0 0 128px; width: 128px; text-align: center; padding: 14px 0; font-size: 15px; color: rgba(255,255,255,.85); position: relative; transition: .25s; text-decoration: none; }
