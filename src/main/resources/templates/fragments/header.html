@@ -13,8 +13,8 @@
 <div class="topbar">
   <div class="wrap">
     <div class="tl">
-      <span><i>✆</i>服务热线：13365745652</span>
-      <span><i>✉</i>NStechnology@163.com</span>
+      <span><i>✆</i>服务热线：<span th:text="${#strings.isEmpty(siteContent['contact_phone']) ? '13365745652' : siteContent['contact_phone']}">13365745652</span></span>
+      <span><i>✉</i><span th:text="${#strings.isEmpty(siteContent['contact_email']) ? 'NStechnology@163.com' : siteContent['contact_email']}">NStechnology@163.com</span></span>
     </div>
     <div class="tr">
       <a th:href="@{/recruit-job}">人才招聘</a>

@@ -15,14 +15,18 @@
 <div class="detail-head"><h1>招聘岗位</h1></div>
 <div class="detail-body">
 <p>诚邀志同道合者，与宁商同心同行、共赴远方</p>
-<div class="job-list">
-<div class="job-item"><div class="job-head"><h4>软件开发工程师</h4><span class="job-dept">技术部</span></div><div class="job-tags"><span>✦ 招聘人数：3人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责AI定制软件开发与系统集成项目</div></div>
-<div class="job-item"><div class="job-head"><h4>建筑工程师</h4><span class="job-dept">工程部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责建筑工程施工管理与质量控制</div></div>
-<div class="job-item"><div class="job-head"><h4>智能装备研发工程师</h4><span class="job-dept">研发部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：硕士及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责智能装备产品研发与技术攻关</div></div>
-<div class="job-item"><div class="job-head"><h4>法务专员</h4><span class="job-dept">法务部</span></div><div class="job-tags"><span>✦ 招聘人数：1人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责集团法律合规与风险管控</div></div>
-<div class="job-item"><div class="job-head"><h4>市场拓展经理</h4><span class="job-dept">市场部</span></div><div class="job-tags"><span>✦ 招聘人数：2人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责市场调研与客户关系维护</div></div>
-<div class="job-item"><div class="job-head"><h4>财务会计</h4><span class="job-dept">财务部</span></div><div class="job-tags"><span>✦ 招聘人数：1人</span><span>✦ 工作地点：合肥</span><span>✦ 学历要求：本科及以上</span></div><div class="job-desc"><b>岗位描述：</b>负责日常财务核算与报表编制</div></div>
+<div class="job-list" th:if="${jobs != null and !#lists.isEmpty(jobs)}">
+<div class="job-item" th:each="jb : ${jobs}">
+<div class="job-head"><h4 th:text="${jb.title}">岗位名称</h4><span class="job-dept" th:text="${jb.department}">部门</span></div>
+<div class="job-tags">
+<span th:if="${!#strings.isEmpty(jb.headcount)}" th:text="'✦ 招聘人数：' + ${jb.headcount}">✦ 招聘人数：3人</span>
+<span th:if="${!#strings.isEmpty(jb.location)}" th:text="'✦ 工作地点：' + ${jb.location}">✦ 工作地点：合肥</span>
+<span th:if="${!#strings.isEmpty(jb.education)}" th:text="'✦ 学历要求：' + ${jb.education}">✦ 学历要求：本科及以上</span>
 </div>
+<div class="job-desc" th:if="${!#strings.isEmpty(jb.description)}"><b>岗位描述：</b><span class="rich-content" th:utext="${@richText.clean(jb.description)}">岗位描述</span></div>
+</div>
+</div>
+<p th:if="${jobs == null or #lists.isEmpty(jobs)}">暂无在招岗位</p>
 </div>
 </div>
 </div></div>

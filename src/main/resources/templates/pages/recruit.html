@@ -14,17 +14,8 @@
 <div class="content-detail">
 <div class="detail-head"><h1>人才理念</h1></div>
 <div class="detail-body">
-<p style="text-align:center;font-size:22px;color:#0d3a72;font-weight:600;text-indent:0;margin-bottom:8px;">务实笃行 · 创新赋能 · 诚信致远</p>
-<p style="text-align:center;color:#6b6b6b;text-indent:0;margin-bottom:40px;">以人为本，聚才兴企，与志同道合者共赴远方</p>
-<h3>人才价值观</h3>
-<p><b>01 务实笃行</b><br/>不尚空谈、不务虚功，以脚踏实地的作风深耕业务。</p>
-<p><b>02 创新赋能</b><br/>以持续创新的能力响应需求，鼓励探索突破。</p>
-<p><b>03 诚信致远</b><br/>以诚信合规的经营赢得市场信赖，重信守诺。</p>
-<p><b>04 开放共赢</b><br/>秉持开放共赢、兼容并蓄的经营理念。</p>
-<h3>加入宁商</h3>
-<p>乘势而上，生生不息，期待与您同心同行</p>
-<img th:src="@{/images/news-staff-training.jpeg}" alt="加入宁商" style="width:100%;border-radius:6px;margin:20px 0;">
-<p><a th:href="@{/contact}" style="border-bottom:2px solid #c8a45c;padding-bottom:4px;color:#0d3a72;font-weight:600;">联系我们应聘 →</a></p>
+<div class="rich-content" th:if="${#strings.isEmpty(siteContent['recruit_body'])}"><p><strong>务实笃行 · 创新赋能 · 诚信致远</strong></p><p>以人为本，聚才兴企，与志同道合者共赴远方</p><h3>人才价值观</h3><p><strong>01 务实笃行</strong><br>不尚空谈、不务虚功，以脚踏实地的作风深耕业务。</p><p><strong>02 创新赋能</strong><br>以持续创新的能力响应需求，鼓励探索突破。</p><p><strong>03 诚信致远</strong><br>以诚信合规的经营赢得市场信赖，重信守诺。</p><p><strong>04 开放共赢</strong><br>秉持开放共赢、兼容并蓄的经营理念。</p><h3>加入宁商</h3><p>乘势而上，生生不息，期待与您同心同行</p></div>
+<div class="rich-content" th:unless="${#strings.isEmpty(siteContent['recruit_body'])}" th:utext="${@richText.clean(siteContent['recruit_body'])}"></div>
 </div>
 </div>
 </div></div>

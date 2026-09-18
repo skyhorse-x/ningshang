@@ -42,6 +42,7 @@ public class ContactController {
 
     @GetMapping("/recruit-job")
     public String recruitJob(Model model) {
+        model.addAttribute("jobs", jobService.findAll());
         model.addAttribute("currentPage", "contact");
         return "pages/recruit-job";
     }

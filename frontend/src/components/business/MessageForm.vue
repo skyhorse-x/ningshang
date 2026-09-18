@@ -21,10 +21,10 @@
       <el-col :span="12">
         <el-form-item label="留言类型" prop="type">
           <el-select v-model="form.type" placeholder="请选择" style="width: 100%">
-            <el-option label="合作咨询" value="cooperation" />
-            <el-option label="招聘求职" value="recruit" />
-            <el-option label="业务洽谈" value="business" />
-            <el-option label="其他" value="other" />
+            <el-option label="业务合作" value="cooperation" />
+            <el-option label="人才应聘" value="recruit" />
+            <el-option label="媒体联系" value="media" />
+            <el-option label="其他咨询" value="other" />
           </el-select>
         </el-form-item>
       </el-col>

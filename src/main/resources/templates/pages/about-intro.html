@@ -21,15 +21,21 @@
     <div class="content-detail">
       <div class="detail-head">
         <h1>安徽宁商科技集团有限公司</h1>
-        <div class="meta">一徽藏一城，一潮见格局</div>
+        <div class="meta" th:text="${#strings.isEmpty(siteContent['about_intro_meta']) ? '一徽藏一城，一潮见格局' : siteContent['about_intro_meta']}">一徽藏一城，一潮见格局</div>
       </div>
       <div class="detail-body">
         <div class="intro-section">
-          <h3>徽韵承城，扎根本土根基</h3>
-          <p>安徽宁商科技集团有限公司扎根安徽合肥。</p>
+          <h3 th:text="${#strings.isEmpty(siteContent['about_intro_s1_title']) ? '徽韵承城，扎根本土根基' : siteContent['about_intro_s1_title']}">徽韵承城，扎根本土根基</h3>
+          <div class="rich-content" th:if="${#strings.isEmpty(siteContent['about_intro_s1_body'])}"><p>安徽宁商科技集团有限公司扎根安徽合肥，深度契合合肥"城湖共生"的城市格局与科创引领的发展脉络。</p></div>
+          <div class="rich-content" th:unless="${#strings.isEmpty(siteContent['about_intro_s1_body'])}" th:utext="${@richText.clean(siteContent['about_intro_s1_body'])}"></div>
         </div>
         <div class="intro-section">
-          <h3>五子联动，共筑产业潮头</h3>
+          <h3 th:text="${#strings.isEmpty(siteContent['about_intro_s2_title']) ? '潮涌科创，锚定主业航向' : siteContent['about_intro_s2_title']}">潮涌科创，锚定主业航向</h3>
+          <div class="rich-content" th:if="${#strings.isEmpty(siteContent['about_intro_s2_body'])}"><p>集团以数字科技为核心发展主线，奔涌拓展业务边界，形成覆盖技术研发、系统集成、数字文创的多元核心业务体系。</p></div>
+          <div class="rich-content" th:unless="${#strings.isEmpty(siteContent['about_intro_s2_body'])}" th:utext="${@richText.clean(siteContent['about_intro_s2_body'])}"></div>
+        </div>
+        <div class="intro-section">
+          <h3 th:text="${#strings.isEmpty(siteContent['about_intro_s3_title']) ? '五子联动，共筑产业潮头' : siteContent['about_intro_s3_title']}">五子联动，共筑产业潮头</h3>
           <div class="sub-grid-new">
             <div class="sub-item" th:each="sub : ${subsidiaries}">
               <div class="logo-area"><img th:src="${sub.logo}" alt=""></div>
@@ -46,10 +52,10 @@
 </div>
 <div class="stats">
   <div class="wrap">
-    <div class="item"><div class="num">2018</div><div class="lbl">成立年份</div></div>
-    <div class="item"><div class="num">4</div><div class="lbl">成员企业</div></div>
-    <div class="item"><div class="num">10<small>+</small></div><div class="lbl">知识产权</div></div>
-    <div class="item"><div class="num">4</div><div class="lbl">业务领域</div></div>
+    <div class="item"><div class="num" th:text="${#strings.isEmpty(siteContent['stat_founded']) ? '2018' : siteContent['stat_founded']}">2018</div><div class="lbl">成立年份</div></div>
+    <div class="item"><div class="num" th:text="${#strings.isEmpty(siteContent['stat_companies']) ? '4' : siteContent['stat_companies']}">4</div><div class="lbl">成员企业</div></div>
+    <div class="item"><div class="num" th:text="${#strings.isEmpty(siteContent['stat_ip']) ? '10+' : siteContent['stat_ip']}">10+</div><div class="lbl">知识产权</div></div>
+    <div class="item"><div class="num" th:text="${#strings.isEmpty(siteContent['stat_fields']) ? '4' : siteContent['stat_fields']}">4</div><div class="lbl">业务领域</div></div>
   </div>
 </div>
 <div th:replace="fragments/footer :: footer"></div>

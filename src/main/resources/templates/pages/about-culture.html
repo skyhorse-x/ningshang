@@ -19,16 +19,15 @@
 <div class="culture-content">
 <div class="culture-section">
 <h3>扎根本土，做有根的事业</h3>
-<p class="lead">安徽宁商科技集团生长于合肥科创热土，扎根巢湖之滨。</p>
-<p>从成立之初我们就认准一个道理：企业从来不是孤立的个体，它的根基在这座城市。</p>
+<div class="lead rich-content" th:utext="${#strings.isEmpty(siteContent['culture_lead']) ? '<p>安徽宁商科技集团生长于合肥科创热土，扎根巢湖之滨。</p>' : @richText.clean(siteContent['culture_lead'])}"></div>
 </div>
 <div class="culture-section">
 <h3>核心价值理念</h3>
 <div class="culture-values">
-<div class="cv-item"><div class="cv-label">MISSION</div><div class="cv-text">科创赋能城乡，数字服务实业</div></div>
-<div class="cv-item"><div class="cv-label">CORE VALUES</div><div class="cv-text">徽商固本 · 科创致远 · 协同共生 · 开放共赢</div></div>
-<div class="cv-item"><div class="cv-label">VISION</div><div class="cv-text">城湖共生处，笃行向远方</div></div>
-<div class="cv-item"><div class="cv-label">SPIRIT</div><div class="cv-text">务实笃行 · 创新赋能 · 诚信致远</div></div>
+<div class="cv-item"><div class="cv-label">MISSION</div><div class="cv-text rich-content" th:utext="${#strings.isEmpty(siteContent['culture_mission']) ? '<p>科创赋能城乡，数字服务实业</p>' : @richText.clean(siteContent['culture_mission'])}"></div></div>
+<div class="cv-item"><div class="cv-label">CORE VALUES</div><div class="cv-text rich-content" th:utext="${#strings.isEmpty(siteContent['culture_values']) ? '<p>徽商固本 · 科创致远 · 协同共生 · 开放共赢</p>' : @richText.clean(siteContent['culture_values'])}"></div></div>
+<div class="cv-item"><div class="cv-label">VISION</div><div class="cv-text rich-content" th:utext="${#strings.isEmpty(siteContent['culture_vision']) ? '<p>城湖共生处，笃行向远方</p>' : @richText.clean(siteContent['culture_vision'])}"></div></div>
+<div class="cv-item"><div class="cv-label">SPIRIT</div><div class="cv-text rich-content" th:utext="${#strings.isEmpty(siteContent['culture_spirit']) ? '<p>务实笃行 · 创新赋能 · 诚信致远</p>' : @richText.clean(siteContent['culture_spirit'])}"></div></div>
 </div>
 </div>
 </div>

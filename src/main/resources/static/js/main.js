@@ -272,14 +272,45 @@ var FOOTER_HTML = '\
     modal.addEventListener('click', function (e) { if (e.target === modal) hide(); });
   }
 
-  // 表单反馈
+  // 留言表单：真正提交到 POST /api/messages（之前只弹 alert，留言进不了后台）
   function bindForm() {
     var form = document.querySelector('form.contact-form');
     if (!form) return;
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      alert('感谢您的留言，我们已收到信息，将尽快与您联系！');
-      form.reset();
+      var btn = form.querySelector('button[type="submit"]');
+      var payload = {
+        name: (form.name.value || '').trim(),
+        phone: (form.phone.value || '').trim(),
+        email: (form.email.value || '').trim(),
+        type: form.type.value || 'other',
+        content: (form.message.value || '').trim()
+      };
+      if (!payload.name || !payload.phone || !payload.content) {
+        alert('请填写姓名、联系电话和留言内容');
+        return;
+      }
+      var originalText = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = '提交中…'; }
+      function restore() { if (btn) { btn.disabled = false; btn.textContent = originalText || '提交留言'; } }
+      fetch('/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; });
+      }).then(function (res) {
+        if (res && res.code === 200) {
+          alert('感谢您的留言，我们已收到信息，将尽快与您联系！');
+          form.reset();
+        } else {
+          alert((res && res.message) || '提交失败，请稍后重试');
+        }
+        restore();
+      }).catch(function () {
+        alert('网络异常，提交失败，请稍后重试');
+        restore();
+      });
     });
   }
 

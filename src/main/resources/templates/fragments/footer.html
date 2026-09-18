@@ -4,7 +4,8 @@
     <div class="grid">
       <div class="fbrand">
         <img th:src="@{/images/logo.png}" alt="安徽宁商科技集团" width="72" height="54">
-        <p>安徽宁商科技集团有限公司，立足安徽本土，聚焦科创产业服务，秉持"务实笃行、创新赋能、诚信致远"的核心价值观，践行"城湖共生处，笃行向远方"的发展愿景。</p>
+        <div class="fbrand-desc rich-content" th:if="${#strings.isEmpty(siteContent['footer_brand_desc'])}"><p>安徽宁商科技集团有限公司，立足安徽本土，聚焦科创产业服务，秉持"务实笃行、创新赋能、诚信致远"的核心价值观，践行"城湖共生处，笃行向远方"的发展愿景。</p></div>
+        <div class="fbrand-desc rich-content" th:unless="${#strings.isEmpty(siteContent['footer_brand_desc'])}" th:utext="${@richText.clean(siteContent['footer_brand_desc'])}"></div>
       </div>
       <div>
         <h6>集团概况</h6>
@@ -31,14 +32,14 @@
       <div class="fcontact">
         <h6>联系方式</h6>
         <ul>
-          <li>📍 安徽省合肥市蜀山区24号创新工场</li>
-          <li>✆ 13365745652</li>
-          <li>✉ NStechnology@163.com</li>
+          <li>📍 <span th:text="${#strings.isEmpty(siteContent['contact_address']) ? '安徽省合肥市蜀山区24号创新工场' : siteContent['contact_address']}">安徽省合肥市蜀山区24号创新工场</span></li>
+          <li>✆ <span th:text="${#strings.isEmpty(siteContent['contact_phone']) ? '13365745652' : siteContent['contact_phone']}">13365745652</span></li>
+          <li>✉ <span th:text="${#strings.isEmpty(siteContent['contact_email']) ? 'NStechnology@163.com' : siteContent['contact_email']}">NStechnology@163.com</span></li>
         </ul>
       </div>
     </div>
   </div>
-  <div class="copy">Copyright © 2026 安徽宁商科技集团有限公司 皖ICP备2026XXXXXX号-1　技术支持：宁商科技</div>
+  <div class="copy">Copyright © 2026 安徽宁商科技集团有限公司 <span th:text="${#strings.isEmpty(siteContent['icp_number']) ? '皖ICP备2026XXXXXX号-1' : siteContent['icp_number']}">皖ICP备2026XXXXXX号-1</span>　技术支持：宁商科技</div>
 </div>
 <script th:src="@{/js/main.js(v=${#dates.createNow().time})}"></script>
 </div>

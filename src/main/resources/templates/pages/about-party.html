@@ -20,15 +20,10 @@
 </div></div>
 <div class="section text-bg-party"><div class="wrap">
 <div class="content-detail">
-<div class="detail-head"><h1>党建领航聚合力 实干奋进启新程</h1><div class="meta">安徽宁商科技集团筑牢红色根基引领高质量发展</div></div>
+<div class="detail-head"><h1 th:text="${#strings.isEmpty(siteContent['party_title']) ? '党建领航聚合力 实干奋进启新程' : siteContent['party_title']}">党建领航聚合力 实干奋进启新程</h1><div class="meta" th:text="${#strings.isEmpty(siteContent['party_meta']) ? '安徽宁商科技集团筑牢红色根基引领高质量发展' : siteContent['party_meta']}">安徽宁商科技集团筑牢红色根基引领高质量发展</div></div>
 <div class="detail-body">
-<p>以高质量党建引领集团高质量发展，传承红色基因，凝聚奋进力量。</p>
-<h3>一、冲锋在前、实干担当</h3>
-<p>安徽宁商科技集团2026年7月启动党支部筹备工作，4名党员全程亮身份、作表率。</p>
-<h3>二、凝心铸魂、氛围浓厚</h3>
-<p>党支部的组织成立过程，是安徽宁商科技集团发展历程中的重要里程碑。</p>
-<h3>三、深度融合、同频奋进</h3>
-<p>站在新的起点，安徽宁商科技集团将以党支部组织成立为契机，始终坚持党建领航。</p>
+<div class="rich-content" th:if="${#strings.isEmpty(siteContent['party_body'])}"><p>以高质量党建引领集团高质量发展，传承红色基因，凝聚奋进力量。</p><h3>一、冲锋在前、实干担当</h3><p>安徽宁商科技集团2026年7月启动党支部筹备工作，4名党员全程亮身份、作表率。</p><h3>二、凝心铸魂、氛围浓厚</h3><p>党支部的组织成立过程，是安徽宁商科技集团发展历程中的重要里程碑。</p><h3>三、深度融合、同频奋进</h3><p>站在新的起点，安徽宁商科技集团将以党支部组织成立为契机，始终坚持党建领航。</p></div>
+<div class="rich-content" th:unless="${#strings.isEmpty(siteContent['party_body'])}" th:utext="${@richText.clean(siteContent['party_body'])}"></div>
 </div>
 </div>
 </div></div>
