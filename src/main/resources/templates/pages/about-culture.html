@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title='|企|业|文|化| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" style="background-image:url('/images/1.jpg')"></div>
+<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_about_banner'])} ? '/images/1.jpg' : ${siteContent['bg_about_banner']}) + '\')'"></div>
 <div class="subnav-section"><div class="wrap"><span class="title">集团概况</span></div></div>
 <div class="subnav-tabs"><div class="wrap">
 <a th:href="@{/about-intro}">集团简介</a>

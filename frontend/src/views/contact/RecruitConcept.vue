@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageBanner image="/images/news-staff-training.jpeg" title="人才理念" />
+    <PageBanner :image="bg('bg_contact_banner', '/images/news-staff-training.jpeg')" title="人才理念" />
     <SubNav title="联系宁商">
       <router-link to="/recruit" class="on">人才理念</router-link>
       <router-link to="/recruit/jobs">招聘岗位</router-link>
@@ -36,6 +36,7 @@ import SubNav from '@/components/layout/SubNav.vue'
 import RichContent from '@/components/business/RichContent.vue'
 import { loadContent, pick } from '@/utils/content'
 const content = ref({})
+const bg = (key, fallback) => pick(content.value, key, fallback)
 const defaultBody = '<p style="text-align:center;font-size:22px;font-weight:bold">务实笃行 · 创新赋能 · 诚信致远</p><p style="text-align:center">以人为本，聚才兴企，与志同道合者共赴远方</p><h3>人才价值观</h3><p><strong>01 务实笃行</strong><br>不尚空谈、不务虚功，以脚踏实地的作风深耕业务。</p><p><strong>02 创新赋能</strong><br>以持续创新的能力响应需求，鼓励探索突破。</p><p><strong>03 诚信致远</strong><br>以诚信合规的经营赢得市场信赖，重信守诺。</p><p><strong>04 开放共赢</strong><br>秉持开放共赢、兼容并蓄的经营理念。</p><h3>加入宁商</h3><p>乘势而上，生生不息，期待与您同心同行</p><p><a href="/contact">联系我们应聘 →</a></p>'
 const body = computed(() => pick(content.value, 'recruit_body', defaultBody))
 onMounted(async () => { content.value = await loadContent() })

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageBanner image="/images/contact-banner.jpeg" title="在线留言" />
+    <PageBanner :image="bg('bg_contact_banner', '/images/contact-banner.jpeg')" title="在线留言" />
     <SubNav title="联系宁商">
       <router-link to="/recruit">人才理念</router-link>
       <router-link to="/recruit/jobs">招聘岗位</router-link>
@@ -20,9 +20,14 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import SubNav from '@/components/layout/SubNav.vue'
 import MessageForm from '@/components/business/MessageForm.vue'
+import { loadContent, pick } from '@/utils/content'
+const content = ref({})
+const bg = (key, fallback) => pick(content.value, key, fallback)
+onMounted(async () => { content.value = await loadContent() })
 </script>
 
 <style scoped>

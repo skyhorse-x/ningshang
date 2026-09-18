@@ -3,8 +3,8 @@
 <head th:replace="fragments/head :: head(title='|集|团|产|业| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" style="background-image:url('/images/industry-banner.jpeg');height:auto;aspect-ratio:4134/940;background-size:100% 100%;"></div>
-<div class="section text-bg-industry"><div class="wrap">
+<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_industry_banner'])} ? '/images/industry-banner.jpeg' : ${siteContent['bg_industry_banner']}) + '\');height:auto;aspect-ratio:4134/940;background-size:100% 100%;'"></div>
+<div class="section text-bg-industry" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_industry_page'])} ? '/images/2945347C3CC652EA1119F1A7F09DC2A9.jpg' : ${siteContent['bg_industry_page']}) + '\')'"><div class="wrap">
 <div class="sec-head">
 <span class="en">SUBSIDIARIES</span>
 <h3>成员企业</h3>

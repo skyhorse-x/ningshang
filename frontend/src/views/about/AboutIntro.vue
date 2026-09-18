@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageBanner image="/images/1.jpg" title="集团简介" />
+    <PageBanner :image="bg('bg_about_banner', '/images/1.jpg')" title="集团简介" />
     <SubNav title="集团概况">
       <router-link to="/about/intro" class="on">集团简介</router-link>
       <router-link to="/about/speech">董事长致词</router-link>
@@ -10,7 +10,7 @@
       <router-link to="/about/party">党建工作</router-link>
       <router-link to="/about/culture">企业文化</router-link>
     </SubNav>
-    <section class="section about-text-section">
+    <section class="section about-text-section" :style="sectionBg('bg_about_page', '/images/about-pic.jpeg')">
       <div class="wrap">
         <div class="content-detail">
           <div class="detail-head"><h1>安徽宁商科技集团有限公司</h1><div class="meta">{{ c('about_intro_meta', '一徽藏一城，一潮见格局') }}</div></div>
@@ -57,6 +57,8 @@ import { loadContent, pick } from '@/utils/content'
 
 const content = ref({})
 const c = (key, fallback) => pick(content.value, key, fallback)
+const bg = (key, fallback) => pick(content.value, key, fallback)
+const sectionBg = (key, fallback) => ({ backgroundImage: `url(${bg(key, fallback)})` })
 const subsidiaries = ref([])
 onMounted(async () => {
   content.value = await loadContent()

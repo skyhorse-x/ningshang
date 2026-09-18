@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageBanner image="/images/news-center-banner.jpeg" title="新闻中心" />
+    <PageBanner :image="bg('bg_news_banner', '/images/news-center-banner.jpeg')" title="新闻中心" />
     <div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
     <div class="subnav-tabs news-tabs"><div class="wrap">
       <a href="#" :class="{on: activeCat==='all'}" @click.prevent="setCategory('all')">全部新闻</a>
@@ -9,7 +9,7 @@
       <a href="#" :class="{on: activeCat==='trend'}" @click.prevent="setCategory('trend')">行业资讯</a>
       <a href="#" :class="{on: activeCat==='staff'}" @click.prevent="setCategory('staff')">员工风采</a>
     </div></div>
-    <section class="section text-bg-news"><div class="wrap">
+    <section class="section text-bg-news" :style="sectionBg('bg_news_page', '/images/43B3F7AAFD4D74BF80FA30DFA7B129CE.jpg')"><div class="wrap">
       <ul class="content-list news-waterfall">
         <li class="nitem" v-for="item in pagedNews" :key="item.id">
           <div class="list-item">
@@ -34,9 +34,13 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import api from '@/api'
+import { loadContent, pick } from '@/utils/content'
 const route = useRoute()
 const router = useRouter()
 const newsList = ref([])
+const content = ref({})
+const bg = (key, fallback) => pick(content.value, key, fallback)
+const sectionBg = (key, fallback) => ({ backgroundImage: `url(${bg(key, fallback)})` })
 const activeCat = ref('all')
 const currentPage = ref(1)
 const pageSize = 8
@@ -50,6 +54,7 @@ const setCategory = (category) => {
 }
 onMounted(async () => {
   activeCat.value = normalizeCategory(route.query.category)
+  content.value = await loadContent()
   const res = await api.getNews()
   if (res.code === 200) newsList.value = res.data
 })

@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title='|联|系|方|式| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" style="background-image:url('/images/contact-banner.jpeg');height:auto;aspect-ratio:6227/1263;background-size:100% 100%;"></div>
+<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_contact_banner'])} ? '/images/contact-banner.jpeg' : ${siteContent['bg_contact_banner']}) + '\');height:auto;aspect-ratio:6227/1263;background-size:100% 100%;'"></div>
 <div class="subnav-section"><div class="wrap"><span class="title">联系宁商</span></div></div>
 <div class="subnav-tabs"><div class="wrap">
 <a th:href="@{/recruit}">人才理念</a>
@@ -11,7 +11,7 @@
 <a th:href="@{/contact}" class="on">联系方式</a>
 <a th:href="@{/contact-message}">在线留言</a>
 </div></div>
-<div class="section text-bg-contact"><div class="wrap">
+<div class="section text-bg-contact" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_contact_page'])} ? '/images/b.jpg' : ${siteContent['bg_contact_page']}) + '\')'"><div class="wrap">
 <div class="content-detail">
 <div class="detail-head"><h1>联系方式</h1></div>
 <div class="detail-body">

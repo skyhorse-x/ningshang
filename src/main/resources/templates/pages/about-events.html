@@ -4,7 +4,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner with-overlay" style="background-image:url('/images/dashiji.jpg')">
+<div class="pagebanner with-overlay" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_about_banner'])} ? '/images/dashiji.jpg' : ${siteContent['bg_about_banner']}) + '\')'">
   <div class="wrap cap">
     <div class="crumb"><a th:href="@{/}">首页</a> / <a th:href="@{/about-intro}">集团概况</a> / 发展大事记</div>
     <span class="en">MILESTONES</span>

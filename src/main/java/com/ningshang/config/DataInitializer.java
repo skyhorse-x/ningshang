@@ -175,6 +175,14 @@ public class DataInitializer implements CommandLineRunner {
         upsertContent("industry_construction_body", "建筑工程正文", "<p>安徽利至高建设工程有限公司是安徽宁商科技集团旗下建筑工程板块的核心企业，承载集团工程建设与基础设施配套服务的核心职能。</p><p>公司业务覆盖房屋建筑、工业厂房、公共建筑施工总承包，以及城市道路、桥梁、给排水等市政公用工程。</p>", 80);
         upsertContent("industry_software_body", "软件科技正文", "<p>软件科技板块是安徽宁商科技集团数字产业战略的核心引擎，由安徽陆洲科技有限责任公司与安徽合州信息咨询有限责任公司共同构成。</p><p>两家成员企业协同发力，专注AI定制软件开发、卫星信息系统集成及政企数字化转型咨询。</p>", 81);
         upsertContent("recruit_body", "人才理念正文", "<p><strong>务实笃行 · 创新赋能 · 诚信致远</strong></p><p>以人为本，聚才兴企，与志同道合者共赴远方。</p><h3>人才价值观</h3><p><strong>01 务实笃行</strong><br>不尚空谈、不务虚功，以脚踏实地的作风深耕业务。</p><p><strong>02 创新赋能</strong><br>以持续创新的能力响应需求，鼓励探索突破。</p><p><strong>03 诚信致远</strong><br>以诚信合规的经营赢得市场信赖，重信守诺。</p><p><strong>04 开放共赢</strong><br>秉持开放共赢、兼容并蓄的经营理念。</p>", 82);
+        upsertContent("bg_about_banner", "集团概况-栏目背景图", "/images/1.jpg", 90);
+        upsertContent("bg_about_page", "集团概况-页面大背景图", "/images/about-pic.jpeg", 91);
+        upsertContent("bg_news_banner", "新闻中心-栏目背景图", "/images/news-center-banner.jpeg", 92);
+        upsertContent("bg_news_page", "新闻中心-页面大背景图", "/images/43B3F7AAFD4D74BF80FA30DFA7B129CE.jpg", 93);
+        upsertContent("bg_industry_banner", "集团产业-栏目背景图", "/images/industry-banner.jpeg", 94);
+        upsertContent("bg_industry_page", "集团产业-页面大背景图", "/images/2945347C3CC652EA1119F1A7F09DC2A9.jpg", 95);
+        upsertContent("bg_contact_banner", "联系宁商-栏目背景图", "/images/contact-banner.jpeg", 96);
+        upsertContent("bg_contact_page", "联系宁商-页面大背景图", "/images/b.jpg", 97);
     }
 
     private void upsertContent(String key, String title, String content, int sortOrder) {

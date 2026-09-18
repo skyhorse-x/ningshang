@@ -1,13 +1,13 @@
 <template>
   <div>
-    <PageBanner image="/images/contact-banner.jpeg" title="联系方式" />
+    <PageBanner :image="bg('bg_contact_banner', '/images/contact-banner.jpeg')" title="联系方式" />
     <SubNav title="联系宁商">
       <router-link to="/recruit">人才理念</router-link>
       <router-link to="/recruit/jobs">招聘岗位</router-link>
       <router-link to="/contact" class="on">联系方式</router-link>
       <router-link to="/contact/message">在线留言</router-link>
     </SubNav>
-    <section class="section text-bg-contact"><div class="wrap">
+    <section class="section text-bg-contact" :style="sectionBg('bg_contact_page', '/images/b.jpg')"><div class="wrap">
       <div class="content-detail">
         <div class="detail-head"><h1>联系方式</h1></div>
         <div class="detail-body">
@@ -32,14 +32,19 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import SubNav from '@/components/layout/SubNav.vue'
 import ContactForm from '@/components/business/ContactForm.vue'
 import api from '@/api'
+import { loadContent, pick } from '@/utils/content'
+const content = ref({})
+const bg = (key, fallback) => pick(content.value, key, fallback)
+const sectionBg = (key, fallback) => ({ backgroundImage: `url(${bg(key, fallback)})` })
 const formRef = ref(null)
 const form = reactive({ name: '', phone: '', email: '', type: '', content: '' })
+onMounted(async () => { content.value = await loadContent() })
 const rules = { name: [{ required: true, message: '请输入姓名', trigger: 'blur' }], phone: [{ required: true, message: '请输入电话', trigger: 'blur' }], content: [{ required: true, message: '请输入留言内容', trigger: 'blur' }] }
 const onSubmit = async () => {
   if (!formRef.value) return

@@ -59,7 +59,7 @@ img{max-width:100%;display:block;}
 .subnav li a:hover{background:var(--c-bg-soft);color:var(--c-primary);}
 
 /* ===== 轮播 ===== */
-.hero{position:relative;height:382px;overflow:hidden;background:#0a2c57;top:0px;}
+.hero{position:relative;height:400px;overflow:hidden;background:#0a2c57;top:0px;}
 .hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center;}
 .hero .slide.on{opacity:1;}
 .hero .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,22,46,.82),rgba(13,58,114,.48),rgba(5,22,46,.32));}
@@ -426,9 +426,9 @@ img{max-width:100%;display:block;}
 .hn-feat-meta{position:absolute;left:0;right:0;bottom:0;padding:10px 24px;background:#fff;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--c-line);}
 .hn-feat-meta .cat{font-size:12px;color:var(--c-primary);font-weight:500;}
 .hn-feat-meta .date{font-size:12px;color:var(--c-text-light);}
-.hn-list{border:1px solid var(--c-line);border-radius:4px;display:flex;flex-direction:column;background:#fff;}
-.hn-tabs{display:flex;border-bottom:1px solid var(--c-line);}
-.hn-tabs a{flex:0 0 25%;width:25%;text-align:center;padding:14px 0;font-size:14px;font-weight:500;color:var(--c-text);position:relative;transition:color .25s ease,background-color .25s ease;}
+.hn-list{border:1px solid var(--c-line);border-radius:4px;display:flex;flex-direction:column;background:#fff;width:420px;min-width:420px;max-width:420px;height:300px;overflow:hidden;}
+.hn-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--c-line);width:100%;}
+.hn-tabs a{display:block;width:100%;min-width:0;text-align:center;padding:14px 0;font-size:14px;font-weight:500;color:var(--c-text);position:relative;transition:color .25s ease,background-color .25s ease;}
 .hn-tabs a:hover{color:var(--c-primary);}
 .hn-tabs a.on{color:var(--c-primary);font-weight:500;}
 .hn-tabs a.on::after{content:"";position:absolute;left:20%;right:20%;bottom:-1px;height:2px;background:var(--c-accent);}

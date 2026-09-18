@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title='|新|闻|中|心| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" style="background-image:url('/images/news-center-banner.jpeg')"></div>
+<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_news_banner'])} ? '/images/news-center-banner.jpeg' : ${siteContent['bg_news_banner']}) + '\')'"></div>
 <div class="subnav-section"><div class="wrap"><span class="title">新闻中心</span></div></div>
 <div class="subnav-tabs news-tabs"><div class="wrap">
 <a href="#all" data-cat="all" class="on">全部新闻</a>
@@ -12,7 +12,7 @@
 <a href="#trend" data-cat="trend">行业资讯</a>
 <a href="#staff" data-cat="staff">员工风采</a>
 </div></div>
-<div class="section text-bg-news"><div class="wrap">
+<div class="section text-bg-news" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_news_page'])} ? '/images/43B3F7AAFD4D74BF80FA30DFA7B129CE.jpg' : ${siteContent['bg_news_page']}) + '\')'"><div class="wrap">
 <ul class="content-list news-waterfall">
 <li class="nitem" th:each="news : ${newsList}" th:data-cat="${news.category}">
 <div class="list-item">

@@ -8,6 +8,24 @@
           <el-divider content-position="left">备案信息</el-divider>
           <el-form-item label="备案号"><el-input v-model="forms.basic.icp_number" placeholder="皖ICP备2026XXXXXX号-1" /></el-form-item>
           <el-form-item label="底部品牌简介"><RichEditor v-if="activeTab === 'basic'" v-model="forms.basic.footer_brand_desc" height="220px" /></el-form-item>
+          <el-divider content-position="left">栏目背景图设置</el-divider>
+          <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="栏目背景图用于页面顶部横幅，页面大背景图用于正文区域背景。" />
+          <el-row :gutter="20">
+            <el-col :span="12"><el-form-item label="集团概况栏目"><ImageUpload v-model="forms.basic.bg_about_banner" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="集团概况大背景"><ImageUpload v-model="forms.basic.bg_about_page" /></el-form-item></el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="12"><el-form-item label="新闻中心栏目"><ImageUpload v-model="forms.basic.bg_news_banner" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="新闻中心大背景"><ImageUpload v-model="forms.basic.bg_news_page" /></el-form-item></el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="12"><el-form-item label="集团产业栏目"><ImageUpload v-model="forms.basic.bg_industry_banner" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="集团产业大背景"><ImageUpload v-model="forms.basic.bg_industry_page" /></el-form-item></el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="12"><el-form-item label="联系宁商栏目"><ImageUpload v-model="forms.basic.bg_contact_banner" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="联系宁商大背景"><ImageUpload v-model="forms.basic.bg_contact_page" /></el-form-item></el-col>
+          </el-row>
           <el-form-item><el-button v-if="hasPermission('content:update')" type="primary" :loading="saving" @click="saveGroup('basic')">保存基本设置</el-button></el-form-item>
         </el-form>
       </el-tab-pane>
@@ -134,6 +152,7 @@
 
 <script setup>
 import RichEditor from '@/components/admin/RichEditor.vue'
+import ImageUpload from '@/components/admin/ImageUpload.vue'
 import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import api from '@/api'
@@ -157,7 +176,7 @@ const isBody = computed(() => isRichContentKey(form.value.contentKey || ''))
 watch(() => [props.mode, props.section], ([value, section]) => { activeTab.value = value === 'settings' ? 'basic' : section })
 
 const knownKeys = {
-  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc'],
+  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page'],
   intro: ['about_intro_meta', 'about_intro_s1_title', 'about_intro_s1_body', 'about_intro_s2_title', 'about_intro_s2_body', 'about_intro_s3_title'],
   stats: ['stat_founded', 'stat_companies', 'stat_ip', 'stat_fields'],
   speech: ['speech_chairman_name', 'speech_chairman_title', 'speech_quote', 'speech_body', 'speech_sign', 'speech_date'],

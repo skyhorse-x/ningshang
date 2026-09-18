@@ -1,7 +1,7 @@
 <template>
   <div>
-    <PageBanner image="/images/industry-banner.jpeg" title="集团产业" />
-    <section class="section text-bg-industry"><div class="wrap">
+    <PageBanner :image="bg('bg_industry_banner', '/images/industry-banner.jpeg')" title="集团产业" />
+    <section class="section text-bg-industry" :style="sectionBg('bg_industry_page', '/images/2945347C3CC652EA1119F1A7F09DC2A9.jpg')"><div class="wrap">
       <div class="sec-head">
         <span class="en">SUBSIDIARIES</span><h3>成员企业</h3><p>多元产业协同发展，构建覆盖多领域的产业服务生态</p>
       </div>
@@ -24,8 +24,13 @@ import RichContent from '@/components/business/RichContent.vue'
 import { ref, onMounted } from 'vue'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import api from '@/api'
+import { loadContent, pick } from '@/utils/content'
 const subsidiaries = ref([])
+const content = ref({})
+const bg = (key, fallback) => pick(content.value, key, fallback)
+const sectionBg = (key, fallback) => ({ backgroundImage: `url(${bg(key, fallback)})` })
 onMounted(async () => {
+  content.value = await loadContent()
   const res = await api.getSubsidiaries()
   if (res.code === 200) subsidiaries.value = res.data
 })
