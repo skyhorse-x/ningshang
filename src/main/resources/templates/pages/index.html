@@ -77,9 +77,10 @@
 <!-- 集团产业 -->
 <div class="ind-section">
   <div class="wrap">
+    <div class="sec-head ind-title"><span class="en">SUBSIDIARIES</span><h3>集团子公司</h3><p>集团旗下子公司协同发展，形成科创服务与产业运营合力</p></div>
     <div class="ind-row">
       <a th:each="sub, iter : ${subsidiaries}" th:href="@{/industry}" class="ind-card" th:classappend="'ind-card-' + ${iter.index}">
-        <div class="ind-bg" th:style="'background-image:url(\'' + @{'/images/sub-bg-' + ${iter.index}} + '\')'"></div>
+        <div class="ind-bg" th:style="'background-image:url(\'' + @{${sub.background ?: '/images/sub-bg-1.png'}} + '\')'"></div>
         <div class="ind-body">
           <div class="ind-logo"><img th:src="@{${sub.logo}}" alt=""></div>
           <h4 th:text="${sub.name}">子公司名称</h4>
@@ -96,11 +97,11 @@
   <div class="wrap">
     <div class="sec-head"><span class="en">OUR ADVANTAGES</span><h3>五大核心优势</h3><p>以专业能力推动城市建设与数字化转型</p></div>
     <div class="adv-grid">
-      <div class="adv-card"><div class="adv-ico">▥</div><h5>专业团队</h5><p>汇聚行业精英，提供全周期项目解决方案。</p></div>
-      <div class="adv-card"><div class="adv-ico">⚙</div><h5>技术创新</h5><p>融合数字化技术，驱动产业智能化升级。</p></div>
-      <div class="adv-card"><div class="adv-ico">盾</div><h5>品质保障</h5><p>严守质量管理体系，打造优质精品工程。</p></div>
-      <div class="adv-card"><div class="adv-ico">叶</div><h5>绿色发展</h5><p>践行低碳环保理念，建设可持续未来。</p></div>
-      <div class="adv-card"><div class="adv-ico">握</div><h5>合作共赢</h5><p>开放协作，携手客户与伙伴共创成长。</p></div>
+      <div class="adv-card"><div class="adv-ico"><i class="fas fa-building"></i></div><h5>专业团队</h5><p>汇聚行业精英，提供全周期项目解决方案。</p></div>
+      <div class="adv-card"><div class="adv-ico"><i class="fas fa-gear"></i></div><h5>技术创新</h5><p>融合数字化技术，驱动产业智能化升级。</p></div>
+      <div class="adv-card"><div class="adv-ico"><i class="fas fa-shield-halved"></i></div><h5>品质保障</h5><p>严守质量管理体系，打造优质精品工程。</p></div>
+      <div class="adv-card"><div class="adv-ico"><i class="fas fa-leaf"></i></div><h5>绿色发展</h5><p>践行低碳环保理念，建设可持续未来。</p></div>
+      <div class="adv-card"><div class="adv-ico"><i class="fas fa-handshake"></i></div><h5>合作共赢</h5><p>开放协作，携手客户与伙伴共创成长。</p></div>
     </div>
   </div>
 </div>
@@ -124,15 +125,14 @@
 </div>
 
 <!-- 合作伙伴 -->
-<div class="section partners-section">
+<div class="section partners-section" th:if="${partners != null and !#lists.isEmpty(partners)}">
   <div class="wrap">
     <div class="sec-head"><span class="en">PARTNERS</span><h3>合作伙伴</h3><p>携手优质伙伴，共建开放共赢的产业生态</p></div>
     <div class="partner-grid">
-      <div class="partner-card">安徽利至高建设工程</div>
-      <div class="partner-card">安徽陆洲科技</div>
-      <div class="partner-card">安徽合州信息咨询</div>
-      <div class="partner-card">安徽玉彤智能装备</div>
-      <div class="partner-card">合肥南峰建设投资</div>
+      <a th:each="partner : ${partners}" class="partner-card" th:href="${#strings.isEmpty(partner.link) ? 'javascript:;' : partner.link}" th:target="${#strings.isEmpty(partner.link) or partner.link == '#'} ? '_self' : '_blank'">
+        <img th:if="${!#strings.isEmpty(partner.logo)}" th:src="@{${partner.logo}}" th:alt="${partner.name}">
+        <span th:text="${partner.name}">合作伙伴</span>
+      </a>
     </div>
   </div>
 </div>

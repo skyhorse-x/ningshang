@@ -30,6 +30,7 @@ public class AdminApiController {
     @Autowired private HonorService honorService;
     @Autowired private MilestoneService milestoneService;
     @Autowired private SiteContentService siteContentService;
+    @Autowired private PartnerService partnerService;
     @Autowired private AdminService adminService;
 
     /** 业务列表批量删除；逐条调用现有服务以复用不存在校验和保护规则。 */
@@ -50,6 +51,7 @@ public class AdminApiController {
                 case "milestones": milestoneService.delete(id); break;
                 case "content": siteContentService.delete(id); break;
                 case "admins": adminService.deleteAdmin(id, (String) request.getAttribute("adminUsername")); break;
+                case "partners": partnerService.delete(id); break;
                 default: throw new BusinessException(400, "该模块不支持批量删除");
             }
         }
@@ -256,6 +258,28 @@ public class AdminApiController {
         return ApiResponse.success("删除成功");
     }
 
+    // ==================== 合作伙伴管理 ====================
+    @GetMapping("/partners")
+    public ApiResponse<List<Partner>> listPartners() {
+        return ApiResponse.success(partnerService.findAll());
+    }
+
+    @PostMapping("/partners")
+    public ApiResponse<Partner> createPartner(@Valid @RequestBody Partner partner) {
+        return ApiResponse.success(partnerService.save(partner));
+    }
+
+    @PutMapping("/partners/{id}")
+    public ApiResponse<Partner> updatePartner(@PathVariable Long id, @Valid @RequestBody Partner partner) {
+        partner.setId(id);
+        return ApiResponse.success(partnerService.save(partner));
+    }
+
+    @DeleteMapping("/partners/{id}")
+    public ApiResponse<String> deletePartner(@PathVariable Long id) {
+        partnerService.delete(id);
+        return ApiResponse.success("删除成功");
+    }
     // ==================== 管理员账号管理（仅超级管理员组） ====================
     @GetMapping("/admins")
     public ApiResponse<List<Map<String, Object>>> listAdmins() {
@@ -319,3 +343,5 @@ public class AdminApiController {
         return ApiResponse.success("密码修改成功");
     }
 }
+
+

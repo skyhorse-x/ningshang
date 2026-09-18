@@ -38,6 +38,7 @@ const routes = [
       { path: 'news', component: () => import('@/views/admin/NewsManage.vue'), meta: { title: '新闻管理' } },
       { path: 'team', component: () => import('@/views/admin/TeamManage.vue'), meta: { title: '团队管理' } },
       { path: 'honors', component: () => import('@/views/admin/HonorManage.vue'), meta: { title: '荣誉管理' } },
+      { path: 'partners', component: () => import('@/views/admin/PartnerManage.vue'), meta: { title: '合作伙伴' } },
       { path: 'milestones', component: () => import('@/views/admin/MilestoneManage.vue'), meta: { title: '大事记管理' } },
       { path: 'jobs', component: () => import('@/views/admin/JobManage.vue'), meta: { title: '招聘管理' } },
       { path: 'messages', component: () => import('@/views/admin/MessageManage.vue'), meta: { title: '留言管理' } },

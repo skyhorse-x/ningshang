@@ -33,7 +33,7 @@ async function remove(resource,id) {
 }
 try {
   // Public data contracts, detail lookup and missing resources.
-  for(const route of ['home','news','team','honors','milestones','content','subsidiaries','jobs']) {
+  for(const route of ['home','news','team','honors','milestones','content','subsidiaries','partners','jobs']) {
     const result=await req('GET','/api/'+route);
     check(`public ${route} data shape`,route==='home'?Array.isArray(result?.data?.news)&&Array.isArray(result?.data?.subsidiaries):Array.isArray(result?.data));
   }
@@ -44,7 +44,7 @@ try {
   await req('POST','/api/messages',{name:'访客',phone:'13800138000',email:'invalid',content:'咨询'},400);
   await req('POST','/api/messages',{name:run,phone:'13800138000',email:'audit@example.com',type:'other',content:'接口验证'});
   // Legacy server-rendered routes must render actual HTML rather than a JSON error with HTTP 200.
-  const pages=['/','/news','/about-intro','/about-speech','/about-events','/about-team','/about-honor','/about-party','/about-culture','/industry','/industry-construction','/industry-software','/contact','/contact-message','/recruit','/recruit-job','/news-detail?id='+encodeURIComponent(news?.data?.[0]?.newsId||'missing')];
+  const pages=['/','/news','/about-intro','/about-intro.html','/about-speech','/about-events','/about-team','/about-honor','/about-party','/about-culture','/industry','/industry.html','/industry-construction','/industry-software','/contact','/contact-message','/recruit','/recruit-job','/news-detail?id='+encodeURIComponent(news?.data?.[0]?.newsId||'missing')];
   for(const route of pages) {
     const response=await fetch(base+route); const text=await response.text();
     check(`HTML ${route}`,response.status===200&&text.includes('<html')&&!text.includes('Internal Server Error'),`HTTP ${response.status}`);
@@ -54,7 +54,7 @@ try {
   const login=await req('POST','/api/admin/login',{username:process.env.API_USER||'admin',password:process.env.API_PASSWORD},200,null);
   token=login?.data?.token; assert.ok(token,'Admin login is required for remaining tests');
   const ownId=(await req('GET','/api/admin/admins')).data.find(a=>a.username===(process.env.API_USER||'admin')).id;
-  for(const resource of ['news','jobs','messages','subsidiaries','team','honors','milestones','content','admins','menus','menus/flat','menus/mine','groups']) {
+  for(const resource of ['news','jobs','messages','subsidiaries','partners','team','honors','milestones','content','admins','menus','menus/flat','menus/mine','groups']) {
     await req('GET',`/api/admin/${resource}`,undefined,401,null);
     await req('GET',`/api/admin/${resource}`,undefined,401,'invalid');
     const data=await req('GET',`/api/admin/${resource}`);
@@ -74,6 +74,7 @@ try {
     news:{title:run,newsId:run,category:'group',body:'<p>中文正文</p><img src="/uploads/audit.png"><script>alert(1)</script>'},
     jobs:{title:run,department:'技术部',headcount:'1人',sortOrder:99999},
     subsidiaries:{name:run,englishName:'AUDIT COMPANY',sortOrder:99999},
+    partners:{name:run,logo:'/uploads/audit.png',link:'https://example.com',status:1,sortOrder:99999},
     team:{name:run,position:'测试',gradient:'linear-gradient(135deg,#1a365d 0%,#2c5282 100%)',sortOrder:99999},
     honors:{title:run,description:'验证荣誉',sortOrder:99999},
     milestones:{title:run,year:'2026.09',sortOrder:99999},
@@ -95,6 +96,7 @@ try {
       await req('POST','/api/admin/news',payload,409);
     }
     if(resource==='subsidiaries')check('englishName round-trip',updated?.englishName==='AUDIT COMPANY');
+    if(resource==='partners')check('partner public enabled only',(await req('GET','/api/partners')).data.some(x=>x.id===item.id));
     await req('PUT',`/api/admin/${resource}/9223372036854775806`,payload,404);
     await remove(resource,item.id);
     await req('DELETE',`/api/admin/${resource}/${item.id}`,undefined,404);

@@ -3,7 +3,7 @@
     <div class="wrap">
       <div class="sec-head">
         <span class="en">SUBSIDIARIES</span>
-        <h3>成员企业</h3>
+        <h3>集团子公司</h3>
         <p>集团旗下子公司协同发展，形成科创服务与产业运营合力</p>
       </div>
       <div v-if="subsidiaries.length" class="ind-row">
@@ -44,15 +44,15 @@ onMounted(async () => {
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
 .sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .sec-head p { color: var(--c-text-light); margin-top: 12px; font-size: 15px; }
-.ind-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
-.sub-card { min-height: 260px; position: relative; overflow: hidden; border-radius: 6px; background: var(--c-primary); color: #fff; }
+.ind-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.sub-card { min-height: 300px; height: 100%; position: relative; overflow: hidden; border-radius: 6px; background: var(--c-primary); color: #fff; }
 .sub-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .sub-mask { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 32, 64, .9), rgba(8, 32, 64, .52)); }
 .sub-card:hover .sub-bg { transform: scale(1.04); }
-.sub-content { position: relative; z-index: 1; min-height: 260px; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; }
-.sub-logo { width: 60px; height: 60px; object-fit: contain; background: rgba(255,255,255,.92); border-radius: 4px; padding: 8px; margin-bottom: 18px; }
+.sub-content { position: relative; z-index: 1; min-height: 300px; height: 100%; padding: 32px; display: flex; flex-direction: column; justify-content: flex-end; }
+.sub-logo { width: 60px; height: 60px; object-fit: contain; background: rgba(255,255,255,.92); border-radius: 4px; padding: 8px; margin: 0 auto 18px; }
 .sub-category { font-size: 13px; color: var(--c-accent); font-weight: 600; }
-.sub-content h4 { margin: 8px 0 4px; font-size: 22px; line-height: 1.35; }
+.sub-content h4 { margin: 8px 0 4px; font-size: 22px; line-height: 1.35; min-height: 60px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .sub-content small { color: rgba(255,255,255,.74); text-transform: uppercase; letter-spacing: 1px; }
 .sub-content p { margin: 14px 0 0; max-width: 520px; color: rgba(255,255,255,.86); line-height: 1.7; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 @media (max-width: 1000px) {

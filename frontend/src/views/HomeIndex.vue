@@ -35,7 +35,7 @@
         </div>
       </div>
     </section>
-    <section class="section partners-section">
+    <section v-if="partners.length" class="section partners-section">
       <div class="wrap">
         <div class="sec-head">
           <span class="en">PARTNERS</span>
@@ -43,7 +43,10 @@
           <p>携手优质伙伴，共建开放共赢的产业生态</p>
         </div>
         <div class="partner-grid">
-          <div v-for="name in partners" :key="name" class="partner-card">{{ name }}</div>
+          <a v-for="item in partners" :key="item.id || item.name" class="partner-card" :href="item.link || 'javascript:;'" :target="item.link && item.link !== '#' ? '_blank' : '_self'">
+            <img v-if="item.logo" :src="item.logo" :alt="item.name">
+            <span>{{ item.name }}</span>
+          </a>
         </div>
       </div>
     </section>
@@ -68,7 +71,7 @@ const advantages = [
   { title: '绿色发展', desc: '践行低碳环保理念，建设可持续未来。', icon: 'fas fa-leaf' },
   { title: '合作共赢', desc: '开放协作，携手客户与伙伴共创成长。', icon: 'fas fa-handshake' }
 ]
-const partners = ['安徽利至高建设工程', '安徽陆洲科技', '安徽合州信息咨询', '安徽玉彤智能装备', '合肥南峰建设投资']
+const partners = ref([])
 
 const defaultBusinesses = [
   { name: '建设工程', description: '建筑施工、市政配套与城市基础设施服务，匠心铸就品质工程。', coverImage: '/images/biz-1.png' },
@@ -81,8 +84,9 @@ const coreBusinesses = ref([])
 const businessList = computed(() => coreBusinesses.value.length ? coreBusinesses.value : defaultBusinesses)
 
 onMounted(async () => {
-  const res = await api.getCoreBusinesses()
-  if (res.code === 200 && Array.isArray(res.data)) coreBusinesses.value = res.data
+  const [bizRes, partnerRes] = await Promise.all([api.getCoreBusinesses(), api.getPartners()])
+  if (bizRes.code === 200 && Array.isArray(bizRes.data)) coreBusinesses.value = bizRes.data
+  if (partnerRes.code === 200 && Array.isArray(partnerRes.data)) partners.value = partnerRes.data.filter(item => item.status === 1)
 })
 </script>
 
@@ -108,7 +112,8 @@ onMounted(async () => {
 .adv-card p { margin: 0 auto; max-width: 170px; color: var(--c-text-light); font-size: 13px; line-height: 1.7; }
 .partners-section { background: #f7f9fc; }
 .partner-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-.partner-card { min-height: 82px; border: 1px solid var(--c-line); background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; color: var(--c-primary); font-weight: 600; box-shadow: 0 8px 24px rgba(13,58,114,.05); }
+.partner-card { min-height: 96px; border: 1px solid var(--c-line); background: #fff; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; color: var(--c-primary); font-weight: 600; box-shadow: 0 8px 24px rgba(13,58,114,.05); }
+.partner-card img { max-width: 120px; max-height: 42px; object-fit: contain; }
 @media (max-width: 1000px) {
   .section { padding: 52px 0; }
   .sec-head { margin-bottom: 30px; }

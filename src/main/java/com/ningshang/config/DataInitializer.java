@@ -15,6 +15,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired private HonorRepository honorRepository;
     @Autowired private SubsidiaryRepository subsidiaryRepository;
     @Autowired private CoreBusinessRepository coreBusinessRepository;
+    @Autowired private PartnerRepository partnerRepository;
     @Autowired private MilestoneRepository milestoneRepository;
     @Autowired private JobRepository jobRepository;
     @Autowired private SiteContentRepository siteContentRepository;
@@ -63,6 +64,7 @@ public class DataInitializer implements CommandLineRunner {
         if (honorRepository.count() == 0) initHonors();
         if (subsidiaryRepository.count() == 0) initSubsidiaries();
         if (coreBusinessRepository.count() == 0) initCoreBusinesses();
+        if (partnerRepository.count() == 0) initPartners();
         if (milestoneRepository.count() == 0) initMilestones();
         if (jobRepository.count() == 0) initJobs();
         initSiteContent();
@@ -105,6 +107,12 @@ public class DataInitializer implements CommandLineRunner {
             if (isRelativeImage(h.getImage())) {
                 h.setImage("/" + h.getImage());
                 honorRepository.save(h);
+            }
+        }
+        for (Partner p : partnerRepository.findAll()) {
+            if (isRelativeImage(p.getLogo())) {
+                p.setLogo("/" + p.getLogo());
+                partnerRepository.save(p);
             }
         }
     }
@@ -285,6 +293,24 @@ public class DataInitializer implements CommandLineRunner {
         }
     }
 
+    private void initPartners() {
+        String[][] data = {
+            {"安徽利至高建设工程", "/images/sub-logo-0.png", "#", "1"},
+            {"安徽陆洲科技", "/images/sub-logo-1.png", "#", "2"},
+            {"安徽合州信息咨询", "/images/sub-logo-2.png", "#", "3"},
+            {"安徽玉彤智能装备", "/images/sub-logo-3.png", "#", "4"},
+            {"合肥南峰建设投资", "/images/sub-logo-4.png", "#", "5"}
+        };
+        for (String[] item : data) {
+            Partner partner = new Partner();
+            partner.setName(item[0]);
+            partner.setLogo(item[1]);
+            partner.setLink(item[2]);
+            partner.setStatus(1);
+            partner.setSortOrder(Integer.parseInt(item[3]));
+            partnerRepository.save(partner);
+        }
+    }
     // ==================== 后台菜单初始化 ====================
 
     private void initMenus() {
@@ -303,6 +329,7 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(about, "企业荣誉", "/ningshang-admin/honors", "Trophy", 5);
         ensureMenu(about, "企业文化", "/ningshang-admin/content/culture", "Flag", 6);
         ensureMenu(about, "党建工作", "/ningshang-admin/content/party", "Star", 7);
+        ensureMenu(about, "合作伙伴", "/ningshang-admin/partners", "Connection", 8);
         ensureMenu(news, "新闻列表", "/ningshang-admin/news", "Document", 1);
         ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 1);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
@@ -480,7 +507,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initPermissions() {
-        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"core-businesses","核心业务领域"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
+        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"partners","合作伙伴"},{"core-businesses","核心业务领域"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
         String[][] actions = {{"list","查看列表"},{"create","新增"},{"update","修改"},{"delete","删除"},{"batch_delete","批量删除"}};
         int order = 0;
         for (String[] m : modules) for (String[] a : actions) {
@@ -511,3 +538,4 @@ public class DataInitializer implements CommandLineRunner {
         });
     }
 }
+

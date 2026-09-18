@@ -5,6 +5,7 @@ import com.ningshang.entity.News;
 import com.ningshang.entity.Subsidiary;
 import com.ningshang.service.CoreBusinessService;
 import com.ningshang.service.NewsService;
+import com.ningshang.service.PartnerService;
 import com.ningshang.service.SubsidiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,11 +29,15 @@ public class HomeController {
     @Autowired
     private CoreBusinessService coreBusinessService;
 
+    @Autowired
+    private PartnerService partnerService;
+
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("newsList", newsService.findAll());
         model.addAttribute("subsidiaries", subsidiaryService.findAll());
         model.addAttribute("coreBusinesses", coreBusinessService.findAll());
+        model.addAttribute("partners", partnerService.findEnabled());
         model.addAttribute("currentPage", "home");
         return "pages/index";
     }
@@ -44,6 +49,9 @@ public class HomeController {
         data.put("news", newsService.findAll());
         data.put("subsidiaries", subsidiaryService.findAll());
         data.put("coreBusinesses", coreBusinessService.findAll());
+        data.put("partners", partnerService.findEnabled());
         return ApiResponse.success(data);
     }
 }
+
+

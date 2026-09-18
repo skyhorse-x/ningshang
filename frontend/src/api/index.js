@@ -51,6 +51,7 @@ export default {
   getJobs: () => request.get("/jobs", { params: { _t: Date.now() } }),
   getSubsidiaries: () => request.get("/subsidiaries", { params: { _t: Date.now() } }),
   getCoreBusinesses: () => request.get("/core-businesses", { params: { _t: Date.now() } }),
+  getPartners: () => request.get("/partners", { params: { _t: Date.now() } }),
   submitMessage: (data) => request.post("/messages", data),
 
   // Admin Auth（用户名由后端从 JWT 解析，前端不传）
