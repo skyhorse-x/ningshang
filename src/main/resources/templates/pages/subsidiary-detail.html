@@ -31,10 +31,11 @@
 </div>
 
 <div class="sub-detail-empty" th:unless="${sub != null}">
-  <p>未找到对应的成员企业，请<a th:href="@{/industry}">返回集团产业</a>查看完整列表。</p>
+  <p>未找到对应的成员企业，请返回集团产业查看完整列表。</p>
+  <a th:href="@{/industry}" class="sub-btn">返回集团产业</a>
 </div>
 
-<div class="sub-related" th:if="${others != null and !#lists.isEmpty(others)}">
+<div class="sub-related" th:if="${sub != null and others != null and !#lists.isEmpty(others)}">
   <div class="sec-head"><span class="en">MORE COMPANIES</span><h3>其他成员企业</h3></div>
   <div class="sub-related-grid">
     <a class="sub-rel-card" th:each="item : ${others}" th:href="@{/industry/{id}(id=${item.id})}">

@@ -494,6 +494,7 @@ img{max-width:100%;display:block;}
 .sub-btn.ghost{background:transparent;color:var(--c-primary);border:1px solid var(--c-primary);}
 .sub-btn.ghost:hover{background:var(--c-primary);color:#fff;}
 .sub-detail-empty{padding:60px 0;text-align:center;color:var(--c-text-light);}
+.sub-detail-empty .sub-btn{margin-top:22px;}
 .sub-related{margin-top:80px;padding-top:60px;border-top:1px solid var(--c-line);}
 .sub-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .sub-rel-card{position:relative;display:block;height:230px;border-radius:6px;overflow:hidden;text-decoration:none;box-shadow:var(--shadow);}

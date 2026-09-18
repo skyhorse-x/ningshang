@@ -34,7 +34,7 @@
           <router-link v-if="!loading" to="/industry" class="sub-btn">返回集团产业</router-link>
         </div>
 
-        <div class="sub-related" v-if="others.length">
+        <div class="sub-related" v-if="sub && others.length">
           <div class="sec-head">
             <span class="en">MORE COMPANIES</span>
             <h3>其他成员企业</h3>
