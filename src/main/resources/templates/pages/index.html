@@ -111,9 +111,9 @@
       <h3>核心业务领域</h3>
       <p>科技赋能产业，服务贯穿全程</p>
     </div>
-    <div class="biz-grid">
+    <div class="biz-grid" th:with="bizIcons=${ {'fa-building','fa-microchip','fa-chart-line','fa-gears','fa-city'} }">
       <div th:each="biz, iter : ${coreBusinesses}" class="biz-card" th:style="'background-image:url(\'' + @{${biz.coverImage ?: '/images/biz-1.png'}} + '\')'">
-        <div class="ico" th:text="${iter.index == 0 ? '🏗' : (iter.index == 1 ? '💻' : (iter.index == 2 ? '📊' : (iter.index == 3 ? '⚙' : '🏢')))}">🏗</div>
+        <div class="ico"><i th:class="|fas ${bizIcons[iter.index % 5]}|"></i></div>
         <h5 th:text="${biz.name}">建设工程</h5>
         <div class="rich-content" th:utext="${@richText.clean(biz.description)}">业务介绍</div>
       </div>

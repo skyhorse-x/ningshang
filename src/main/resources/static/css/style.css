@@ -269,7 +269,8 @@ img{max-width:100%;display:block;}
 .biz-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:.3s;z-index:2;}
 .biz-card:hover{box-shadow:var(--shadow);transform:translateY(-6px);border-color:transparent;}
 .biz-card:hover::before{transform:scaleX(1);}
-.biz-card .ico{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:28px;color:#fff;margin-bottom:20px;}
+.biz-card .ico{width:64px;height:64px;border-radius:50%;background:rgba(13,58,114,.08);display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;color:var(--c-primary);margin-bottom:20px;transition:.3s;}
+.biz-card:hover .ico{background:var(--c-primary);color:#fff;}
 .biz-card h5{font-size:19px;color:var(--c-primary);margin-bottom:10px;}
 .biz-card p,.biz-card .rich-content{font-size:14px;color:var(--c-primary);}
 .biz-card .rich-content p{margin:0;}

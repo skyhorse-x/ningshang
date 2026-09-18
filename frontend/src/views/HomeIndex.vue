@@ -100,7 +100,8 @@ onMounted(async () => {
 .biz-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
 .biz-card { background: #fff; background-size: cover; background-position: center; border: 1px solid var(--c-line); padding: 38px 26px; transition: .3s; position: relative; overflow: hidden; }
 .biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
-.ico { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; font-size: 25px; color: #fff; margin-bottom: 20px; }
+.ico { width: 64px; height: 64px; border-radius: 50%; background: rgba(13,58,114,.08); display: flex; align-items: center; justify-content: center; font-size: 25px; line-height: 1; color: var(--c-primary); margin-bottom: 20px; transition: .3s; }
+.biz-card:hover .ico { background: var(--c-primary); color: #fff; }
 .biz-card h5 { font-size: 19px; color: var(--c-primary); margin-bottom: 10px; }
 .biz-card p { font-size: 14px; color: var(--c-primary); }
 .advantages-section { background: linear-gradient(180deg, #f7fbff 0%, #fff 100%); position: relative; overflow: hidden; }
