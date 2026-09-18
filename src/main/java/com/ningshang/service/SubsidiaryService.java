@@ -17,6 +17,11 @@ public class SubsidiaryService {
         return subsidiaryRepository.findAllByOrderBySortOrderAscIdAsc();
     }
 
+    /** 按主键查询，不存在时返回 null，由调用方决定跳转或报错。 */
+    public Subsidiary findById(Long id) {
+        return id == null ? null : subsidiaryRepository.findById(id).orElse(null);
+    }
+
     public Subsidiary save(Subsidiary subsidiary) {
         if (subsidiary.getId() != null) {
             Subsidiary existing = subsidiaryRepository.findById(subsidiary.getId()).orElseThrow(() -> new BusinessException(404, "记录不存在"));

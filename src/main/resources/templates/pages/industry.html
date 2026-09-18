@@ -11,14 +11,14 @@
 <p>多元产业协同发展，构建覆盖多领域的产业服务生态</p>
 </div>
 <div class="content-list">
-<div class="list-item" th:each="sub : ${subsidiaries}">
+<a class="list-item" th:each="sub : ${subsidiaries}" th:href="@{/industry/{id}(id=${sub.id})}">
 <div class="thumb"><img th:src="${sub.logo}" alt=""></div>
 <div class="info">
 <h4 th:text="${sub.name}">子公司名称</h4>
 <div class="meta" th:text="${sub.englishName} + ' · ' + ${sub.category}">ENGLISH NAME · 类别</div>
 <div class="rich-content" th:utext="${@richText.clean(sub.description)}">描述</div>
 </div>
-</div>
+</a>
 </div>
 </div></div>
 <div th:replace="fragments/footer :: footer"></div>

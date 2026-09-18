@@ -7,7 +7,7 @@
         <p>集团旗下子公司协同发展，形成科创服务与产业运营合力</p>
       </div>
       <div v-if="subsidiaries.length" class="ind-row">
-        <article v-for="item in subsidiaries" :key="item.id" class="sub-card">
+        <router-link v-for="item in subsidiaries" :key="item.id" class="sub-card" :to="'/industry/' + item.id">
           <img v-if="item.background" class="sub-bg" :src="item.background" alt="">
           <div class="sub-mask"></div>
           <div class="sub-content">
@@ -17,7 +17,7 @@
             <small>{{ item.englishName }}</small>
             <p>{{ plainText(item.description) }}</p>
           </div>
-        </article>
+        </router-link>
       </div>
     </div>
   </div>
@@ -45,7 +45,8 @@ onMounted(async () => {
 .sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .sec-head p { color: var(--c-text-light); margin-top: 12px; font-size: 15px; }
 .ind-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
-.sub-card { min-height: 300px; height: 100%; position: relative; overflow: hidden; border-radius: 6px; background: var(--c-primary); color: #fff; }
+.sub-card { display: block; min-height: 300px; height: 100%; position: relative; overflow: hidden; border-radius: 6px; background: var(--c-primary); color: #fff; text-decoration: none; box-shadow: 0 6px 24px rgba(13,58,114,.06); transition: box-shadow .35s ease; }
+.sub-card:hover { box-shadow: 0 14px 34px rgba(13,58,114,.18); }
 .sub-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .sub-mask { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 32, 64, .9), rgba(8, 32, 64, .52)); }
 .sub-card:hover .sub-bg { transform: scale(1.04); }

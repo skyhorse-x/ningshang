@@ -50,6 +50,7 @@ export default {
   // Contact
   getJobs: () => request.get("/jobs", { params: { _t: Date.now() } }),
   getSubsidiaries: () => request.get("/subsidiaries", { params: { _t: Date.now() } }),
+  getSubsidiary: (id) => request.get("/subsidiaries/" + encodeURIComponent(id), { params: { _t: Date.now() } }),
   getCoreBusinesses: () => request.get("/core-businesses", { params: { _t: Date.now() } }),
   getPartners: () => request.get("/partners", { params: { _t: Date.now() } }),
   submitMessage: (data) => request.post("/messages", data),

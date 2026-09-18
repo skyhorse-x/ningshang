@@ -6,14 +6,14 @@
         <span class="en">SUBSIDIARIES</span><h3>成员企业</h3><p>多元产业协同发展，构建覆盖多领域的产业服务生态</p>
       </div>
       <div class="content-list">
-        <div class="list-item" v-for="sub in subsidiaries" :key="sub.id">
+        <router-link class="list-item" v-for="sub in subsidiaries" :key="sub.id" :to="'/industry/' + sub.id">
           <div class="thumb"><img :src="sub.logo" alt=""></div>
           <div class="info">
             <h4>{{ sub.name }}</h4>
             <div class="meta">{{ sub.englishName }} · {{ sub.category }}</div>
             <RichContent :content="sub.description" />
           </div>
-        </div>
+        </router-link>
       </div>
     </div></section>
   </div>
@@ -45,7 +45,7 @@ onMounted(async () => {
 .sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .sec-head p { color: var(--c-text-light); margin-top: 12px; }
 .content-list { list-style: none; padding: 0; }
-.list-item { display: flex; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--c-line); transition: .3s; }
+.list-item { display: flex; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--c-line); transition: .3s; color: inherit; text-decoration: none; }
 .list-item:hover { background: var(--c-bg-soft); margin: 0 -20px; padding: 28px 20px; }
 .thumb { flex: 0 0 260px; height: 170px; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: var(--c-bg-soft); }
 .thumb img { max-width: 200px; max-height: 120px; object-fit: contain; }

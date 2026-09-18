@@ -22,6 +22,7 @@ const routes = [
   { path: '/news', component: () => import('@/views/news/NewsList.vue'), meta: { title: '新闻中心' } },
   { path: '/news/:id', component: () => import('@/views/news/NewsDetail.vue'), meta: { title: '新闻详情' }, props: true },
   { path: '/industry', component: () => import('@/views/industry/IndustryOverview.vue'), meta: { title: '集团产业' } },
+  { path: '/industry/:id(\\d+)', component: () => import('@/views/industry/IndustryDetail.vue'), meta: { title: '成员企业' }, props: true },
   { path: '/industry/construction', redirect: '/industry' },
   { path: '/industry/software', redirect: '/industry' },
   { path: '/contact', component: () => import('@/views/contact/ContactInfo.vue'), meta: { title: '联系方式' } },

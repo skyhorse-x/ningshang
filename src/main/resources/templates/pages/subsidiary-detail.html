@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(title=${sub != null ? sub.name + ' - 安徽宁商科技集团有限公司' : '成员企业 - 安徽宁商科技集团有限公司'})"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_industry_banner'])} ? '/images/industry-banner.jpeg' : ${siteContent['bg_industry_banner']}) + '\')"></div>
+<div class="section sub-detail-section"><div class="wrap">
+
+<div class="sub-detail" th:if="${sub != null}">
+  <div class="sub-detail-hero">
+    <div class="sub-hero-visual" th:style="'background-image:url(\'' + (${#strings.isEmpty(sub.background)} ? '/images/sub-bg-1.png' : ${sub.background}) + '\')'">
+      <div class="sub-hero-mask"></div>
+      <div class="sub-hero-inner">
+        <div class="sub-hero-logo" th:if="${!#strings.isEmpty(sub.logo)}"><img th:src="${sub.logo}" th:alt="${sub.name}"></div>
+        <span class="sub-hero-en" th:if="${!#strings.isEmpty(sub.englishName)}" th:text="${sub.englishName}">ENGLISH NAME</span>
+        <h2 th:text="${sub.name}">子公司名称</h2>
+      </div>
+    </div>
+    <div class="sub-hero-info">
+      <div class="sub-hero-crumb"><a th:href="@{/}">首页</a> / <a th:href="@{/industry}">集团产业</a> / <span th:text="${sub.name}">成员企业</span></div>
+      <span class="sub-hero-cat" th:if="${!#strings.isEmpty(sub.category)}" th:text="${sub.category}">所属领域</span>
+      <h1 th:text="${sub.name}">子公司名称</h1>
+      <span class="sub-hero-en2" th:if="${!#strings.isEmpty(sub.englishName)}" th:text="${sub.englishName}">ENGLISH NAME</span>
+      <div class="sub-hero-desc rich-content" th:utext="${@richText.clean(sub.description)}">企业简介</div>
+      <div class="sub-hero-actions">
+        <a th:href="@{/industry}" class="sub-btn">返回集团产业</a>
+        <a th:href="@{/contact}" class="sub-btn ghost">联系我们</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sub-detail-empty" th:unless="${sub != null}">
+  <p>未找到对应的成员企业，请<a th:href="@{/industry}">返回集团产业</a>查看完整列表。</p>
+</div>
+
+<div class="sub-related" th:if="${others != null and !#lists.isEmpty(others)}">
+  <div class="sec-head"><span class="en">MORE COMPANIES</span><h3>其他成员企业</h3></div>
+  <div class="sub-related-grid">
+    <a class="sub-rel-card" th:each="item : ${others}" th:href="@{/industry/{id}(id=${item.id})}">
+      <div class="sub-rel-bg" th:style="'background-image:url(\'' + (${#strings.isEmpty(item.background)} ? '/images/sub-bg-1.png' : ${item.background}) + '\')'"></div>
+      <div class="sub-rel-mask"></div>
+      <div class="sub-rel-inner">
+        <div class="sub-rel-logo" th:if="${!#strings.isEmpty(item.logo)}"><img th:src="${item.logo}" th:alt="${item.name}"></div>
+        <h5 th:text="${item.name}">子公司名称</h5>
+        <small th:if="${!#strings.isEmpty(item.category)}" th:text="${item.category}">所属领域</small>
+      </div>
+    </a>
+  </div>
+</div>
+
+</div></div>
+<div th:replace="fragments/footer :: footer"></div>
+<input type="hidden" id="currentPage" value="industry">
+</body></html>

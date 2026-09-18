@@ -76,7 +76,7 @@
   <div class="wrap">
     <div class="sec-head ind-title"><span class="en">SUBSIDIARIES</span><h3>集团子公司</h3><p>集团旗下子公司协同发展，形成科创服务与产业运营合力</p></div>
     <div class="ind-row">
-      <a th:each="sub, iter : ${subsidiaries}" th:href="@{/industry}" class="ind-card" th:classappend="'ind-card-' + ${iter.index}">
+      <a th:each="sub, iter : ${subsidiaries}" th:href="@{/industry/{id}(id=${sub.id})}" class="ind-card" th:classappend="'ind-card-' + ${iter.index}">
         <div class="ind-bg" th:style="'background-image:url(\'' + @{${sub.background ?: '/images/sub-bg-1.png'}} + '\')'"></div>
         <div class="ind-body">
           <div class="ind-logo"><img th:src="@{${sub.logo}}" alt=""></div>
