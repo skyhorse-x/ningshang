@@ -231,18 +231,21 @@ var FOOTER_HTML = '\
     });
   }
 
-  // 首页新闻Tab筛选
+  // 首页新闻Tab筛选：和 Vue 首页保持一致，默认显示集团新闻，每个栏目只显示 5 条。
   function homeNewsTabs() {
     var tabs = document.querySelectorAll('.hn-tabs a');
-    var items = document.querySelectorAll('.hn-items li');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.hn-items li'));
     if (!tabs.length) return;
 
     function apply(cat) {
+      var shown = 0;
       tabs.forEach(function (t) {
         t.classList.toggle('on', t.getAttribute('data-cat') === cat);
       });
       items.forEach(function (it) {
-        it.style.display = (it.getAttribute('data-cat') === cat) ? '' : 'none';
+        var match = it.getAttribute('data-cat') === cat;
+        it.style.display = match && shown < 5 ? '' : 'none';
+        if (match) shown += 1;
       });
     }
 
@@ -252,6 +255,8 @@ var FOOTER_HTML = '\
         apply(t.getAttribute('data-cat'));
       });
     });
+    var active = document.querySelector('.hn-tabs a.on') || tabs[0];
+    apply(active.getAttribute('data-cat'));
   }
 
   // 表单反馈
