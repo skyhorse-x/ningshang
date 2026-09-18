@@ -1,14 +1,8 @@
 <template>
   <div class="hero">
-    <el-carousel height="520px" :interval="5500" arrow="never" indicator-position="outside">
+    <el-carousel height="382px" :interval="5500" arrow="never" indicator-position="outside">
       <el-carousel-item v-for="(slide, idx) in slides" :key="idx">
         <div class="slide" :style="'background-image:url(' + slide.image + ')'">
-          <div class="cap">
-            <span class="tag">{{ slide.tag }}</span>
-            <h2>{{ slide.title }}</h2>
-            <p>{{ slide.desc }}</p>
-            <router-link v-if="slide.link" :to="slide.link" class="more">了解更多</router-link>
-          </div>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -24,7 +18,7 @@ const slides = [
 </script>
 
 <style scoped>
-.hero { position: relative; height: 520px; overflow: hidden; background: #0a2c57; }
+.hero { position: relative; height: 382px; overflow: hidden; background: #0a2c57; top: 0px; }
 .slide {
   width: 100%;
   height: 100%;
@@ -35,40 +29,7 @@ const slides = [
   align-items: center;
 }
 .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,22,46,.82), rgba(13,58,114,.48), rgba(5,22,46,.32)); }
-.cap {
-  position: relative;
-  z-index: 2;
-  color: #fff;
-  max-width: 1200px;
-  width: 94%;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-.tag {
-  display: inline-block;
-  font-size: 12px;
-  letter-spacing: 3px;
-  color: var(--c-accent);
-  border-left: 3px solid var(--c-accent);
-  padding-left: 10px;
-  margin-bottom: 12px;
-}
-.cap h2 { font-size: 46px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; text-shadow: 0 2px 12px rgba(0,0,0,.3); }
-.cap p { font-size: 15px; color: #dbe6f5; margin-bottom: 20px; }
-.more {
-  display: inline-block;
-  padding: 10px 28px;
-  border: 1px solid rgba(255,255,255,.5);
-  color: #fff;
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  transition: .3s;
-}
-.more:hover { background: var(--c-accent); border-color: var(--c-accent); }
 @media (max-width: 1000px) {
-  .hero { height: 320px; }
-  .cap h2 { font-size: 24px; }
-  .cap p { font-size: 13px; }
+  .hero { height: 382px; }
 }
 </style>

@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
 export default defineConfig({
+  base: '/ningshang-admin-ui/',
   plugins: [
     vue({
       // /images/** 由后端(Spring Boot)提供，经代理转发；

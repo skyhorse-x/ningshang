@@ -22,6 +22,8 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/");
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("classpath:/static/images/");
+        registry.addResourceHandler("/ningshang-admin-ui/**")
+                .addResourceLocations("file:frontend/dist/", "classpath:/static/ningshang-admin-ui/");
         // 富文本上传的图片目录映射到 /uploads/**
         String dir = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize().toString().replace("\\", "/");
         if (!dir.endsWith("/")) {
