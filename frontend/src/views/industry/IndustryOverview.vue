@@ -3,10 +3,10 @@
     <PageBanner :image="bg('bg_industry_banner', '/images/industry-banner.jpeg')" title="集团产业" />
     <section class="section text-bg-industry" :style="sectionBg('bg_industry_page', '/images/2945347C3CC652EA1119F1A7F09DC2A9.jpg')"><div class="wrap">
       <div class="sec-head">
-        <span class="en">SUBSIDIARIES</span><h3>成员企业</h3><p>多元产业协同发展，构建覆盖多领域的产业服务生态</p>
+        <span class="en">SUBSIDIARIES</span><h3>{{ activeCategory || '成员企业' }}</h3><p>多元产业协同发展，构建覆盖多领域的产业服务生态</p>
       </div>
       <div class="content-list">
-        <router-link class="list-item" v-for="sub in subsidiaries" :key="sub.id" :to="'/industry/' + sub.id">
+        <router-link class="list-item" v-for="sub in filteredSubsidiaries" :key="sub.id" :to="'/industry/' + sub.id">
           <div class="thumb"><img :src="sub.logo" alt=""></div>
           <div class="info">
             <h4>{{ sub.name }}</h4>
@@ -21,11 +21,17 @@
 
 <script setup>
 import RichContent from '@/components/business/RichContent.vue'
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import api from '@/api'
 import { loadContent, pick } from '@/utils/content'
 const subsidiaries = ref([])
+const route = useRoute()
+const activeCategory = computed(() => typeof route.query.category === 'string' ? route.query.category.trim() : '')
+const filteredSubsidiaries = computed(() => activeCategory.value
+  ? subsidiaries.value.filter(item => (item.category || '').trim() === activeCategory.value)
+  : subsidiaries.value)
 const content = ref({})
 const bg = (key, fallback) => pick(content.value, key, fallback)
 const sectionBg = (key, fallback) => ({ backgroundImage: `url(${bg(key, fallback)})` })
