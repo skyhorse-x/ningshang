@@ -18,12 +18,12 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/index.html")
+                .addResourceLocations("file:frontend/dist/");
+        registry.addResourceHandler("/assets/**")
+                .addResourceLocations("file:frontend/dist/assets/");
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("classpath:/static/images/");
-        registry.addResourceHandler("/ningshang-admin-ui/**")
-                .addResourceLocations("file:frontend/dist/", "classpath:/static/ningshang-admin-ui/");
         // 富文本上传的图片目录映射到 /uploads/**
         String dir = java.nio.file.Paths.get(uploadDir).toAbsolutePath().normalize().toString().replace("\\", "/");
         if (!dir.endsWith("/")) {
@@ -53,9 +53,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .addPathPatterns("/**")
                 .excludePathPatterns(
                         "/api/**", "/error", "/favicon.ico",
-                        "/css/**", "/js/**", "/images/**", "/uploads/**",
-                        "/vendor/**", "/static/**",
-                        "/ningshang-admin-ui/assets/**");
+                        "/assets/**", "/images/**", "/uploads/**");
 
         registry.addInterceptor(adminAuthInterceptor)
                 .addPathPatterns("/api/admin/**");
