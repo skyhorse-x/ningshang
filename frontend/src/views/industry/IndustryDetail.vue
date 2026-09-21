@@ -20,15 +20,8 @@
               <span v-if="sub.category" class="sub-hero-cat">{{ sub.category }}</span>
               <h1>{{ sub.name }}</h1>
               <span v-if="sub.englishName" class="sub-hero-en2">{{ sub.englishName }}</span>
+              <div class="sub-hero-desc"><RichContent :content="sub.description" /></div>
             </div>
-          </div>
-
-          <div class="sub-description">
-            <div class="sec-head">
-              <span class="en">COMPANY PROFILE</span>
-              <h3>子公司详细介绍</h3>
-            </div>
-            <div class="sub-description-content"><RichContent :content="sub.description" /></div>
           </div>
         </div>
 
@@ -168,26 +161,25 @@ onMounted(async () => {
 <style scoped>
 .section { padding: 60px 0 70px; }
 .wrap { width: 1200px; max-width: 94%; margin: 0 auto; }
-.sub-detail-hero { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 48px; align-items: start; }
-.sub-hero-visual { position: relative; height: 460px; border-radius: 8px; overflow: hidden; background-size: cover; background-position: center; box-shadow: var(--shadow); }
+.sub-detail-hero { display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 52px; align-items: start; }
+.sub-hero-visual { grid-column: 2; grid-row: 1; position: relative; height: 460px; border-radius: 8px; overflow: hidden; background-size: cover; background-position: center; box-shadow: var(--shadow); }
 .sub-hero-mask { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,32,64,.16) 0%, rgba(8,32,64,.74) 100%); }
 .sub-hero-inner { position: relative; z-index: 1; height: 100%; padding: 28px 24px; display: flex; flex-direction: column; justify-content: flex-end; text-align: center; color: #fff; }
 .sub-hero-logo { width: 76px; height: 76px; border-radius: 6px; background: rgba(255,255,255,.94); padding: 10px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; }
 .sub-hero-logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
 .sub-hero-en { font-size: 11px; letter-spacing: 3px; color: var(--c-accent); text-transform: uppercase; }
 .sub-hero-inner h2 { font-size: 20px; color: #fff; margin-top: 8px; line-height: 1.45; }
-.sub-hero-info { padding-top: 6px; }
+.sub-hero-info { grid-column: 1; grid-row: 1; padding-top: 6px; }
 .sub-hero-crumb { font-size: 13px; color: var(--c-text-light); margin-bottom: 20px; }
 .sub-hero-crumb a { color: var(--c-text-light); text-decoration: none; }
 .sub-hero-crumb a:hover { color: var(--c-accent); }
 .sub-hero-cat { display: inline-block; padding: 5px 14px; border-radius: 20px; background: rgba(200,164,92,.16); color: var(--c-accent-dark); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
 .sub-hero-info h1 { font-size: 32px; color: var(--c-primary); font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
 .sub-hero-en2 { display: block; font-size: 12px; letter-spacing: 3px; color: var(--c-text-light); text-transform: uppercase; margin-bottom: 26px; }
-.sub-description { margin-top: 70px; padding-top: 54px; border-top: 1px solid var(--c-line); }
-.sub-description-content { padding: 38px 42px; background: #fff; border: 1px solid var(--c-line); border-radius: 6px; font-size: 15px; line-height: 2; color: var(--c-text); overflow: visible; max-height: none; white-space: normal; word-break: break-word; }
-.sub-description-content :deep(p) { margin-bottom: 16px; text-indent: 2em; }
-.sub-description-content :deep(p:last-child) { margin-bottom: 0; }
-.sub-description-content :deep(p:empty), .sub-description-content :deep(p:has(> br:only-child)) { display: none; }
+.sub-hero-desc { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--c-line); font-size: 15px; line-height: 2; color: var(--c-text); overflow: visible; max-height: none; white-space: normal; word-break: break-word; }
+.sub-hero-desc :deep(p) { margin-bottom: 16px; text-indent: 2em; }
+.sub-hero-desc :deep(p:last-child) { margin-bottom: 0; }
+.sub-hero-desc :deep(p:empty), .sub-hero-desc :deep(p:has(> br:only-child)) { display: none; }
 .sub-detail-empty { padding: 60px 0; text-align: center; color: var(--c-text-light); }
 .sub-detail-empty .sub-btn { margin-top: 22px; }
 .sub-core { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
@@ -217,10 +209,9 @@ onMounted(async () => {
 @media (max-width: 1000px) {
   .section { padding: 36px 0 48px; }
   .sub-detail-hero { grid-template-columns: 1fr; gap: 28px; }
-  .sub-hero-visual { height: 320px; }
+  .sub-hero-info { grid-column: 1; grid-row: 1; }
+  .sub-hero-visual { grid-column: 1; grid-row: 2; height: 320px; }
   .sub-hero-info h1 { font-size: 24px; }
-  .sub-description { margin-top: 48px; padding-top: 40px; }
-  .sub-description-content { padding: 26px 22px; }
   .sub-related { margin-top: 48px; padding-top: 40px; }
   .sub-core { margin-top: 48px; padding-top: 40px; }
   .sub-core-card { flex-direction: column; gap: 18px; padding: 26px 22px; }
