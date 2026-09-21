@@ -277,17 +277,26 @@ img{max-width:100%;display:block;}
 .stats .item .lbl{font-size:15px;color:#c7d6ec;margin-top:6px;letter-spacing:1px;}
 
 /* 业务板块 */
-.biz-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
-.biz-card{background-color:#fff;background-size:cover;background-position:center;background-repeat:no-repeat;border:1px solid var(--c-line);padding:38px 26px;transition:.3s;position:relative;overflow:hidden;}
-.biz-card>*{position:relative;z-index:1;}
+/* 核心业务领域：1 通栏大卡 + 2 + 2，版面为「图片 + 名称 + 描述」 */
+.biz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+.biz-card{background-color:#fff;border:1px solid var(--c-line);overflow:hidden;display:flex;flex-direction:column;transition:.3s;position:relative;}
 .biz-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:.3s;z-index:2;}
 .biz-card:hover{box-shadow:var(--shadow);transform:translateY(-6px);border-color:transparent;}
 .biz-card:hover::before{transform:scaleX(1);}
-.biz-card .ico{width:64px;height:64px;border-radius:50%;background:rgba(13,58,114,.08);display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;color:var(--c-primary);margin-bottom:20px;transition:.3s;}
-.biz-card:hover .ico{background:var(--c-primary);color:#fff;}
-.biz-card h5{font-size:19px;color:var(--c-primary);margin-bottom:10px;}
-.biz-card p,.biz-card .rich-content{font-size:14px;color:var(--c-primary);}
+.biz-media{position:relative;overflow:hidden;aspect-ratio:2 / 1;background:var(--c-bg-soft);}
+.biz-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;}
+.biz-card:hover .biz-media img{transform:scale(1.06);}
+.biz-body{flex:1;display:flex;flex-direction:column;padding:26px 28px 30px;}
+.biz-card h5{font-size:20px;color:var(--c-primary);margin-bottom:10px;line-height:1.45;}
+.biz-card p,.biz-card .rich-content{font-size:14px;color:var(--c-text-light);line-height:1.85;}
 .biz-card .rich-content p{margin:0;}
+/* 首张：通栏大卡，左图右文 */
+.biz-card-lg{grid-column:1 / -1;flex-direction:row;min-height:380px;}
+.biz-card-lg .biz-media{flex:0 0 56%;width:56%;min-height:380px;aspect-ratio:auto;}
+.biz-card-lg .biz-media img{position:absolute;top:0;left:0;width:100%;height:100%;}
+.biz-card-lg .biz-body{justify-content:center;padding:44px 48px;}
+.biz-card-lg h5{font-size:28px;margin-bottom:16px;}
+.biz-card-lg p,.biz-card-lg .rich-content{font-size:15px;}
 
 /* 新闻 */
 .news-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;}
@@ -654,4 +663,4 @@ img{max-width:100%;display:block;}
 .partner-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;}
 .partner-card{min-height:96px;border:1px solid var(--c-line);background:#fff;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;color:var(--c-primary);font-weight:600;box-shadow:0 8px 24px rgba(13,58,114,.05);}
 .partner-card img{max-width:120px;max-height:42px;object-fit:contain;}
-@media (max-width:1000px){.section{padding:52px 0}.sec-head{margin-bottom:30px}.sec-head h3{font-size:26px}.adv-grid,.partner-grid,.biz-grid,.ind-row{grid-template-columns:1fr}.ind-section{padding:52px 0}.ind-card{min-height:300px}.biz-card{min-height:190px;padding:30px 22px}.home-news{grid-template-columns:1fr}}
+@media (max-width:1000px){.section{padding:52px 0}.sec-head{margin-bottom:30px}.sec-head h3{font-size:26px}.adv-grid,.partner-grid,.biz-grid,.ind-row{grid-template-columns:1fr}.ind-section{padding:52px 0}.ind-card{min-height:300px}.biz-grid{gap:20px}.biz-body{padding:22px 22px 24px}.biz-card-lg{flex-direction:column;min-height:0}.biz-card-lg .biz-media{flex:none;width:100%;min-height:0;aspect-ratio:2 / 1}.biz-card-lg .biz-body{padding:24px 22px 26px;justify-content:flex-start}.biz-card-lg h5{font-size:22px;margin-bottom:12px}.biz-card-lg p,.biz-card-lg .rich-content{font-size:14px}.home-news{grid-template-columns:1fr}}

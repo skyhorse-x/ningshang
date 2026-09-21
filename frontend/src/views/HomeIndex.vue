@@ -27,10 +27,14 @@
           <p>科技赋能产业，服务贯穿全程</p>
         </div>
         <div class="biz-grid">
-          <div v-for="(item, index) in businessList" :key="item.id || item.name" class="biz-card" :style="{ backgroundImage: `url(${item.coverImage || fallbackImages[index % fallbackImages.length]})` }">
-            <div class="ico"><i :class="businessIcons[index % businessIcons.length]"></i></div>
-            <h5>{{ item.name }}</h5>
-            <p>{{ richTextPreview(item.description) }}</p>
+          <div v-for="(item, index) in businessList" :key="item.id || item.name" class="biz-card" :class="{ 'biz-card-lg': index === 0 }">
+            <div class="biz-media">
+              <img :src="item.coverImage || fallbackImages[index % fallbackImages.length]" :alt="item.name" loading="lazy">
+            </div>
+            <div class="biz-body">
+              <h5>{{ item.name }}</h5>
+              <p>{{ richTextPreview(item.description) }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +67,6 @@ import api from '@/api'
 import { richTextPreview } from '@/utils/richText'
 
 const fallbackImages = ['/images/biz-1.png', '/images/biz-2.png', '/images/biz-3.png', '/images/biz-4.png', '/images/biz-5.png']
-const businessIcons = ['fas fa-building', 'fas fa-microchip', 'fas fa-chart-line', 'fas fa-gears', 'fas fa-city']
 const advantages = [
   { title: '专业团队', desc: '汇聚行业精英，提供全周期项目解决方案。', icon: 'fas fa-building' },
   { title: '技术创新', desc: '融合数字化技术，驱动产业智能化升级。', icon: 'fas fa-gear' },
@@ -97,13 +100,21 @@ onMounted(async () => {
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
 .sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .sec-head p { color: var(--c-text-light); margin-top: 12px; font-size: 15px; }
-.biz-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
-.biz-card { background: #fff; background-size: cover; background-position: center; border: 1px solid var(--c-line); padding: 38px 26px; transition: .3s; position: relative; overflow: hidden; }
+.biz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.biz-card { background: #fff; border: 1px solid var(--c-line); overflow: hidden; display: flex; flex-direction: column; transition: .3s; position: relative; }
 .biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
-.ico { width: 64px; height: 64px; border-radius: 50%; background: rgba(13,58,114,.08); display: flex; align-items: center; justify-content: center; font-size: 25px; line-height: 1; color: var(--c-primary); margin-bottom: 20px; transition: .3s; }
-.biz-card:hover .ico { background: var(--c-primary); color: #fff; }
-.biz-card h5 { font-size: 19px; color: var(--c-primary); margin-bottom: 10px; }
-.biz-card p { font-size: 14px; color: var(--c-primary); }
+.biz-media { position: relative; overflow: hidden; aspect-ratio: 2 / 1; background: var(--c-bg-soft); }
+.biz-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
+.biz-card:hover .biz-media img { transform: scale(1.06); }
+.biz-body { flex: 1; display: flex; flex-direction: column; padding: 26px 28px 30px; }
+.biz-card h5 { font-size: 20px; color: var(--c-primary); margin-bottom: 10px; line-height: 1.45; }
+.biz-card p { font-size: 14px; color: var(--c-text-light); line-height: 1.85; }
+.biz-card-lg { grid-column: 1 / -1; flex-direction: row; min-height: 380px; }
+.biz-card-lg .biz-media { flex: 0 0 56%; width: 56%; min-height: 380px; aspect-ratio: auto; }
+.biz-card-lg .biz-media img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.biz-card-lg .biz-body { justify-content: center; padding: 44px 48px; }
+.biz-card-lg h5 { font-size: 28px; margin-bottom: 16px; }
+.biz-card-lg p { font-size: 15px; }
 .advantages-section { background: linear-gradient(180deg, #f7fbff 0%, #fff 100%); position: relative; overflow: hidden; }
 .advantages-section::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(0deg, rgba(13,58,114,.06), transparent); pointer-events: none; }
 .adv-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
