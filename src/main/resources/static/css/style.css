@@ -480,7 +480,11 @@ img{max-width:100%;display:block;}
 .ind-logo img{max-width:100%;max-height:52px;object-fit:contain;}
 .ind-body h4{font-size:22px;color:#1a2c4a;margin-bottom:8px;font-weight:600;min-height:60px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .ind-body span{display:block;font-size:11px;color:rgba(26,44,74,.55);letter-spacing:3px;margin-bottom:20px;min-height:32px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.ind-body p,.ind-body .rich-content{font-size:13px;color:rgba(26,44,74,.75);line-height:1.8;margin-top:auto;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;text-align:left;}
+.ind-body p,.ind-body .rich-content{font-size:13px;color:rgba(26,44,74,.75);line-height:1.8;margin-top:auto;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-align:left;}
+/* 卡片只放摘要：统一最多 3 行（1.8em 行高 → 5.4em），多余省略，
+   否则各家简介长短不一，卡片底部参差不齐；后台留下的空段落也不占位。 */
+.ind-body .rich-content{max-height:5.4em;}
+.ind-body p:empty,.ind-body p:has(>br:only-child){display:none;}
 .ind-card:hover{box-shadow:0 0 50px rgba(0,0,0,.15);}
 
 /* 成员企业详情页 */
@@ -504,6 +508,8 @@ img{max-width:100%;display:block;}
 .sub-hero-desc{font-size:15px;line-height:2;color:var(--c-text);padding-top:26px;border-top:1px solid var(--c-line);}
 .sub-hero-desc p{margin-bottom:14px;text-indent:2em;}
 .sub-hero-desc p:last-child{margin-bottom:0;}
+/* 后台富文本里留下的空段落（<p><br></p>）不占位，否则简介上方会多出一块莫名空白 */
+.sub-hero-desc p:empty,.sub-hero-desc p:has(>br:only-child){display:none;}
 .sub-hero-actions{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
 .sub-btn{display:inline-block;padding:11px 30px;border-radius:4px;background:var(--c-primary);color:#fff;font-size:14px;text-decoration:none;transition:.25s;}
 .sub-btn:hover{background:var(--c-primary-light);}
@@ -511,6 +517,12 @@ img{max-width:100%;display:block;}
 .sub-btn.ghost:hover{background:var(--c-primary);color:#fff;}
 .sub-detail-empty{padding:60px 0;text-align:center;color:var(--c-text-light);}
 .sub-detail-empty .sub-btn{margin-top:22px;}
+/* 核心业务领域：按成员企业的「所属领域」从 core_business 表匹配出的一项 */
+.sub-core{margin-top:80px;padding-top:60px;border-top:1px solid var(--c-line);}
+.sub-core-card{display:flex;align-items:flex-start;gap:26px;padding:34px 38px;background:var(--c-bg-soft);border-left:3px solid var(--c-accent);border-radius:6px;}
+.sub-core-ico{flex:0 0 64px;width:64px;height:64px;border-radius:50%;background:rgba(13,58,114,.08);color:var(--c-primary);display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;}
+.sub-core-body h5{font-size:20px;font-weight:600;color:var(--c-primary);margin-bottom:12px;}
+.sub-core-body p{font-size:14px;line-height:1.9;color:var(--c-text-light);margin:0;}
 .sub-related{margin-top:80px;padding-top:60px;border-top:1px solid var(--c-line);}
 .sub-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .sub-rel-card{position:relative;display:block;height:230px;border-radius:6px;overflow:hidden;text-decoration:none;box-shadow:var(--shadow);}
@@ -530,6 +542,10 @@ img{max-width:100%;display:block;}
   .sub-hero-actions{margin-top:24px;}
   .sub-btn{padding:10px 22px;}
   .sub-related{margin-top:48px;padding-top:40px;}
+  .sub-core{margin-top:48px;padding-top:40px;}
+  .sub-core-card{flex-direction:column;gap:18px;padding:26px 22px;}
+  .sub-core-ico{width:54px;height:54px;flex:0 0 54px;font-size:22px;}
+  .sub-core-body h5{font-size:18px;}
   .sub-related-grid{grid-template-columns:repeat(2,1fr);gap:14px;}
   .sub-rel-card{height:190px;}
 }

@@ -34,6 +34,20 @@
           <router-link v-if="!loading" to="/industry" class="sub-btn">返回集团产业</router-link>
         </div>
 
+        <div v-if="sub && coreBusiness" class="sub-core">
+          <div class="sec-head">
+            <span class="en">CORE BUSINESS</span>
+            <h3>核心业务领域</h3>
+          </div>
+          <div class="sub-core-card">
+            <div class="sub-core-ico"><i :class="coreBusinessIcon"></i></div>
+            <div class="sub-core-body">
+              <h5>{{ coreBusiness.name }}</h5>
+              <p>{{ coreBusiness.description }}</p>
+            </div>
+          </div>
+        </div>
+
         <div class="sub-related" v-if="sub && others.length">
           <div class="sec-head">
             <span class="en">MORE COMPANIES</span>
@@ -67,11 +81,55 @@ import { loadContent, pick } from '@/utils/content'
 const route = useRoute()
 const sub = ref(null)
 const list = ref([])
+const coreBusinesses = ref([])
 const content = ref({})
 const loading = ref(false)
 const bg = (key, fallback) => pick(content.value, key, fallback)
 
 const others = computed(() => list.value.filter(item => String(item.id) !== String(route.params.id)))
+
+// 核心业务领域图标，与首页「核心业务领域」卡片保持同序同款
+const CORE_ICONS = ['fas fa-building', 'fas fa-microchip', 'fas fa-chart-line', 'fas fa-gears', 'fas fa-city']
+
+/** 只保留中文/字母/数字，抹掉空格与标点，避免"（一期）"之类的写法干扰匹配 */
+const normalizeText = value => String(value || '').replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, '').toLowerCase()
+
+const bigrams = value => {
+  const pairs = new Set()
+  for (let i = 0; i + 2 <= value.length; i++) pairs.add(value.slice(i, i + 2))
+  return pairs
+}
+
+/** 与后端 CoreBusinessService.matchByCategory 同一套规则：完全相同 → 互相包含 → 双字重合度最高 */
+function matchCoreBusiness(category, candidates) {
+  const target = normalizeText(category)
+  if (!target || !Array.isArray(candidates) || !candidates.length) return null
+  let best = null
+  let bestScore = 0
+  for (const item of candidates) {
+    const name = normalizeText(item && item.name)
+    if (!name) continue
+    let score = 0
+    if (target === name) score = 1000
+    else if (target.includes(name) || name.includes(target)) score = 500
+    else {
+      const targetPairs = bigrams(target)
+      const namePairs = bigrams(name)
+      targetPairs.forEach(pair => { if (namePairs.has(pair)) score++ })
+    }
+    if (score > bestScore) {
+      bestScore = score
+      best = item
+    }
+  }
+  return bestScore >= 1 ? best : null
+}
+
+const coreBusiness = computed(() => matchCoreBusiness(sub.value && sub.value.category, coreBusinesses.value))
+const coreBusinessIcon = computed(() => {
+  const index = coreBusiness.value ? coreBusinesses.value.indexOf(coreBusiness.value) : -1
+  return CORE_ICONS[(index < 0 ? 0 : index) % CORE_ICONS.length]
+})
 
 async function loadList() {
   const res = await api.getSubsidiaries()
@@ -99,6 +157,8 @@ watch(() => route.params.id, async (id, previous, onCleanup) => {
 onMounted(async () => {
   content.value = await loadContent()
   await loadList()
+  const res = await api.getCoreBusinesses()
+  if (res.code === 200 && Array.isArray(res.data)) coreBusinesses.value = res.data
 })
 </script>
 
@@ -123,6 +183,8 @@ onMounted(async () => {
 .sub-hero-desc { font-size: 15px; line-height: 2; color: var(--c-text); padding-top: 26px; border-top: 1px solid var(--c-line); }
 .sub-hero-desc :deep(p) { margin-bottom: 14px; text-indent: 2em; }
 .sub-hero-desc :deep(p:last-child) { margin-bottom: 0; }
+/* 后台富文本里留下的空段落（<p><br></p>）不占位，否则简介上方会多出一块莫名空白 */
+.sub-hero-desc :deep(p:empty), .sub-hero-desc :deep(p:has(> br:only-child)) { display: none; }
 .sub-hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
 .sub-btn { display: inline-block; padding: 11px 30px; border-radius: 4px; background: var(--c-primary); color: #fff; font-size: 14px; text-decoration: none; transition: .25s; }
 .sub-btn:hover { background: var(--c-primary-light); }
@@ -130,6 +192,11 @@ onMounted(async () => {
 .sub-btn.ghost:hover { background: var(--c-primary); color: #fff; }
 .sub-detail-empty { padding: 60px 0; text-align: center; color: var(--c-text-light); }
 .sub-detail-empty .sub-btn { margin-top: 22px; }
+.sub-core { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
+.sub-core-card { display: flex; align-items: flex-start; gap: 26px; padding: 34px 38px; background: var(--c-bg-soft); border-left: 3px solid var(--c-accent); border-radius: 6px; }
+.sub-core-ico { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 50%; background: rgba(13,58,114,.08); color: var(--c-primary); display: flex; align-items: center; justify-content: center; font-size: 26px; line-height: 1; }
+.sub-core-body h5 { font-size: 20px; font-weight: 600; color: var(--c-primary); margin-bottom: 12px; }
+.sub-core-body p { font-size: 14px; line-height: 1.9; color: var(--c-text-light); margin: 0; }
 .sub-related { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
 .sec-head { text-align: center; margin-bottom: 50px; }
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
@@ -152,6 +219,10 @@ onMounted(async () => {
   .sub-hero-actions { margin-top: 24px; }
   .sub-btn { padding: 10px 22px; }
   .sub-related { margin-top: 48px; padding-top: 40px; }
+  .sub-core { margin-top: 48px; padding-top: 40px; }
+  .sub-core-card { flex-direction: column; gap: 18px; padding: 26px 22px; }
+  .sub-core-ico { width: 54px; height: 54px; flex: 0 0 54px; font-size: 22px; }
+  .sub-core-body h5 { font-size: 18px; }
   .sec-head { margin-bottom: 30px; }
   .sec-head h3 { font-size: 26px; }
   .sub-related-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }

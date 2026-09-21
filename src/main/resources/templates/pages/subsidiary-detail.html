@@ -35,6 +35,17 @@
   <a th:href="@{/industry}" class="sub-btn">返回集团产业</a>
 </div>
 
+<div class="sub-core" th:if="${sub != null and coreBusiness != null}">
+  <div class="sec-head"><span class="en">CORE BUSINESS</span><h3>核心业务领域</h3></div>
+  <div class="sub-core-card">
+    <div class="sub-core-ico"><i th:class="|fas ${coreBusinessIcon}|"></i></div>
+    <div class="sub-core-body">
+      <h5 th:text="${coreBusiness.name}">领域名称</h5>
+      <p th:text="${coreBusiness.description}">领域描述</p>
+    </div>
+  </div>
+</div>
+
 <div class="sub-related" th:if="${sub != null and others != null and !#lists.isEmpty(others)}">
   <div class="sec-head"><span class="en">MORE COMPANIES</span><h3>其他成员企业</h3></div>
   <div class="sub-related-grid">

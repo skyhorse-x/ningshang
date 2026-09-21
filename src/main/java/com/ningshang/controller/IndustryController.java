@@ -1,8 +1,10 @@
 package com.ningshang.controller;
 
 import com.ningshang.dto.ApiResponse;
+import com.ningshang.entity.CoreBusiness;
 import com.ningshang.entity.Subsidiary;
 import com.ningshang.exception.BusinessException;
+import com.ningshang.service.CoreBusinessService;
 import com.ningshang.service.SubsidiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +19,15 @@ import java.util.stream.Collectors;
 @Controller
 public class IndustryController {
 
+    /** 核心业务领域图标，与首页「核心业务领域」卡片保持同序同款。 */
+    private static final String[] CORE_BUSINESS_ICONS =
+            {"fa-building", "fa-microchip", "fa-chart-line", "fa-gears", "fa-city"};
+
     @Autowired
     private SubsidiaryService subsidiaryService;
+
+    @Autowired
+    private CoreBusinessService coreBusinessService;
 
     @GetMapping("/industry")
     public String industry(Model model) {
@@ -38,6 +47,18 @@ public class IndustryController {
         model.addAttribute("others", subsidiaryService.findAll().stream()
                 .filter(item -> !id.equals(item.getId()))
                 .collect(Collectors.toList()));
+
+        // 核心业务领域：用该公司的「所属领域」去核心业务领域表里匹配最贴近的一项
+        List<CoreBusiness> coreBusinesses = coreBusinessService.findAll();
+        CoreBusiness matched = subsidiary == null ? null
+                : coreBusinessService.matchByCategory(subsidiary.getCategory(), coreBusinesses);
+        model.addAttribute("coreBusiness", matched);
+        if (matched != null) {
+            int index = coreBusinesses.indexOf(matched);
+            model.addAttribute("coreBusinessIcon",
+                    CORE_BUSINESS_ICONS[(index < 0 ? 0 : index) % CORE_BUSINESS_ICONS.length]);
+        }
+
         model.addAttribute("currentPage", "industry");
         return "pages/subsidiary-detail";
     }
