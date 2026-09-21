@@ -112,7 +112,7 @@
       <p>科技赋能产业，服务贯穿全程</p>
     </div>
     <div class="biz-grid">
-      <div th:each="biz, iter : ${coreBusinesses}" class="biz-card" th:classappend="${iter.index == 0 ? 'biz-card-lg' : ''}">
+      <div th:each="biz : ${coreBusinesses}" class="biz-card">
         <div class="biz-media">
           <img th:src="@{${biz.coverImage ?: '/images/biz-1.png'}}" th:alt="${biz.name}" loading="lazy">
         </div>

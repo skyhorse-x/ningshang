@@ -27,7 +27,7 @@
           <p>科技赋能产业，服务贯穿全程</p>
         </div>
         <div class="biz-grid">
-          <div v-for="(item, index) in businessList" :key="item.id || item.name" class="biz-card" :class="{ 'biz-card-lg': index === 0 }">
+          <div v-for="(item, index) in businessList" :key="item.id || item.name" class="biz-card">
             <div class="biz-media">
               <img :src="item.coverImage || fallbackImages[index % fallbackImages.length]" :alt="item.name" loading="lazy">
             </div>
@@ -100,21 +100,15 @@ onMounted(async () => {
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
 .sec-head h3 { font-size: 32px; color: var(--c-primary); font-weight: 700; }
 .sec-head p { color: var(--c-text-light); margin-top: 12px; font-size: 15px; }
-.biz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .biz-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
 .biz-card { background: #fff; border: 1px solid var(--c-line); overflow: hidden; display: flex; flex-direction: column; transition: .3s; position: relative; }
 .biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
-.biz-media { position: relative; overflow: hidden; aspect-ratio: 2 / 1; background: var(--c-bg-soft); }
+  .biz-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--c-bg-soft); }
 .biz-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
 .biz-card:hover .biz-media img { transform: scale(1.06); }
-.biz-body { flex: 1; display: flex; flex-direction: column; padding: 26px 28px 30px; }
-.biz-card h5 { font-size: 20px; color: var(--c-primary); margin-bottom: 10px; line-height: 1.45; }
-.biz-card p { font-size: 14px; color: var(--c-text-light); line-height: 1.85; }
-.biz-card-lg { grid-column: 1 / -1; flex-direction: row; min-height: 380px; }
-.biz-card-lg .biz-media { flex: 0 0 56%; width: 56%; min-height: 380px; aspect-ratio: auto; }
-.biz-card-lg .biz-media img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.biz-card-lg .biz-body { justify-content: center; padding: 44px 48px; }
-.biz-card-lg h5 { font-size: 28px; margin-bottom: 16px; }
-.biz-card-lg p { font-size: 15px; }
+  .biz-body { flex: 1; display: flex; flex-direction: column; padding: 20px 18px 22px; }
+  .biz-card h5 { font-size: 18px; color: var(--c-primary); margin-bottom: 10px; line-height: 1.45; }
+  .biz-card p { font-size: 13px; color: var(--c-text-light); line-height: 1.75; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .advantages-section { background: linear-gradient(180deg, #f7fbff 0%, #fff 100%); position: relative; overflow: hidden; }
 .advantages-section::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(0deg, rgba(13,58,114,.06), transparent); pointer-events: none; }
 .adv-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
@@ -126,17 +120,16 @@ onMounted(async () => {
 .partner-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
 .partner-card { min-height: 96px; border: 1px solid var(--c-line); background: #fff; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; color: var(--c-primary); font-weight: 600; box-shadow: 0 8px 24px rgba(13,58,114,.05); }
 .partner-card img { max-width: 120px; max-height: 42px; object-fit: contain; }
-@media (max-width: 1000px) {
+  @media (max-width: 1000px) {
   .section { padding: 52px 0; }
   .sec-head { margin-bottom: 30px; }
   .sec-head h3 { font-size: 26px; }
-  .biz-grid, .adv-grid, .partner-grid { grid-template-columns: 1fr; }
+    .biz-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .adv-grid, .partner-grid { grid-template-columns: 1fr; }
   .biz-grid { gap: 20px; }
   .biz-body { padding: 22px 22px 24px; }
-  .biz-card-lg { flex-direction: column; min-height: 0; }
-  .biz-card-lg .biz-media { flex: none; width: 100%; min-height: 0; aspect-ratio: 2 / 1; }
-  .biz-card-lg .biz-body { padding: 24px 22px 26px; justify-content: flex-start; }
-  .biz-card-lg h5 { font-size: 22px; margin-bottom: 12px; }
-  .biz-card-lg p { font-size: 14px; }
-}
+  }
+  @media (max-width: 640px) {
+    .biz-grid { grid-template-columns: 1fr; }
+  }
 </style>

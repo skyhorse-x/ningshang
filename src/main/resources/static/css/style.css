@@ -269,26 +269,19 @@ img{max-width:100%;display:block;}
 .stats .item .lbl{font-size:15px;color:#c7d6ec;margin-top:6px;letter-spacing:1px;}
 
 /* 业务板块 */
-/* 核心业务领域：1 通栏大卡 + 2 + 2，版面为「图片 + 名称 + 描述」 */
-.biz-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+/* 核心业务领域：桌面端一行五个图文卡片 */
+.biz-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;}
 .biz-card{background-color:#fff;border:1px solid var(--c-line);overflow:hidden;display:flex;flex-direction:column;transition:.3s;position:relative;}
 .biz-card::before{content:"";position:absolute;top:0;left:0;width:100%;height:3px;background:var(--c-accent);transform:scaleX(0);transform-origin:left;transition:.3s;z-index:2;}
 .biz-card:hover{box-shadow:var(--shadow);transform:translateY(-6px);border-color:transparent;}
 .biz-card:hover::before{transform:scaleX(1);}
-.biz-media{position:relative;overflow:hidden;aspect-ratio:2 / 1;background:var(--c-bg-soft);}
+.biz-media{position:relative;overflow:hidden;aspect-ratio:4 / 3;background:var(--c-bg-soft);}
 .biz-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;}
 .biz-card:hover .biz-media img{transform:scale(1.06);}
-.biz-body{flex:1;display:flex;flex-direction:column;padding:26px 28px 30px;}
-.biz-card h5{font-size:20px;color:var(--c-primary);margin-bottom:10px;line-height:1.45;}
-.biz-card p,.biz-card .rich-content{font-size:14px;color:var(--c-text-light);line-height:1.85;}
+.biz-body{flex:1;display:flex;flex-direction:column;padding:20px 18px 22px;}
+.biz-card h5{font-size:18px;color:var(--c-primary);margin-bottom:10px;line-height:1.45;}
+.biz-card p,.biz-card .rich-content{font-size:13px;color:var(--c-text-light);line-height:1.75;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;}
 .biz-card .rich-content p{margin:0;}
-/* 首张：通栏大卡，左图右文 */
-.biz-card-lg{grid-column:1 / -1;flex-direction:row;min-height:380px;}
-.biz-card-lg .biz-media{flex:0 0 56%;width:56%;min-height:380px;aspect-ratio:auto;}
-.biz-card-lg .biz-media img{position:absolute;top:0;left:0;width:100%;height:100%;}
-.biz-card-lg .biz-body{justify-content:center;padding:44px 48px;}
-.biz-card-lg h5{font-size:28px;margin-bottom:16px;}
-.biz-card-lg p,.biz-card-lg .rich-content{font-size:15px;}
 
 /* 新闻 */
 .news-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;}
@@ -601,7 +594,8 @@ img{max-width:100%;display:block;}
   .about-row,.news-layout,.contact-grid,.speech{flex-direction:column;gap:30px;}
   .about-row .pic,.about-row .txt,.speech .portrait{flex:1;}
   .stats .wrap{flex-wrap:wrap;gap:24px;padding:40px 0;}
-  .biz-grid,.sub-grid,.party-grid,.value-grid,.team-grid,.honor-grid,.job-list,.footer .grid{grid-template-columns:1fr;}
+    .biz-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .sub-grid,.party-grid,.value-grid,.team-grid,.honor-grid,.job-list,.footer .grid{grid-template-columns:1fr;}
   .culture-block{padding:48px 24px;}
   .culture-block .big{font-size:26px;letter-spacing:1px;}
   .home-news{grid-template-columns:1fr;}
