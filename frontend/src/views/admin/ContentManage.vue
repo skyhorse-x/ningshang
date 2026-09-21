@@ -8,6 +8,13 @@
           <el-divider content-position="left">备案信息</el-divider>
           <el-form-item label="备案号"><el-input v-model="forms.basic.icp_number" placeholder="皖ICP备2026XXXXXX号-1" /></el-form-item>
           <el-form-item label="底部品牌简介"><RichEditor v-if="activeTab === 'basic'" v-model="forms.basic.footer_brand_desc" height="220px" /></el-form-item>
+          <el-divider content-position="left">首页轮播图设置</el-divider>
+          <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="首页顶部轮播图，最多 3 张，建议使用 1920×600 以上的宽幅横图；留空则显示系统默认图。" />
+          <el-row :gutter="20">
+            <el-col :span="8"><el-form-item label="轮播图一"><ImageUpload v-model="forms.basic.bg_hero_1" /></el-form-item></el-col>
+            <el-col :span="8"><el-form-item label="轮播图二"><ImageUpload v-model="forms.basic.bg_hero_2" /></el-form-item></el-col>
+            <el-col :span="8"><el-form-item label="轮播图三"><ImageUpload v-model="forms.basic.bg_hero_3" /></el-form-item></el-col>
+          </el-row>
           <el-divider content-position="left">栏目背景图设置</el-divider>
           <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="栏目背景图用于页面顶部横幅，页面大背景图用于正文区域背景。" />
           <el-row :gutter="20">
@@ -25,13 +32,6 @@
           <el-row :gutter="20">
             <el-col :span="12"><el-form-item label="联系宁商栏目"><ImageUpload v-model="forms.basic.bg_contact_banner" /></el-form-item></el-col>
             <el-col :span="12"><el-form-item label="联系宁商大背景"><ImageUpload v-model="forms.basic.bg_contact_page" /></el-form-item></el-col>
-          </el-row>
-          <el-divider content-position="left">首页轮播图设置</el-divider>
-          <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="首页顶部轮播图，最多 3 张，建议使用 1920×600 以上的宽幅横图；留空则显示系统默认图。" />
-          <el-row :gutter="20">
-            <el-col :span="8"><el-form-item label="轮播图一"><ImageUpload v-model="forms.basic.bg_hero_1" /></el-form-item></el-col>
-            <el-col :span="8"><el-form-item label="轮播图二"><ImageUpload v-model="forms.basic.bg_hero_2" /></el-form-item></el-col>
-            <el-col :span="8"><el-form-item label="轮播图三"><ImageUpload v-model="forms.basic.bg_hero_3" /></el-form-item></el-col>
           </el-row>
           <el-form-item><el-button v-if="hasPermission('content:update')" type="primary" :loading="saving" @click="saveGroup('basic')">保存基本设置</el-button></el-form-item>
         </el-form>
