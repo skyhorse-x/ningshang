@@ -41,6 +41,22 @@ public class WebConfig implements WebMvcConfigurer {
         apiNoCache.setUseCacheControlHeader(true);
         apiNoCache.setUseCacheControlNoStore(true);
         registry.addInterceptor(apiNoCache).addPathPatterns("/api/**");
+
+        // 页面 HTML 也禁止缓存：否则改了模板/样式，浏览器仍显示旧页面，
+        // 看起来像"改了没生效"（静态资源靠 ?v= 版本号刷新，这里只管页面本身）
+        WebContentInterceptor pageNoCache = new WebContentInterceptor();
+        pageNoCache.setCacheSeconds(0);
+        pageNoCache.setUseExpiresHeader(true);
+        pageNoCache.setUseCacheControlHeader(true);
+        pageNoCache.setUseCacheControlNoStore(true);
+        registry.addInterceptor(pageNoCache)
+                .addPathPatterns("/**")
+                .excludePathPatterns(
+                        "/api/**", "/error", "/favicon.ico",
+                        "/css/**", "/js/**", "/images/**", "/uploads/**",
+                        "/vendor/**", "/static/**",
+                        "/ningshang-admin-ui/assets/**");
+
         registry.addInterceptor(adminAuthInterceptor)
                 .addPathPatterns("/api/admin/**");
     }
