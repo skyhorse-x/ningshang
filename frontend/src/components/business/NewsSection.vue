@@ -50,6 +50,7 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import api from '@/api'
+import { loadContent, pick } from '@/utils/content'
 const newsList = ref([])
 const activeTab = ref('group')
 const categories = [
@@ -60,7 +61,7 @@ const categories = [
 ]
 const filteredNews = computed(() => newsList.value.filter(n => n.category === activeTab.value).slice(0, 5))
 const featuredNews = computed(() => newsList.value.filter(n => n.category === 'group'))
-const videoUrl = (import.meta.env.VITE_HOME_VIDEO_URL || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4').trim()
+const videoUrl = ref('')
 const videoVisible = ref(false)
 const videoFailed = ref(false)
 const videoPlayer = ref(null)
@@ -74,8 +75,9 @@ function stopVideo() {
 onBeforeUnmount(stopVideo)
 onMounted(async () => {
   try {
-    const res = await api.getNews()
+    const [res, content] = await Promise.all([api.getNews(), loadContent()])
     if (res.code === 200) newsList.value = res.data
+    videoUrl.value = pick(content, 'home_promo_video', import.meta.env.VITE_HOME_VIDEO_URL || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4').trim()
   } catch (e) {
     console.error('Failed to load news:', e)
   }

@@ -92,7 +92,6 @@ onMounted(async () => {
   right: 0;
   background: rgb(4 4 4 / 0%);
   box-shadow: none;
-  backdrop-filter: blur(8px);
 }
 .wrap {
   width: 1200px;

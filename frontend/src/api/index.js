@@ -76,6 +76,12 @@ export default {
     return request.post('/admin/upload', fd, { headers: { 'Content-Type': 'multipart/form-data' } })
   },
 
+  adminUploadVideo: (file) => {
+    const fd = new FormData()
+    fd.append('file', file)
+    return request.post('/admin/upload/video', fd, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 120000 })
+  },
+
   // 管理员账号管理（仅 SUPER_ADMIN）
   adminListAdmins: () => request.get('/admin/admins'),
   adminCreateAdmin: (data) => request.post('/admin/admins', data),

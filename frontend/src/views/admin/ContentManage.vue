@@ -15,6 +15,9 @@
             <el-col :span="8"><el-form-item label="轮播图二"><ImageUpload v-model="forms.basic.bg_hero_2" /></el-form-item></el-col>
             <el-col :span="8"><el-form-item label="轮播图三"><ImageUpload v-model="forms.basic.bg_hero_3" /></el-form-item></el-col>
           </el-row>
+          <el-divider content-position="left">首页宣传视频</el-divider>
+          <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="上传后用于首页新闻区域右侧的宣传片播放窗口，建议使用 MP4 格式。" />
+          <el-form-item label="宣传视频"><VideoUpload v-model="forms.basic.home_promo_video" /></el-form-item>
           <el-divider content-position="left">栏目背景图设置</el-divider>
           <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="栏目背景图用于页面顶部横幅，页面大背景图用于正文区域背景。" />
           <el-row :gutter="20">
@@ -160,6 +163,7 @@
 <script setup>
 import RichEditor from '@/components/admin/RichEditor.vue'
 import ImageUpload from '@/components/admin/ImageUpload.vue'
+import VideoUpload from '@/components/admin/VideoUpload.vue'
 import { ref, reactive, onMounted, computed, watch } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import api from '@/api'
@@ -183,7 +187,7 @@ const isBody = computed(() => isRichContentKey(form.value.contentKey || ''))
 watch(() => [props.mode, props.section], ([value, section]) => { activeTab.value = value === 'settings' ? 'basic' : section })
 
 const knownKeys = {
-  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
+  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'home_promo_video', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
   intro: ['about_intro_meta', 'about_intro_s1_title', 'about_intro_s1_body', 'about_intro_s2_title', 'about_intro_s2_body', 'about_intro_s3_title'],
   stats: ['stat_founded', 'stat_companies', 'stat_ip', 'stat_fields'],
   speech: ['speech_chairman_name', 'speech_chairman_title', 'speech_quote', 'speech_body', 'speech_sign', 'speech_date'],
@@ -199,10 +203,11 @@ const defaultTitles = {
   recruit_body: '人才理念正文',
   bg_hero_1: '首页轮播图一',
   bg_hero_2: '首页轮播图二',
-  bg_hero_3: '首页轮播图三'
+  bg_hero_3: '首页轮播图三',
+  home_promo_video: '首页宣传视频'
 }
 // 后台自动补建时的排序号（与已有 bg_* 键的 90~97 顺次衔接）
-const defaultSortOrder = { bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100 }
+const defaultSortOrder = { bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100, home_promo_video: 101 }
 
 const forms = reactive({
   basic: {},

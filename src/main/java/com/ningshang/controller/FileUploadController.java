@@ -32,6 +32,8 @@ public class FileUploadController {
 
     private static final Set<String> ALLOWED_EXT = new HashSet<>(java.util.Arrays.asList(
             "jpg", "jpeg", "png", "gif", "webp"));
+    private static final Set<String> ALLOWED_VIDEO_EXT = new HashSet<>(java.util.Arrays.asList(
+            "mp4", "webm", "ogg", "mov"));
 
     @PostMapping("/upload")
     public ApiResponse<Map<String, String>> upload(@RequestParam("file") MultipartFile file) {
@@ -58,6 +60,39 @@ public class FileUploadController {
             return ApiResponse.success(data);
         } catch (IOException e) {
             throw new BusinessException(400, "图片保存失败，请稍后重试");
+        }
+    }
+
+    @PostMapping("/upload/video")
+    public ApiResponse<Map<String, String>> uploadVideo(@RequestParam("file") MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            throw new BusinessException(400, "请选择要上传的视频");
+        }
+        if (file.getSize() > 100L * 1024 * 1024) {
+            throw new BusinessException(400, "视频不能超过 100MB");
+        }
+        String original = file.getOriginalFilename() == null ? "" : file.getOriginalFilename();
+        int dot = original.lastIndexOf('.');
+        String ext = dot >= 0 ? original.substring(dot + 1).toLowerCase(Locale.ROOT) : "";
+        String contentType = file.getContentType() == null ? "" : file.getContentType().toLowerCase(Locale.ROOT);
+        if (!ALLOWED_VIDEO_EXT.contains(ext) || !contentType.startsWith("video/")) {
+            throw new BusinessException(400, "仅支持 mp4/webm/ogg/mov 格式视频");
+        }
+        try {
+            Path dir = Paths.get(uploadDir).toAbsolutePath().normalize();
+            Files.createDirectories(dir);
+            String filename = System.currentTimeMillis() + "-"
+                    + java.util.UUID.randomUUID().toString().substring(0, 8) + "." + ext;
+            Path target = dir.resolve(filename).normalize();
+            if (!target.startsWith(dir)) {
+                throw new BusinessException(400, "视频文件名无效");
+            }
+            file.transferTo(target.toFile());
+            Map<String, String> data = new HashMap<>();
+            data.put("url", "/uploads/" + filename);
+            return ApiResponse.success(data);
+        } catch (IOException e) {
+            throw new BusinessException(400, "视频保存失败，请稍后重试");
         }
     }
 }
