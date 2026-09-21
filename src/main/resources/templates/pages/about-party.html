@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title='|党|建|工|作| - |安|徽|宁|商|科|技|集|团|有|限|公|司')"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner with-overlay" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_about_banner'])} ? '/images/dangjian.jpg' : ${siteContent['bg_about_banner']}) + '\')'">
+<div class="pagebanner with-overlay imgbanner"><img th:src="${#strings.isEmpty(siteContent['bg_about_banner']) ? '/images/dangjian.jpg' : siteContent['bg_about_banner']}" alt="党建工作">
 <div class="wrap cap">
 <div class="crumb"><a th:href="@{/}">首页</a> / <a th:href="@{/about-intro}">集团概况</a> / 党建工作</div>
 <span class="en">PARTY BUILDING</span>

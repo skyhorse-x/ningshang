@@ -51,6 +51,9 @@
         </ul>
       </li>
       <li th:classappend="${currentPage} == 'industry' ? 'on'"><a th:href="@{/industry}">集团产业<span class="en">INDUSTRY</span></a>
+        <ul class="subnav subnav-industry">
+          <li th:each="sub : ${subsidiaries}"><a th:href="@{/industry/{id}(id=${sub.id})}" th:text="${sub.name}">子公司名称</a></li>
+        </ul>
       </li>
       <li th:classappend="${currentPage} == 'contact' ? 'on'"><a th:href="@{/contact}">联系宁商<span class="en">CONTACT</span></a>
         <ul class="subnav">

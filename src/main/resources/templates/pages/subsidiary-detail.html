@@ -3,7 +3,7 @@
 <head th:replace="fragments/head :: head(title=${sub != null ? sub.name + ' - 安徽宁商科技集团有限公司' : '成员企业 - 安徽宁商科技集团有限公司'})"></head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_industry_banner'])} ? '/images/industry-banner.jpeg' : ${siteContent['bg_industry_banner']}) + '\')'"></div>
+<div class="pagebanner imgbanner"><img th:src="${#strings.isEmpty(siteContent['bg_industry_banner']) ? '/images/industry-banner.jpeg' : siteContent['bg_industry_banner']}" alt="集团产业"></div>
 <div class="section sub-detail-section"><div class="wrap">
 
 <div class="sub-detail" th:if="${sub != null}">

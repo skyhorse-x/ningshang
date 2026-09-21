@@ -33,6 +33,11 @@
         </li>
         <li :class="{ on: route.path.startsWith('/industry') }">
           <router-link to="/industry" class="nav-link" @click="menuOpen=false">集团产业<span class="en">INDUSTRY</span></router-link>
+          <ul v-if="subsidiaries.length" class="subnav subnav-industry">
+            <li v-for="sub in subsidiaries" :key="sub.id">
+              <router-link :to="'/industry/' + sub.id" @click="menuOpen=false">{{ sub.name }}</router-link>
+            </li>
+          </ul>
         </li>
         <li :class="{ on: route.path.startsWith('/contact') || route.path.startsWith('/recruit') }">
           <router-link to="/contact" class="nav-link" @click="menuOpen=false">联系宁商<span class="en">CONTACT</span></router-link>
@@ -49,8 +54,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import api from '@/api'
 
 defineProps({
   overlay: {
@@ -61,6 +67,13 @@ defineProps({
 
 const route = useRoute()
 const menuOpen = ref(false)
+// 「集团产业」下级菜单 = 后台子公司列表（与后台保持一一对应）
+const subsidiaries = ref([])
+
+onMounted(async () => {
+  const res = await api.getSubsidiaries()
+  if (res.code === 200 && Array.isArray(res.data)) subsidiaries.value = res.data
+})
 </script>
 
 <style scoped>
@@ -198,6 +211,8 @@ const menuOpen = ref(false)
   background: var(--c-bg-soft);
   color: var(--c-primary);
 }
+/* 「集团产业」下级 = 后台子公司列表（公司全名较长，单独放宽） */
+.subnav.subnav-industry { min-width: 240px; }
 .menu-btn { display: none; }
 
 @media (max-width: 1000px) {

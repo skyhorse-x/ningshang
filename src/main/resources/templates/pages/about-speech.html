@@ -4,7 +4,7 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<div class="pagebanner" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_about_banner'])} ? '/images/1.jpg' : ${siteContent['bg_about_banner']}) + '\')'"></div>
+<div class="pagebanner imgbanner"><img th:src="${#strings.isEmpty(siteContent['bg_about_banner']) ? '/images/1.jpg' : siteContent['bg_about_banner']}" alt="董事长致词"></div>
 <div class="subnav-tabs">
   <div class="wrap">
     <a th:href="@{/about-intro}">集团简介</a>
