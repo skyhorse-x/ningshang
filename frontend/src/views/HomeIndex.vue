@@ -131,6 +131,12 @@ onMounted(async () => {
   .sec-head { margin-bottom: 30px; }
   .sec-head h3 { font-size: 26px; }
   .biz-grid, .adv-grid, .partner-grid { grid-template-columns: 1fr; }
-  .biz-card { min-height: 190px; padding: 30px 22px; }
+  .biz-grid { gap: 20px; }
+  .biz-body { padding: 22px 22px 24px; }
+  .biz-card-lg { flex-direction: column; min-height: 0; }
+  .biz-card-lg .biz-media { flex: none; width: 100%; min-height: 0; aspect-ratio: 2 / 1; }
+  .biz-card-lg .biz-body { padding: 24px 22px 26px; justify-content: flex-start; }
+  .biz-card-lg h5 { font-size: 22px; margin-bottom: 12px; }
+  .biz-card-lg p { font-size: 14px; }
 }
 </style>
