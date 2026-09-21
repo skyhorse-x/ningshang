@@ -22,7 +22,6 @@
               <span v-if="sub.englishName" class="sub-hero-en2">{{ sub.englishName }}</span>
               <div class="sub-hero-desc"><RichContent :content="sub.description" /></div>
               <div class="sub-hero-actions">
-                <router-link to="/industry" class="sub-btn">返回集团产业</router-link>
                 <router-link to="/contact" class="sub-btn ghost">联系我们</router-link>
               </div>
             </div>
@@ -30,8 +29,7 @@
         </div>
 
         <div class="sub-detail-empty" v-else>
-          <p>{{ loading ? '正在加载…' : '未找到对应的成员企业，请返回集团产业查看完整列表。' }}</p>
-          <router-link v-if="!loading" to="/industry" class="sub-btn">返回集团产业</router-link>
+          <p>{{ loading ? '正在加载…' : '未找到对应的成员企业。' }}</p>
         </div>
 
         <div v-if="sub && coreBusiness" class="sub-core">
@@ -40,10 +38,11 @@
             <h3>核心业务领域</h3>
           </div>
           <div class="sub-core-card">
-            <div class="sub-core-ico"><i :class="coreBusinessIcon"></i></div>
+            <div v-if="coreBusiness.coverImage" class="sub-core-cover"><img :src="coreBusiness.coverImage" :alt="coreBusiness.name"></div>
+            <div v-else class="sub-core-ico"><i :class="coreBusinessIcon"></i></div>
             <div class="sub-core-body">
               <h5>{{ coreBusiness.name }}</h5>
-              <p>{{ coreBusiness.description }}</p>
+              <RichContent :content="coreBusiness.description" />
             </div>
           </div>
         </div>
@@ -180,7 +179,7 @@ onMounted(async () => {
 .sub-hero-cat { display: inline-block; padding: 5px 14px; border-radius: 20px; background: rgba(200,164,92,.16); color: var(--c-accent-dark); font-size: 13px; font-weight: 600; margin-bottom: 16px; }
 .sub-hero-info h1 { font-size: 32px; color: var(--c-primary); font-weight: 700; line-height: 1.4; margin-bottom: 10px; }
 .sub-hero-en2 { display: block; font-size: 12px; letter-spacing: 3px; color: var(--c-text-light); text-transform: uppercase; margin-bottom: 26px; }
-.sub-hero-desc { font-size: 15px; line-height: 2; color: var(--c-text); padding-top: 26px; border-top: 1px solid var(--c-line); }
+.sub-hero-desc { font-size: 15px; line-height: 2; color: var(--c-text); padding-top: 26px; border-top: 1px solid var(--c-line); overflow: visible; max-height: none; white-space: normal; word-break: break-word; }
 .sub-hero-desc :deep(p) { margin-bottom: 14px; text-indent: 2em; }
 .sub-hero-desc :deep(p:last-child) { margin-bottom: 0; }
 /* 后台富文本里留下的空段落（<p><br></p>）不占位，否则简介上方会多出一块莫名空白 */
@@ -195,8 +194,13 @@ onMounted(async () => {
 .sub-core { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
 .sub-core-card { display: flex; align-items: flex-start; gap: 26px; padding: 34px 38px; background: var(--c-bg-soft); border-left: 3px solid var(--c-accent); border-radius: 6px; }
 .sub-core-ico { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 50%; background: rgba(13,58,114,.08); color: var(--c-primary); display: flex; align-items: center; justify-content: center; font-size: 26px; line-height: 1; }
+.sub-core-cover { flex: 0 0 220px; width: 220px; height: 150px; border-radius: 6px; overflow: hidden; background: #fff; }
+.sub-core-cover img { width: 100%; height: 100%; object-fit: cover; }
+.sub-core-body { flex: 1; min-width: 0; }
 .sub-core-body h5 { font-size: 20px; font-weight: 600; color: var(--c-primary); margin-bottom: 12px; }
-.sub-core-body p { font-size: 14px; line-height: 1.9; color: var(--c-text-light); margin: 0; }
+.sub-core-body :deep(.rich-content) { font-size: 14px; line-height: 1.9; color: var(--c-text-light); margin: 0; white-space: normal; word-break: break-word; }
+.sub-core-body :deep(.rich-content p) { margin: 0 0 12px; }
+.sub-core-body :deep(.rich-content p:last-child) { margin-bottom: 0; }
 .sub-related { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
 .sec-head { text-align: center; margin-bottom: 50px; }
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }
@@ -221,6 +225,7 @@ onMounted(async () => {
   .sub-related { margin-top: 48px; padding-top: 40px; }
   .sub-core { margin-top: 48px; padding-top: 40px; }
   .sub-core-card { flex-direction: column; gap: 18px; padding: 26px 22px; }
+  .sub-core-cover { width: 100%; height: auto; aspect-ratio: 2 / 1; flex: none; }
   .sub-core-ico { width: 54px; height: 54px; flex: 0 0 54px; font-size: 22px; }
   .sub-core-body h5 { font-size: 18px; }
   .sec-head { margin-bottom: 30px; }

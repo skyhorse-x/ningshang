@@ -56,7 +56,6 @@ img{max-width:100%;display:block;}
 .hero{position:relative;height:450px;overflow:hidden;background:#0a2c57;top:0px;}
 .hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center;}
 .hero .slide.on{opacity:1;}
-.hero .slide::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,22,46,.82),rgba(13,58,114,.48),rgba(5,22,46,.32));}
 .hero .dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;}
 .hero .dots span{width:36px;height:4px;background:rgba(255,255,255,.4);cursor:pointer;transition:.3s;}
 .hero .dots span.on{background:var(--c-accent);width:54px;}
@@ -499,7 +498,7 @@ img{max-width:100%;display:block;}
 .sub-hero-cat{display:inline-block;padding:5px 14px;border-radius:20px;background:rgba(200,164,92,.16);color:var(--c-accent-dark);font-size:13px;font-weight:600;margin-bottom:16px;}
 .sub-hero-info h1{font-size:32px;color:var(--c-primary);font-weight:700;line-height:1.4;margin-bottom:10px;}
 .sub-hero-en2{display:block;font-size:12px;letter-spacing:3px;color:var(--c-text-light);text-transform:uppercase;margin-bottom:26px;}
-.sub-hero-desc{font-size:15px;line-height:2;color:var(--c-text);padding-top:26px;border-top:1px solid var(--c-line);}
+.sub-hero-desc{font-size:15px;line-height:2;color:var(--c-text);padding-top:26px;border-top:1px solid var(--c-line);overflow:visible;max-height:none;white-space:normal;word-break:break-word;}
 .sub-hero-desc p{margin-bottom:14px;text-indent:2em;}
 .sub-hero-desc p:last-child{margin-bottom:0;}
 /* 后台富文本里留下的空段落（<p><br></p>）不占位，否则简介上方会多出一块莫名空白 */
@@ -516,7 +515,12 @@ img{max-width:100%;display:block;}
 .sub-core-card{display:flex;align-items:flex-start;gap:26px;padding:34px 38px;background:var(--c-bg-soft);border-left:3px solid var(--c-accent);border-radius:6px;}
 .sub-core-ico{flex:0 0 64px;width:64px;height:64px;border-radius:50%;background:rgba(13,58,114,.08);color:var(--c-primary);display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;}
 .sub-core-body h5{font-size:20px;font-weight:600;color:var(--c-primary);margin-bottom:12px;}
-.sub-core-body p{font-size:14px;line-height:1.9;color:var(--c-text-light);margin:0;}
+.sub-core-cover{flex:0 0 220px;width:220px;height:150px;border-radius:6px;overflow:hidden;background:#fff;}
+.sub-core-cover img{width:100%;height:100%;object-fit:cover;}
+.sub-core-body{flex:1;min-width:0;}
+.sub-core-body .rich-content{font-size:14px;line-height:1.9;color:var(--c-text-light);margin:0;white-space:normal;word-break:break-word;}
+.sub-core-body .rich-content p{margin:0 0 12px;}
+.sub-core-body .rich-content p:last-child{margin-bottom:0;}
 .sub-related{margin-top:80px;padding-top:60px;border-top:1px solid var(--c-line);}
 .sub-related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .sub-rel-card{position:relative;display:block;height:230px;border-radius:6px;overflow:hidden;text-decoration:none;box-shadow:var(--shadow);}
@@ -538,6 +542,7 @@ img{max-width:100%;display:block;}
   .sub-related{margin-top:48px;padding-top:40px;}
   .sub-core{margin-top:48px;padding-top:40px;}
   .sub-core-card{flex-direction:column;gap:18px;padding:26px 22px;}
+  .sub-core-cover{width:100%;height:auto;aspect-ratio:2 / 1;flex:none;}
   .sub-core-ico{width:54px;height:54px;flex:0 0 54px;font-size:22px;}
   .sub-core-body h5{font-size:18px;}
   .sub-related-grid{grid-template-columns:repeat(2,1fr);gap:14px;}

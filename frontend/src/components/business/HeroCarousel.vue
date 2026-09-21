@@ -41,7 +41,6 @@ onMounted(async () => {
   display: flex;
   align-items: center;
 }
-.slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,22,46,.82), rgba(13,58,114,.48), rgba(5,22,46,.32)); }
 @media (max-width: 1000px) {
   .hero { height: 450px; }
 }

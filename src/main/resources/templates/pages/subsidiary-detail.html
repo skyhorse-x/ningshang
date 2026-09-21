@@ -23,7 +23,6 @@
       <span class="sub-hero-en2" th:if="${!#strings.isEmpty(sub.englishName)}" th:text="${sub.englishName}">ENGLISH NAME</span>
       <div class="sub-hero-desc rich-content" th:utext="${@richText.clean(sub.description)}">企业简介</div>
       <div class="sub-hero-actions">
-        <a th:href="@{/industry}" class="sub-btn">返回集团产业</a>
         <a th:href="@{/contact}" class="sub-btn ghost">联系我们</a>
       </div>
     </div>
@@ -31,17 +30,17 @@
 </div>
 
 <div class="sub-detail-empty" th:unless="${sub != null}">
-  <p>未找到对应的成员企业，请返回集团产业查看完整列表。</p>
-  <a th:href="@{/industry}" class="sub-btn">返回集团产业</a>
+  <p>未找到对应的成员企业。</p>
 </div>
 
 <div class="sub-core" th:if="${sub != null and coreBusiness != null}">
   <div class="sec-head"><span class="en">CORE BUSINESS</span><h3>核心业务领域</h3></div>
   <div class="sub-core-card">
-    <div class="sub-core-ico"><i th:class="|fas ${coreBusinessIcon}|"></i></div>
+    <div class="sub-core-cover" th:if="${!#strings.isEmpty(coreBusiness.coverImage)}"><img th:src="${coreBusiness.coverImage}" th:alt="${coreBusiness.name}"></div>
+    <div class="sub-core-ico" th:unless="${!#strings.isEmpty(coreBusiness.coverImage)}"><i th:class="|fas ${coreBusinessIcon}|"></i></div>
     <div class="sub-core-body">
       <h5 th:text="${coreBusiness.name}">领域名称</h5>
-      <p th:text="${coreBusiness.description}">领域描述</p>
+      <div class="rich-content" th:utext="${@richText.clean(coreBusiness.description)}">领域描述</div>
     </div>
   </div>
 </div>
