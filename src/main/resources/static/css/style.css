@@ -79,17 +79,14 @@ img{max-width:100%;display:block;}
 .sec-head h3::before{right:100%;}.sec-head h3::after{left:100%;}
 .sec-head p{color:var(--c-text-light);margin-top:12px;font-size:15px;}
 
-/* 页面横幅 */
-.pagebanner{height:280px;background-size:cover;background-position:center;position:relative;}
-/* 设计型横幅：图本身就是一张宽幅设计稿（图内自带大标题文案），
-   必须按原始比例「完整」显示才算对 —— 用 cover 裁切会把图内文案放大/切掉，
-   用固定 height + 100% 100% 拉伸又会变形。
-   这里改用 <img>：宽度铺满、高度按图片原始比例自适应，比例不同的图都不会变形，
-   后台换图也不用再改模板里的比例数字。
-   窄屏下图片自然高度不足 220px 时退化为 cover 裁切，保证横幅仍有足够高度。
-   照片型横幅（如 recruit 的员工培训照，比例接近方形）仍用上面的 background 固定高度写法。 */
-.pagebanner.imgbanner{height:auto;background-image:none;overflow:hidden;}
-.pagebanner.imgbanner>img{display:block;width:100%;height:auto;min-height:220px;object-fit:cover;object-position:center;}
+/* 页面横幅（非首页统一高度 400px） */
+.pagebanner{height:400px;background-size:cover;background-position:center;position:relative;}
+/* 设计型横幅：图本身就是一张宽幅设计稿（图内自带大标题文案）。
+   统一用 <img> 承载，容器固定 400px、图片 object-fit:cover 填满：
+   不拉伸变形，各页高度完全一致；后台换任意比例的图都不会破版。
+   照片型横幅（如 recruit 的员工培训照，比例接近方形）仍用上面的 background 写法。 */
+.pagebanner.imgbanner{height:400px;background-image:none;overflow:hidden;}
+.pagebanner.imgbanner>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;}
 .pagebanner.imgbanner>.cap{position:absolute;inset:0;}
 .pagebanner::after{display:none;}
 .pagebanner.with-overlay::after{content:"";position:absolute;inset:0;display:block;background:linear-gradient(180deg,rgba(8,28,56,.55),rgba(8,28,56,.65));}
@@ -608,6 +605,7 @@ img{max-width:100%;display:block;}
   .content-list .feat-item img{height:240px;}
   .team-grid,.honor-grid,.culture-block{grid-template-columns:1fr;}
   .pagebanner{height:220px;}
+  .pagebanner.imgbanner{height:220px;}
   .pagebanner .cap h2{font-size:28px;}
   .pagebanner .cap .crumb{font-size:11px;}
   .content-detail{padding:30px 0;}

@@ -5,13 +5,13 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<!-- 轮播 -->
+<!-- 轮播（图片来自后台「系统设置 - 网站设置 - 基本设置 - 首页轮播图」，未配置时用默认图） -->
 <div class="hero">
-  <div class="slide on" style="background-image:url('/images/hero-1.jpeg')">
+  <div class="slide on" th:style="'background-image:url(' + @{${#strings.isEmpty(siteContent['bg_hero_1']) ? '/images/hero-1.jpeg' : siteContent['bg_hero_1']}} + ')'">
   </div>
-  <div class="slide" style="background-image:url('/images/hero-2.jpg')">
+  <div class="slide" th:style="'background-image:url(' + @{${#strings.isEmpty(siteContent['bg_hero_2']) ? '/images/hero-2.jpg' : siteContent['bg_hero_2']}} + ')'">
   </div>
-  <div class="slide" style="background-image:url('/images/hero-3.jpg')">
+  <div class="slide" th:style="'background-image:url(' + @{${#strings.isEmpty(siteContent['bg_hero_3']) ? '/images/hero-3.jpg' : siteContent['bg_hero_3']}} + ')'">
   </div>
   <div class="dots"><span class="on"></span><span></span><span></span></div>
 </div>
