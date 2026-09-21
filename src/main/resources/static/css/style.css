@@ -84,9 +84,12 @@ img{max-width:100%;display:block;}
 /* 设计型横幅：图本身就是一张宽幅设计稿（图内自带大标题文案）。
    统一用 <img> 承载，容器固定 400px、图片 object-fit:cover 填满：
    不拉伸变形，各页高度完全一致；后台换任意比例的图都不会破版。
+   ⚠️ object-position 必须 left center：设计稿文案一律靠左排，
+   居中裁切会把标题左侧切掉（about-intro 的「集团概况」曾只剩「况」）。
+   靠左裁切保住标题，被裁掉的是右侧的城市/楼宇延伸部分。
    照片型横幅（如 recruit 的员工培训照，比例接近方形）仍用上面的 background 写法。 */
 .pagebanner.imgbanner{height:400px;background-image:none;overflow:hidden;}
-.pagebanner.imgbanner>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;}
+.pagebanner.imgbanner>img{display:block;width:100%;height:100%;object-fit:cover;object-position:left center;}
 .pagebanner.imgbanner>.cap{position:absolute;inset:0;}
 .pagebanner::after{display:none;}
 .pagebanner.with-overlay::after{content:"";position:absolute;inset:0;display:block;background:linear-gradient(180deg,rgba(8,28,56,.55),rgba(8,28,56,.65));}
