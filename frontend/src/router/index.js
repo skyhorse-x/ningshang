@@ -1,7 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
-  { path: '/', component: () => import('@/views/HomeIndex.vue'), meta: { title: '安徽宁商科技集团有限公司' } },
+  { path: '/', component: () => import('@/views/HomeIndex.vue'), meta: {
+    title: '安徽宁商科技集团有限公司',
+    fullTitle: true,
+    description: '安徽宁商科技集团有限公司立足安徽、服务全国，业务涵盖建设工程、数字科技、信息咨询、智能装备及城市综合服务，为客户提供专业的一体化产业服务。',
+    keywords: '安徽宁商科技集团,宁商科技集团,安徽科技集团,合肥科技企业,科创产业服务,数字科技,建设工程,信息咨询,智能装备,物业管理'
+  } },
 
   { path: '/about-intro', redirect: '/about/intro' },
   { path: '/about-speech', redirect: '/about/speech' },
@@ -68,7 +73,26 @@ const router = createRouter({
 
 // Auth guard — 仅检查登录态，菜单权限由动态侧边栏 + 后端拦截器控制
 router.beforeEach((to, from, next) => {
-  document.title = to.meta?.title ? to.meta.title + ' - 安徽宁商科技集团有限公司' : '安徽宁商科技集团有限公司'
+  const siteName = '安徽宁商科技集团有限公司'
+  document.title = to.meta?.title ? (to.meta.fullTitle ? to.meta.title : to.meta.title + ' - ' + siteName) : siteName
+  const setMeta = (name, content) => {
+    let node = document.head.querySelector(`meta[name="${name}"]`)
+    if (!node) {
+      node = document.createElement('meta')
+      node.setAttribute('name', name)
+      document.head.appendChild(node)
+    }
+    node.setAttribute('content', content)
+  }
+  setMeta('description', to.meta?.description || `${to.meta?.title || siteName}，了解安徽宁商科技集团最新信息与专业服务。`)
+  setMeta('keywords', to.meta?.keywords || '安徽宁商科技集团,宁商科技集团,科创产业服务,数字科技,建设工程')
+  let canonical = document.head.querySelector('link[rel="canonical"]')
+  if (!canonical) {
+    canonical = document.createElement('link')
+    canonical.setAttribute('rel', 'canonical')
+    document.head.appendChild(canonical)
+  }
+  canonical.setAttribute('href', window.location.origin + to.path)
   if (to.meta?.requiresAuth) {
     const token = localStorage.getItem('admin_token')
     if (!token) {
