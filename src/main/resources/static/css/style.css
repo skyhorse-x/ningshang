@@ -53,7 +53,7 @@ img{max-width:100%;display:block;}
 .subnav.subnav-industry{min-width:240px;} 
 
 /* ===== 轮播 ===== */
-.hero{position:relative;height:450px;overflow:hidden;background:#0a2c57;top:0px;}
+.hero{position:relative;height:700px;overflow:hidden;background:#0a2c57;top:0px;}
 .hero .slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center;}
 .hero .slide.on{opacity:1;}
 .hero .dots{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;}
