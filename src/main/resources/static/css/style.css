@@ -29,14 +29,6 @@ img{max-width:100%;display:block;}
 /* ===== 头部悬浮容器 ===== */
 #site-header{position:absolute;top:0;left:0;width:100%;z-index:200;}
 
-/* ===== 顶部条 ===== */
-.topbar{background:rgba(10,44,87,.55);color:rgba(255,255,255,.92);font-size:13px;height:38px;line-height:38px;}
-.topbar .wrap{display:flex;justify-content:space-between;align-items:center;}
-.topbar .tl span{margin-right:22px;}
-.topbar .tl i{color:var(--c-accent);margin-right:6px;}
-.topbar .tr a{margin-left:18px;color:rgba(255,255,255,.92);}
-.topbar .tr a:hover{color:#fff;}
-
 /* ===== 头部 / 导航 ===== */
 #site-header .header{}
 .header .wrap{display:flex;align-items:center;height:96px;}
@@ -593,7 +585,6 @@ img{max-width:100%;display:block;}
 .menu-btn{display:none;}
 @media(max-width:1000px){
   .wrap{max-width:92%;}
-  .topbar{display:none;}
   .header .wrap{height:70px;}
   .brand img{height:42px;}
   .brand .bt b{font-size:16px;}.brand .bt small{font-size:9px;}

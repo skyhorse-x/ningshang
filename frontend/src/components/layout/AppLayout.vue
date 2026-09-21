@@ -1,6 +1,5 @@
 <template>
   <div class="app-layout">
-    <TopBar />
     <NavBar overlay />
     <main class="main-content">
       <router-view />
@@ -10,7 +9,6 @@
 </template>
 
 <script setup>
-import TopBar from './TopBar.vue'
 import NavBar from './NavBar.vue'
 import SiteFooter from './SiteFooter.vue'
 </script>
