@@ -130,9 +130,8 @@
   <div class="wrap">
     <div class="sec-head"><span class="en">PARTNERS</span><h3>合作伙伴</h3><p>携手优质伙伴，共建开放共赢的产业生态</p></div>
     <div class="partner-grid">
-      <a th:each="partner : ${partners}" class="partner-card" th:href="${#strings.isEmpty(partner.link) ? 'javascript:;' : partner.link}" th:target="${#strings.isEmpty(partner.link) or partner.link == '#'} ? '_self' : '_blank'">
-        <img th:if="${!#strings.isEmpty(partner.logo)}" th:src="@{${partner.logo}}" th:alt="${partner.name}">
-        <span th:text="${partner.name}">合作伙伴</span>
+        <a th:each="partner : ${partners}" th:if="${!#strings.isEmpty(partner.logo)}" class="partner-card" th:href="${#strings.isEmpty(partner.link) ? 'javascript:;' : partner.link}" th:target="${#strings.isEmpty(partner.link) or partner.link == '#'} ? '_self' : '_blank'" th:title="${partner.name}">
+          <img th:src="@{${partner.logo}}" th:alt="${partner.name}">
       </a>
     </div>
   </div>

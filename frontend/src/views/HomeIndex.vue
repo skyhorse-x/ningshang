@@ -47,9 +47,8 @@
           <p>携手优质伙伴，共建开放共赢的产业生态</p>
         </div>
         <div class="partner-grid">
-          <a v-for="item in partners" :key="item.id || item.name" class="partner-card" :href="item.link || 'javascript:;'" :target="item.link && item.link !== '#' ? '_blank' : '_self'">
-            <img v-if="item.logo" :src="item.logo" :alt="item.name">
-            <span>{{ item.name }}</span>
+          <a v-for="item in partners" :key="item.id || item.name" class="partner-card" :href="item.link || 'javascript:;'" :target="item.link && item.link !== '#' ? '_blank' : '_self'" :title="item.name">
+            <img :src="item.logo" :alt="item.name">
           </a>
         </div>
       </div>
@@ -89,7 +88,7 @@ const businessList = computed(() => coreBusinesses.value.length ? coreBusinesses
 onMounted(async () => {
   const [bizRes, partnerRes] = await Promise.all([api.getCoreBusinesses(), api.getPartners()])
   if (bizRes.code === 200 && Array.isArray(bizRes.data)) coreBusinesses.value = bizRes.data
-  if (partnerRes.code === 200 && Array.isArray(partnerRes.data)) partners.value = partnerRes.data.filter(item => item.status === 1)
+  if (partnerRes.code === 200 && Array.isArray(partnerRes.data)) partners.value = partnerRes.data.filter(item => item.status === 1 && item.logo)
 })
 </script>
 
@@ -103,12 +102,12 @@ onMounted(async () => {
   .biz-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; }
 .biz-card { background: #fff; border: 1px solid var(--c-line); overflow: hidden; display: flex; flex-direction: column; transition: .3s; position: relative; }
 .biz-card:hover { box-shadow: 0 6px 24px rgba(13,58,114,.10); transform: translateY(-6px); border-color: transparent; }
-  .biz-media { position: relative; overflow: hidden; aspect-ratio: 4 / 3; background: var(--c-bg-soft); }
+  .biz-media { position: relative; overflow: hidden; height: 128px; margin: 16px 16px 0; background: var(--c-bg-soft); }
 .biz-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s; }
 .biz-card:hover .biz-media img { transform: scale(1.06); }
-  .biz-body { flex: 1; display: flex; flex-direction: column; padding: 20px 18px 22px; }
-  .biz-card h5 { font-size: 18px; color: var(--c-primary); margin-bottom: 10px; line-height: 1.45; }
-  .biz-card p { font-size: 13px; color: var(--c-text-light); line-height: 1.75; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .biz-body { flex: 1; display: flex; flex-direction: column; padding: 18px 16px 20px; }
+  .biz-card h5 { font-size: 17px; color: var(--c-primary); margin-bottom: 8px; line-height: 1.45; }
+  .biz-card p { font-size: 13px; color: var(--c-text-light); line-height: 1.7; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 .advantages-section { background: linear-gradient(180deg, #f7fbff 0%, #fff 100%); position: relative; overflow: hidden; }
 .advantages-section::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 150px; background: linear-gradient(0deg, rgba(13,58,114,.06), transparent); pointer-events: none; }
 .adv-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
@@ -118,8 +117,8 @@ onMounted(async () => {
 .adv-card p { margin: 0 auto; max-width: 170px; color: var(--c-text-light); font-size: 13px; line-height: 1.7; }
 .partners-section { background: #f7f9fc; }
 .partner-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
-.partner-card { min-height: 96px; border: 1px solid var(--c-line); background: #fff; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 16px; color: var(--c-primary); font-weight: 600; box-shadow: 0 8px 24px rgba(13,58,114,.05); }
-.partner-card img { max-width: 120px; max-height: 42px; object-fit: contain; }
+.partner-card { min-height: 110px; border: 1px solid var(--c-line); background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; padding: 18px; box-shadow: 0 8px 24px rgba(13,58,114,.05); }
+.partner-card img { width: 100%; max-width: 150px; height: 58px; object-fit: contain; }
   @media (max-width: 1000px) {
   .section { padding: 52px 0; }
   .sec-head { margin-bottom: 30px; }

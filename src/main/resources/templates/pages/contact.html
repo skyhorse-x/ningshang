@@ -8,7 +8,6 @@
 <a th:href="@{/recruit}">人才理念</a>
 <a th:href="@{/recruit-job}">招聘岗位</a>
 <a th:href="@{/contact}" class="on">联系方式</a>
-<a th:href="@{/contact-message}">在线留言</a>
 </div></div>
 <div class="section text-bg-contact" th:style="'background-image:url(\'' + (${#strings.isEmpty(siteContent['bg_contact_page'])} ? '/images/b.jpg' : ${siteContent['bg_contact_page']}) + '\')'"><div class="wrap">
 <div class="content-detail">
@@ -20,13 +19,6 @@
 <div class="ci-item"><div class="ico">✉</div><div><h5>电子邮箱</h5><p th:text="${#strings.isEmpty(siteContent['contact_email']) ? 'NStechnology@163.com' : siteContent['contact_email']}">NStechnology@163.com</p></div></div>
 <div class="ci-item"><div class="ico">🕑</div><div><h5>办公时间</h5><p th:text="${#strings.isEmpty(siteContent['office_hours']) ? '周一至周五　09:00 - 18:00' : siteContent['office_hours']}">周一至周五　09:00 - 18:00</p></div></div>
 </div>
-<h3>在线留言</h3>
-<form class="contact-form">
-<div class="form-row"><input type="text" name="name" placeholder="您的姓名" required><input type="tel" name="phone" placeholder="联系电话" required></div>
-<div class="form-row"><input type="email" name="email" placeholder="电子邮箱"><select name="type"><option value="" disabled selected>咨询类别</option><option value="cooperation">业务合作</option><option value="recruit">人才应聘</option><option value="media">媒体联系</option><option value="other">其他咨询</option></select></div>
-<div class="form-row"><textarea name="message" placeholder="请简要描述您的需求或留言内容" required></textarea></div>
-<button type="submit" class="btn">提交留言</button>
-</form>
 </div>
 </div>
 </div></div>
