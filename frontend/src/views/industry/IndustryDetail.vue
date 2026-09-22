@@ -89,45 +89,9 @@ const others = computed(() => list.value.filter(item => String(item.id) !== Stri
 // 核心业务领域图标，与首页「核心业务领域」卡片保持同序同款
 const CORE_ICONS = ['fas fa-building', 'fas fa-microchip', 'fas fa-chart-line', 'fas fa-gears', 'fas fa-city']
 
-/** 只保留中文/字母/数字，抹掉空格与标点，避免"（一期）"之类的写法干扰匹配 */
-const normalizeText = value => String(value || '').replace(/[^\u4e00-\u9fa5a-zA-Z0-9]/g, '').toLowerCase()
-
-const bigrams = value => {
-  const pairs = new Set()
-  for (let i = 0; i + 2 <= value.length; i++) pairs.add(value.slice(i, i + 2))
-  return pairs
-}
-
-/** 与后端 CoreBusinessService.matchByCategory 同一套规则：完全相同 → 互相包含 → 双字重合度最高 */
-function matchCoreBusiness(category, candidates) {
-  const target = normalizeText(category)
-  if (!target || !Array.isArray(candidates) || !candidates.length) return null
-  let best = null
-  let bestScore = 0
-  for (const item of candidates) {
-    const name = normalizeText(item && item.name)
-    if (!name) continue
-    let score = 0
-    if (target === name) score = 1000
-    else if (target.includes(name) || name.includes(target)) score = 500
-    else {
-      const targetPairs = bigrams(target)
-      const namePairs = bigrams(name)
-      targetPairs.forEach(pair => { if (namePairs.has(pair)) score++ })
-    }
-    if (score > bestScore) {
-      bestScore = score
-      best = item
-    }
-  }
-  return bestScore >= 1 ? best : null
-}
-
 const assignedCoreBusinesses = computed(() => {
   const ids = Array.isArray(sub.value?.coreBusinessIds) ? sub.value.coreBusinessIds.map(String) : []
-  if (ids.length) return coreBusinesses.value.filter(item => ids.includes(String(item.id)))
-  const legacyMatch = matchCoreBusiness(sub.value?.category, coreBusinesses.value)
-  return legacyMatch ? [legacyMatch] : []
+  return ids.length ? coreBusinesses.value.filter(item => ids.includes(String(item.id))) : []
 })
 const coreBusinessIcon = business => {
   const index = business ? coreBusinesses.value.indexOf(business) : -1

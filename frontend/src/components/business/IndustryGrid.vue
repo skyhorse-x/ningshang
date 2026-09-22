@@ -38,7 +38,7 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.ind-section { padding: 72px 0 20px; background: #f7f9fc; }
+.ind-section { padding: 72px 0 20px; background: #fff; }
 .wrap { width: 1200px; max-width: 94%; margin: 0 auto; }
 .sec-head { text-align: center; margin-bottom: 36px; }
 .sec-head .en { font-size: 14px; color: var(--c-accent); letter-spacing: 4px; text-transform: uppercase; display: block; margin-bottom: 8px; }

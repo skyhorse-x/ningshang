@@ -4,16 +4,22 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { loadContent, pick } from '@/utils/content'
 const props = defineProps({
   image: { type: String, required: true },
   title: { type: String, required: true },
   en: { type: String, default: '' },
   breadcrumb: { type: Array, default: () => [] }
 })
-const bannerStyle = computed(() => ({
-  backgroundImage: 'url(' + props.image + ')'
-}))
+const route = useRoute()
+const content = ref({})
+const resolvedImage = computed(() => route.path.startsWith('/about')
+  ? pick(content.value, 'bg_about_banner', props.image)
+  : props.image)
+const bannerStyle = computed(() => ({ backgroundImage: 'url(' + resolvedImage.value + ')' }))
+onMounted(async () => { content.value = await loadContent() })
 </script>
 
 <style scoped>
