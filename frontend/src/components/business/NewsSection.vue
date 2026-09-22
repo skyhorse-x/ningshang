@@ -30,7 +30,7 @@
           </ul>
         </div>
         <div class="hn-side">
-          <button type="button" class="hn-video" aria-label="播放宁商集团宣传片" @click="openVideo">
+          <button type="button" class="hn-video" :class="{ 'is-disabled': !videoEnabled }" :aria-label="videoEnabled ? '播放宁商集团宣传片' : '宁商集团宣传片已关闭'" :disabled="!videoEnabled" @click="openVideo">
             <img src="/images/news-staff-training.jpeg" alt="宁商宣传片">
             <div class="hn-video-mask">
               <div class="play-btn">▶</div>
@@ -62,10 +62,12 @@ const categories = [
 const filteredNews = computed(() => newsList.value.filter(n => n.category === activeTab.value).slice(0, 5))
 const featuredNews = computed(() => newsList.value.filter(n => n.category === 'group'))
 const videoUrl = ref('')
+const videoEnabled = ref(true)
 const videoVisible = ref(false)
 const videoFailed = ref(false)
 const videoPlayer = ref(null)
 function openVideo() {
+  if (!videoEnabled.value) return
   videoFailed.value = false
   videoVisible.value = true
 }
@@ -77,6 +79,7 @@ onMounted(async () => {
   try {
     const [res, content] = await Promise.all([api.getNews(), loadContent()])
     if (res.code === 200) newsList.value = res.data
+    videoEnabled.value = pick(content, 'home_promo_video_enabled', '1') === '1'
     videoUrl.value = pick(content, 'home_promo_video', import.meta.env.VITE_HOME_VIDEO_URL || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4').trim()
   } catch (e) {
     console.error('Failed to load news:', e)
@@ -116,6 +119,9 @@ onMounted(async () => {
 .hn-side { display: flex; flex-direction: column; gap: 18px; }
 .hn-video { position: relative; display: block; width: 100%; padding: 0; border: 0; font: inherit; cursor: pointer; border-radius: 4px; overflow: hidden; text-decoration: none; }
 .hn-video:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.hn-video.is-disabled { cursor: default; }
+.hn-video.is-disabled:hover img { transform: none; }
+.hn-video.is-disabled .play-btn { opacity: .55; }
 .promo-player { display: block; width: 100%; max-height: 70vh; aspect-ratio: 16 / 9; background: #000; }
 .video-message { padding: 32px 16px; text-align: center; color: var(--c-text-light); }
 .hn-video img { width: 100%; height: 300px; object-fit: cover; transition: .5s; display: block; }

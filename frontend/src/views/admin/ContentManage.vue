@@ -17,6 +17,7 @@
           </el-row>
           <el-divider content-position="left">首页宣传视频</el-divider>
           <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="上传后用于首页新闻区域右侧的宣传片播放窗口，建议使用 MP4 格式。" />
+          <el-form-item label="启用视频"><el-switch v-model="forms.basic.home_promo_video_enabled" active-value="1" inactive-value="0" active-text="开启" inactive-text="关闭" /></el-form-item>
           <el-form-item label="宣传视频"><VideoUpload v-model="forms.basic.home_promo_video" /></el-form-item>
           <el-divider content-position="left">栏目背景图设置</el-divider>
           <el-alert class="mapping-tip" type="info" show-icon :closable="false" title="栏目背景图用于页面顶部横幅，页面大背景图用于正文区域背景。" />
@@ -187,7 +188,7 @@ const isBody = computed(() => isRichContentKey(form.value.contentKey || ''))
 watch(() => [props.mode, props.section], ([value, section]) => { activeTab.value = value === 'settings' ? 'basic' : section })
 
 const knownKeys = {
-  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'home_promo_video', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
+  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'home_promo_video_enabled', 'home_promo_video', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
   intro: ['about_intro_meta', 'about_intro_s1_title', 'about_intro_s1_body', 'about_intro_s2_title', 'about_intro_s2_body', 'about_intro_s3_title'],
   stats: ['stat_founded', 'stat_companies', 'stat_ip', 'stat_fields'],
   speech: ['speech_chairman_name', 'speech_chairman_title', 'speech_quote', 'speech_body', 'speech_sign', 'speech_date'],
@@ -204,10 +205,11 @@ const defaultTitles = {
   bg_hero_1: '首页轮播图一',
   bg_hero_2: '首页轮播图二',
   bg_hero_3: '首页轮播图三',
+  home_promo_video_enabled: '首页宣传视频开关',
   home_promo_video: '首页宣传视频'
 }
 // 后台自动补建时的排序号（与已有 bg_* 键的 90~97 顺次衔接）
-const defaultSortOrder = { bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100, home_promo_video: 101 }
+const defaultSortOrder = { bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100, home_promo_video_enabled: 101, home_promo_video: 102 }
 
 const forms = reactive({
   basic: {},
@@ -240,7 +242,7 @@ const load = async () => {
     // 后台还没创建过的键补空值：否则新增的配置项（如首页轮播图）不会进入表单，首次保存会丢数据
     for (const [group, keys] of Object.entries(knownKeys)) {
       for (const key of keys) {
-        if (grouped[group][key] === undefined) grouped[group][key] = ''
+        if (grouped[group][key] === undefined) grouped[group][key] = key === 'home_promo_video_enabled' ? '1' : ''
       }
     }
     Object.assign(forms.basic, grouped.basic)

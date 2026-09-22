@@ -33,9 +33,9 @@
         </li>
         <li :class="{ on: route.path.startsWith('/industry') }">
           <router-link to="/industry" class="nav-link" @click="menuOpen=false">集团产业<span class="en">INDUSTRY</span></router-link>
-          <ul v-if="industryTypeLinks.length" class="subnav subnav-industry">
-            <li v-for="item in industryTypeLinks" :key="item.type">
-              <router-link :to="'/industry/' + item.id" @click="menuOpen=false">{{ item.type }}</router-link>
+          <ul v-if="subsidiaries.length" class="subnav subnav-industry">
+            <li v-for="item in subsidiaries" :key="item.id">
+              <router-link :to="'/industry/' + item.id" @click="menuOpen=false">{{ item.name }}</router-link>
             </li>
           </ul>
         </li>
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/api'
 
@@ -67,19 +67,8 @@ defineProps({
 
 const route = useRoute()
 const menuOpen = ref(false)
-// 「集团产业」下级菜单按后台维护的子公司类型去重展示。
+// 「集团产业」下级菜单显示公司名称，并直达公司详情。
 const subsidiaries = ref([])
-const industryTypeLinks = computed(() => {
-  const seen = new Set()
-  return subsidiaries.value.reduce((links, item) => {
-    const type = (item.category || '').trim()
-    if (type && !seen.has(type)) {
-      seen.add(type)
-      links.push({ type, id: item.id })
-    }
-    return links
-  }, [])
-})
 
 onMounted(async () => {
   const res = await api.getSubsidiaries()
@@ -221,8 +210,8 @@ onMounted(async () => {
   background: var(--c-bg-soft);
   color: var(--c-primary);
 }
-/* 「集团产业」下级 = 后台子公司类型 */
-.subnav.subnav-industry { min-width: 180px; }
+/* 「集团产业」下级 = 公司名称 */
+.subnav.subnav-industry { min-width: 240px; }
 .menu-btn { display: none; }
 
 @media (max-width: 1000px) {
