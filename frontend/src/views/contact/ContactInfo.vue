@@ -5,6 +5,7 @@
       <router-link to="/recruit">人才理念</router-link>
       <router-link to="/recruit/jobs">招聘岗位</router-link>
       <router-link to="/contact" class="on">联系方式</router-link>
+      <router-link to="/contact/message">在线留言</router-link>
     </SubNav>
     <section class="section text-bg-contact" :style="sectionBg('bg_contact_page', '/images/b.jpg')"><div class="wrap">
       <div class="content-detail">
