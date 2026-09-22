@@ -38,10 +38,10 @@
     </section>
     <div class="stats">
       <div class="wrap">
-        <div class="item"><div class="num">{{ c('stat_founded', '2018') }}</div><div class="lbl">成立年份</div></div>
-        <div class="item"><div class="num">{{ c('stat_companies', '4') }}</div><div class="lbl">成员企业</div></div>
+        <div class="item"><div class="num">{{ c('stat_founded', '2026') }}</div><div class="lbl">成立年份</div></div>
+        <div class="item"><div class="num">{{ c('stat_companies', '5') }}</div><div class="lbl">成员企业</div></div>
         <div class="item"><div class="num">{{ c('stat_ip', '10+') }}</div><div class="lbl">知识产权</div></div>
-        <div class="item"><div class="num">{{ c('stat_fields', '4') }}</div><div class="lbl">业务领域</div></div>
+        <div class="item"><div class="num">{{ c('stat_fields', '5') }}</div><div class="lbl">业务领域</div></div>
       </div>
     </div>
   </div>

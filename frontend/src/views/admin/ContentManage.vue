@@ -59,12 +59,12 @@
       <el-tab-pane v-if="showSection('stats')" label="首页内容" name="stats">
         <el-form :model="forms.stats" label-width="120px" class="content-form">
           <el-row :gutter="20">
-            <el-col :span="12"><el-form-item label="成立年份"><el-input v-model="forms.stats.stat_founded" placeholder="2018" /></el-form-item></el-col>
-            <el-col :span="12"><el-form-item label="成员企业"><el-input v-model="forms.stats.stat_companies" placeholder="4" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="成立年份"><el-input v-model="forms.stats.stat_founded" placeholder="2026" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="成员企业"><el-input v-model="forms.stats.stat_companies" placeholder="5" /></el-form-item></el-col>
           </el-row>
           <el-row :gutter="20">
             <el-col :span="12"><el-form-item label="知识产权"><el-input v-model="forms.stats.stat_ip" placeholder="10+" /></el-form-item></el-col>
-            <el-col :span="12"><el-form-item label="业务领域"><el-input v-model="forms.stats.stat_fields" placeholder="4" /></el-form-item></el-col>
+            <el-col :span="12"><el-form-item label="业务领域"><el-input v-model="forms.stats.stat_fields" placeholder="5" /></el-form-item></el-col>
           </el-row>
           <el-form-item><el-button v-if="hasPermission('content:update')" type="primary" :loading="saving" @click="saveGroup('stats')">保存统计数字</el-button></el-form-item>
         </el-form>

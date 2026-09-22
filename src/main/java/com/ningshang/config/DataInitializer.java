@@ -205,10 +205,10 @@ public class DataInitializer implements CommandLineRunner {
         upsertContent("about_intro_s2_title", "集团简介-第二段标题", "潮涌科创，锚定主业航向", 13);
         upsertContent("about_intro_s2_body", "集团简介-第二段正文", "集团以数字科技为核心发展主线，奔涌拓展业务边界，形成覆盖技术研发、系统集成、数字文创的多元核心业务体系。", 14);
         upsertContent("about_intro_s3_title", "集团简介-第三段标题", "五子联动，共筑产业潮头", 15);
-        upsertContent("stat_founded", "统计-成立年份", "2018", 20);
-        upsertContent("stat_companies", "统计-成员企业", "4", 21);
+        upsertContent("stat_founded", "统计-成立年份", "2026", 20);
+        upsertContent("stat_companies", "统计-成员企业", "5", 21);
         upsertContent("stat_ip", "统计-知识产权", "10+", 22);
-        upsertContent("stat_fields", "统计-业务领域", "4", 23);
+        upsertContent("stat_fields", "统计-业务领域", "5", 23);
         upsertContent("speech_chairman_name", "董事长致词-董事长姓名", "王 力", 28);
         upsertContent("speech_chairman_title", "董事长致词-董事长职位", "安徽宁商科技集团 董事长", 29);
         upsertContent("speech_quote", "董事长致词-引言", "徽商古训有云：\n\"诚为本，义为先，贾而好儒，行稳致远。\"", 30);
