@@ -2,7 +2,7 @@
   <div class="site-nav" :class="{ 'is-overlay': overlay }">
     <div class="wrap">
       <router-link to="/" class="brand">
-        <img src="/images/logo.png" alt="安徽宁商科技集团" width="72" height="54">
+        <img :src="mainLogo" alt="安徽宁商科技集团" width="72" height="54">
         <span class="bt"><b>宁商科技集团</b><small>ANHUI NINGSHANG TECH GROUP</small></span>
       </router-link>
       <div class="menu-btn" @click="menuOpen = !menuOpen">
@@ -57,6 +57,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import api from '@/api'
+import { loadContent, pick } from '@/utils/content'
 
 defineProps({
   overlay: {
@@ -69,10 +70,12 @@ const route = useRoute()
 const menuOpen = ref(false)
 // 「集团产业」下级菜单显示公司名称，并直达公司详情。
 const subsidiaries = ref([])
+const mainLogo = ref('/images/logo.png')
 
 onMounted(async () => {
-  const res = await api.getSubsidiaries()
+  const [res, content] = await Promise.all([api.getSubsidiaries(), loadContent()])
   if (res.code === 200 && Array.isArray(res.data)) subsidiaries.value = res.data
+  mainLogo.value = pick(content, 'site_logo', '/images/logo.png')
 })
 </script>
 

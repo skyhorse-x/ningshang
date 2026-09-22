@@ -5,6 +5,8 @@
     <el-tabs v-model="activeTab" class="content-tabs">
       <el-tab-pane v-if="mode === 'settings'" label="基本设置" name="basic">
         <el-form :model="forms.basic" label-width="100px" class="content-form">
+          <el-divider content-position="left">网站品牌</el-divider>
+          <el-form-item label="网站主Logo"><ImageUpload v-model="forms.basic.site_logo" /></el-form-item>
           <el-divider content-position="left">备案信息</el-divider>
           <el-form-item label="备案号"><el-input v-model="forms.basic.icp_number" placeholder="皖ICP备2026XXXXXX号-1" /></el-form-item>
           <el-form-item label="底部品牌简介"><RichEditor v-if="activeTab === 'basic'" v-model="forms.basic.footer_brand_desc" height="220px" /></el-form-item>
@@ -188,7 +190,7 @@ const isBody = computed(() => isRichContentKey(form.value.contentKey || ''))
 watch(() => [props.mode, props.section], ([value, section]) => { activeTab.value = value === 'settings' ? 'basic' : section })
 
 const knownKeys = {
-  basic: ['contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'home_promo_video_enabled', 'home_promo_video', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
+  basic: ['site_logo', 'contact_address', 'contact_phone', 'contact_email', 'office_hours', 'icp_number', 'footer_brand_desc', 'home_promo_video_enabled', 'home_promo_video', 'bg_about_banner', 'bg_about_page', 'bg_news_banner', 'bg_news_page', 'bg_industry_banner', 'bg_industry_page', 'bg_contact_banner', 'bg_contact_page', 'bg_hero_1', 'bg_hero_2', 'bg_hero_3'],
   intro: ['about_intro_meta', 'about_intro_s1_title', 'about_intro_s1_body', 'about_intro_s2_title', 'about_intro_s2_body', 'about_intro_s3_title'],
   stats: ['stat_founded', 'stat_companies', 'stat_ip', 'stat_fields'],
   speech: ['speech_chairman_name', 'speech_chairman_title', 'speech_quote', 'speech_body', 'speech_sign', 'speech_date'],
@@ -199,6 +201,7 @@ const knownKeys = {
   recruit: ['recruit_body']
 }
 const defaultTitles = {
+  site_logo: '网站主Logo',
   industry_construction_body: '建筑工程正文',
   industry_software_body: '软件科技正文',
   recruit_body: '人才理念正文',
@@ -209,7 +212,7 @@ const defaultTitles = {
   home_promo_video: '首页宣传视频'
 }
 // 后台自动补建时的排序号（与已有 bg_* 键的 90~97 顺次衔接）
-const defaultSortOrder = { bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100, home_promo_video_enabled: 101, home_promo_video: 102 }
+const defaultSortOrder = { site_logo: 5, bg_hero_1: 98, bg_hero_2: 99, bg_hero_3: 100, home_promo_video_enabled: 101, home_promo_video: 102 }
 
 const forms = reactive({
   basic: {},

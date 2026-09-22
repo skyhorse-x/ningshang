@@ -3,7 +3,7 @@
     <div class="wrap">
       <div class="grid">
         <div class="fbrand">
-          <img src="/images/logo.png" alt="安徽宁商科技集团" width="72" height="54">
+          <img :src="c('site_logo', '/images/logo.png')" alt="安徽宁商科技集团" width="72" height="54">
           <RichContent :content="c('footer_brand_desc', '安徽宁商科技集团有限公司，立足安徽本土，聚焦科创产业服务，秉持&quot;务实笃行、创新赋能、诚信致远&quot;的核心价值观。')" />
         </div>
         <div>
