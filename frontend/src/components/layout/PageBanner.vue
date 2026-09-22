@@ -15,9 +15,13 @@ const props = defineProps({
 })
 const route = useRoute()
 const content = ref({})
-const resolvedImage = computed(() => route.path.startsWith('/about')
-  ? pick(content.value, 'bg_about_banner', props.image)
-  : props.image)
+const resolvedImage = computed(() => {
+  if (route.path.startsWith('/about')) return pick(content.value, 'bg_about_banner', props.image)
+  if (route.path.startsWith('/contact') || route.path.startsWith('/recruit')) {
+    return pick(content.value, 'bg_contact_banner', props.image)
+  }
+  return props.image
+})
 const bannerStyle = computed(() => ({ backgroundImage: 'url(' + resolvedImage.value + ')' }))
 onMounted(async () => { content.value = await loadContent() })
 </script>
