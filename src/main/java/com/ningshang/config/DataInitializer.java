@@ -67,6 +67,7 @@ public class DataInitializer implements CommandLineRunner {
         if (subsidiaryRepository.count() == 0) initSubsidiaries();
         if (coreBusinessRepository.count() == 0) initCoreBusinesses();
         migrateSubsidiaryCoreBusinesses();
+        correctLegacySubsidiaryCoreBusinesses();
         if (partnerRepository.count() == 0) initPartners();
         if (milestoneRepository.count() == 0) initMilestones();
         if (jobRepository.count() == 0) initJobs();
@@ -95,6 +96,36 @@ public class DataInitializer implements CommandLineRunner {
             }
         }
         jdbcTemplate.update("INSERT INTO app_migration (migration_key) VALUES (?)", "subsidiary_core_business_v1");
+    }
+
+    /** 旧数据恰好为五家公司、五项业务时，修正模糊匹配造成的重复关联。 */
+    private void correctLegacySubsidiaryCoreBusinesses() {
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS app_migration (migration_key VARCHAR(100) PRIMARY KEY, applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+        Integer applied = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM app_migration WHERE migration_key = ?", Integer.class,
+                "subsidiary_core_business_v2");
+        if (applied != null && applied > 0) return;
+        java.util.List<Subsidiary> subsidiaries = subsidiaryRepository.findAllByOrderBySortOrderAscIdAsc();
+        java.util.List<CoreBusiness> businesses = coreBusinessRepository.findAllByOrderBySortOrderAscIdAsc();
+        if (subsidiaries.size() == businesses.size() && !subsidiaries.isEmpty()) {
+            java.util.Set<Long> assigned = new java.util.HashSet<>();
+            boolean hasMissingOrDuplicate = false;
+            for (Subsidiary subsidiary : subsidiaries) {
+                java.util.List<Long> ids = subsidiary.getCoreBusinessIds();
+                if (ids == null || ids.size() != 1 || !assigned.add(ids.get(0))) {
+                    hasMissingOrDuplicate = true;
+                    break;
+                }
+            }
+            if (hasMissingOrDuplicate) {
+                for (int i = 0; i < subsidiaries.size(); i++) {
+                    subsidiaries.get(i).setCoreBusinessIds(new java.util.ArrayList<>(
+                            java.util.Collections.singletonList(businesses.get(i).getId())));
+                    subsidiaryRepository.save(subsidiaries.get(i));
+                }
+            }
+        }
+        jdbcTemplate.update("INSERT INTO app_migration (migration_key) VALUES (?)", "subsidiary_core_business_v2");
     }
 
     private boolean isRelativeImage(String value) {
