@@ -3,6 +3,7 @@ package com.ningshang.config;
 import com.ningshang.entity.*;
 import com.ningshang.repository.*;
 import com.ningshang.service.AdminService;
+import com.ningshang.service.CoreBusinessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ public class DataInitializer implements CommandLineRunner {
     @Autowired private HonorRepository honorRepository;
     @Autowired private SubsidiaryRepository subsidiaryRepository;
     @Autowired private CoreBusinessRepository coreBusinessRepository;
+    @Autowired private CoreBusinessService coreBusinessService;
     @Autowired private PartnerRepository partnerRepository;
     @Autowired private MilestoneRepository milestoneRepository;
     @Autowired private JobRepository jobRepository;
@@ -64,6 +66,7 @@ public class DataInitializer implements CommandLineRunner {
         if (honorRepository.count() == 0) initHonors();
         if (subsidiaryRepository.count() == 0) initSubsidiaries();
         if (coreBusinessRepository.count() == 0) initCoreBusinesses();
+        migrateSubsidiaryCoreBusinesses();
         if (partnerRepository.count() == 0) initPartners();
         if (milestoneRepository.count() == 0) initMilestones();
         if (jobRepository.count() == 0) initJobs();
@@ -71,6 +74,27 @@ public class DataInitializer implements CommandLineRunner {
 
         // 图片路径规范化：确保以 / 开头，避免前端子路由下相对路径失效
         normalizeImagePaths();
+    }
+
+    /** 为升级前的子公司按“子公司类型”补一次业务关联，后续完全以后台勾选结果为准。 */
+    private void migrateSubsidiaryCoreBusinesses() {
+        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS app_migration (migration_key VARCHAR(100) PRIMARY KEY, applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
+        Integer applied = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM app_migration WHERE migration_key = ?", Integer.class,
+                "subsidiary_core_business_v1");
+        if (applied != null && applied > 0) return;
+        java.util.List<CoreBusiness> businesses = coreBusinessRepository.findAllByOrderBySortOrderAscIdAsc();
+        if (!businesses.isEmpty()) {
+            for (Subsidiary subsidiary : subsidiaryRepository.findAll()) {
+                if (subsidiary.getCoreBusinessIds() != null && !subsidiary.getCoreBusinessIds().isEmpty()) continue;
+                CoreBusiness matched = coreBusinessService.matchByCategory(subsidiary.getCategory(), businesses);
+                if (matched != null) {
+                    subsidiary.setCoreBusinessIds(new java.util.ArrayList<>(java.util.Collections.singletonList(matched.getId())));
+                    subsidiaryRepository.save(subsidiary);
+                }
+            }
+        }
+        jdbcTemplate.update("INSERT INTO app_migration (migration_key) VALUES (?)", "subsidiary_core_business_v1");
     }
 
     private boolean isRelativeImage(String value) {

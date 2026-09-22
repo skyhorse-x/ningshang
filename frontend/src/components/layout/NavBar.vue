@@ -33,9 +33,9 @@
         </li>
         <li :class="{ on: route.path.startsWith('/industry') }">
           <router-link to="/industry" class="nav-link" @click="menuOpen=false">集团产业<span class="en">INDUSTRY</span></router-link>
-          <ul v-if="industryTypes.length" class="subnav subnav-industry">
-            <li v-for="type in industryTypes" :key="type">
-              <router-link :to="{ path: '/industry', query: { category: type } }" @click="menuOpen=false">{{ type }}</router-link>
+          <ul v-if="industryTypeLinks.length" class="subnav subnav-industry">
+            <li v-for="item in industryTypeLinks" :key="item.type">
+              <router-link :to="'/industry/' + item.id" @click="menuOpen=false">{{ item.type }}</router-link>
             </li>
           </ul>
         </li>
@@ -69,9 +69,17 @@ const route = useRoute()
 const menuOpen = ref(false)
 // 「集团产业」下级菜单按后台维护的子公司类型去重展示。
 const subsidiaries = ref([])
-const industryTypes = computed(() => [...new Set(
-  subsidiaries.value.map(item => (item.category || '').trim()).filter(Boolean)
-)])
+const industryTypeLinks = computed(() => {
+  const seen = new Set()
+  return subsidiaries.value.reduce((links, item) => {
+    const type = (item.category || '').trim()
+    if (type && !seen.has(type)) {
+      seen.add(type)
+      links.push({ type, id: item.id })
+    }
+    return links
+  }, [])
+})
 
 onMounted(async () => {
   const res = await api.getSubsidiaries()

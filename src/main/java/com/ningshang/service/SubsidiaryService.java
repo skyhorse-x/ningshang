@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ningshang.exception.BusinessException;
 import com.ningshang.util.RichText;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class SubsidiaryService {
@@ -26,6 +27,9 @@ public class SubsidiaryService {
         if (subsidiary.getId() != null) {
             Subsidiary existing = subsidiaryRepository.findById(subsidiary.getId()).orElseThrow(() -> new BusinessException(404, "记录不存在"));
             subsidiary.setCreatedAt(existing.getCreatedAt());
+        }
+        if (subsidiary.getCoreBusinessIds() == null) {
+            subsidiary.setCoreBusinessIds(new ArrayList<>());
         }
         subsidiary.setDescription(RichText.clean(subsidiary.getDescription()));
         return subsidiaryRepository.save(subsidiary);

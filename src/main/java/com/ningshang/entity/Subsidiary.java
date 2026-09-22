@@ -43,7 +43,10 @@ public class Subsidiary {
     
     private Integer sortOrder;
 
-    @Transient
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "subsidiary_core_business", joinColumns = @JoinColumn(name = "subsidiary_id"))
+    @Column(name = "core_business_id", nullable = false)
+    @OrderColumn(name = "sort_order")
     private List<Long> coreBusinessIds;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

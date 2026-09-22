@@ -29,18 +29,20 @@
           <p>{{ loading ? '正在加载…' : '未找到对应的成员企业。' }}</p>
         </div>
 
-        <div v-if="sub && coreBusiness" class="sub-core">
+        <div v-if="sub && assignedCoreBusinesses.length" class="sub-core">
           <div class="sec-head">
             <span class="en">CORE BUSINESS</span>
             <h3>核心业务领域</h3>
           </div>
-          <div class="sub-core-card">
-            <div v-if="coreBusiness.coverImage" class="sub-core-cover"><img :src="coreBusiness.coverImage" :alt="coreBusiness.name"></div>
-            <div v-else class="sub-core-ico"><i :class="coreBusinessIcon"></i></div>
+          <div class="sub-core-list">
+          <div v-for="business in assignedCoreBusinesses" :key="business.id" class="sub-core-card">
+            <div v-if="business.coverImage" class="sub-core-cover"><img :src="business.coverImage" :alt="business.name"></div>
+            <div v-else class="sub-core-ico"><i :class="coreBusinessIcon(business)"></i></div>
             <div class="sub-core-body">
-              <h5>{{ coreBusiness.name }}</h5>
-              <RichContent :content="coreBusiness.description" />
+              <h5>{{ business.name }}</h5>
+              <RichContent :content="business.description" />
             </div>
+          </div>
           </div>
         </div>
 
@@ -121,11 +123,16 @@ function matchCoreBusiness(category, candidates) {
   return bestScore >= 1 ? best : null
 }
 
-const coreBusiness = computed(() => matchCoreBusiness(sub.value && sub.value.category, coreBusinesses.value))
-const coreBusinessIcon = computed(() => {
-  const index = coreBusiness.value ? coreBusinesses.value.indexOf(coreBusiness.value) : -1
-  return CORE_ICONS[(index < 0 ? 0 : index) % CORE_ICONS.length]
+const assignedCoreBusinesses = computed(() => {
+  const ids = Array.isArray(sub.value?.coreBusinessIds) ? sub.value.coreBusinessIds.map(String) : []
+  if (ids.length) return coreBusinesses.value.filter(item => ids.includes(String(item.id)))
+  const legacyMatch = matchCoreBusiness(sub.value?.category, coreBusinesses.value)
+  return legacyMatch ? [legacyMatch] : []
 })
+const coreBusinessIcon = business => {
+  const index = business ? coreBusinesses.value.indexOf(business) : -1
+  return CORE_ICONS[(index < 0 ? 0 : index) % CORE_ICONS.length]
+}
 
 async function loadList() {
   const res = await api.getSubsidiaries()
@@ -183,6 +190,7 @@ onMounted(async () => {
 .sub-detail-empty { padding: 60px 0; text-align: center; color: var(--c-text-light); }
 .sub-detail-empty .sub-btn { margin-top: 22px; }
 .sub-core { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--c-line); }
+.sub-core-list { display: grid; gap: 22px; }
 .sub-core-card { display: flex; align-items: flex-start; gap: 26px; padding: 34px 38px; background: var(--c-bg-soft); border-left: 3px solid var(--c-accent); border-radius: 6px; }
 .sub-core-ico { flex: 0 0 64px; width: 64px; height: 64px; border-radius: 50%; background: rgba(13,58,114,.08); color: var(--c-primary); display: flex; align-items: center; justify-content: center; font-size: 26px; line-height: 1; }
 .sub-core-cover { flex: 0 0 220px; width: 220px; height: 150px; border-radius: 6px; overflow: hidden; background: #fff; }
