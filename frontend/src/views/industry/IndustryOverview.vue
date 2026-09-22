@@ -11,7 +11,7 @@
           <div class="info">
             <h4>{{ sub.name }}</h4>
             <div class="meta">{{ sub.englishName }} · {{ sub.category }}</div>
-            <RichContent :content="sub.description" />
+            <p>{{ sub.summary || plainText(sub.description) }}</p>
           </div>
         </router-link>
       </div>
@@ -20,13 +20,14 @@
 </template>
 
 <script setup>
-import RichContent from '@/components/business/RichContent.vue'
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import PageBanner from '@/components/layout/PageBanner.vue'
 import api from '@/api'
 import { loadContent, pick } from '@/utils/content'
+import { richTextPreview } from '@/utils/richText'
 const subsidiaries = ref([])
+const plainText = value => richTextPreview(value || '')
 const route = useRoute()
 const activeCategory = computed(() => typeof route.query.category === 'string' ? route.query.category.trim() : '')
 const filteredSubsidiaries = computed(() => activeCategory.value

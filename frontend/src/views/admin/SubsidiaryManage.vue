@@ -15,6 +15,7 @@
       <el-table-column prop="id" label="ID" width="60" />
       <el-table-column prop="name" label="公司名称" min-width="180" />
       <el-table-column prop="category" label="子公司类型" width="140" />
+      <el-table-column prop="summary" label="简介" min-width="220" show-overflow-tooltip />
       <el-table-column label="内容介绍" min-width="260" show-overflow-tooltip>
         <template #default="{ row }">{{ richTextPreview(row.description) }}</template>
       </el-table-column>
@@ -36,6 +37,7 @@
             <el-form-item label="公司名称"><el-input v-model="form.name" /></el-form-item>
             <el-form-item label="英文名"><el-input v-model="form.englishName" /></el-form-item>
             <el-form-item label="子公司类型"><el-input v-model="form.category" placeholder="如 建设工程、智能科技、信息咨询" /></el-form-item>
+            <el-form-item label="简介"><el-input v-model="form.summary" type="textarea" :rows="3" maxlength="500" show-word-limit placeholder="用于首页和集团产业列表的简短介绍" /></el-form-item>
             <el-form-item label="排序"><el-input-number v-model="form.sortOrder" :min="1" /></el-form-item>
             <el-form-item label="Logo图"><ImageUpload v-model="form.logo" /></el-form-item>
             <el-form-item label="背景图"><ImageUpload v-model="form.background" /></el-form-item>
@@ -112,7 +114,7 @@ const businessDialogVisible = ref(false)
 const businessSaving = ref(false)
 const businessForm = ref({})
 
-const emptyForm = () => ({ id: null, name: '', englishName: '', category: '', description: '', logo: '', background: '', sortOrder: list.value.length + 1, coreBusinessIds: [] })
+const emptyForm = () => ({ id: null, name: '', englishName: '', category: '', summary: '', description: '', logo: '', background: '', sortOrder: list.value.length + 1, coreBusinessIds: [] })
 
 const filteredList = computed(() => {
   let result = list.value

@@ -28,6 +28,10 @@ public class Subsidiary {
     @Column(length = 50)
     @Size(max = 50)
     private String category;
+
+    @Column(length = 500)
+    @Size(max = 500)
+    private String summary;
     
     @Column(columnDefinition = "LONGTEXT")
     @Size(max = 1000000)

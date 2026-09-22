@@ -1,6 +1,6 @@
 <template>
-  <div class="hero">
-    <el-carousel height="500px" :interval="5500" arrow="never" indicator-position="outside">
+  <div class="hero" @pointerdown="startSwipe" @pointerup="finishSwipe" @pointercancel="cancelSwipe">
+    <el-carousel ref="carousel" height="500px" :interval="5500" arrow="never" trigger="click">
       <el-carousel-item v-for="(slide, idx) in slides" :key="idx">
         <div class="slide" :style="'background-image:url(' + slide.image + ')'">
         </div>
@@ -20,6 +20,21 @@ const defaults = [
   { image: '/images/hero-3.jpg', tag: 'FUTURE', title: '城湖共生处，笃行向远方', desc: '传承徽商实业根脉，赋能数字产业升级', link: '/about/culture' }
 ]
 const slides = ref(defaults)
+const carousel = ref(null)
+const swipeStartX = ref(null)
+
+function startSwipe(event) {
+  if (event.pointerType === 'mouse' && event.button !== 0) return
+  swipeStartX.value = event.clientX
+}
+function finishSwipe(event) {
+  if (swipeStartX.value === null) return
+  const distance = event.clientX - swipeStartX.value
+  swipeStartX.value = null
+  if (Math.abs(distance) < 45) return
+  distance < 0 ? carousel.value?.next() : carousel.value?.prev()
+}
+function cancelSwipe() { swipeStartX.value = null }
 
 onMounted(async () => {
   const content = await loadContent()
@@ -31,7 +46,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.hero { position: relative; height: 500px; overflow: hidden; background: #0a2c57; top: 0px; }
+.hero { position: relative; height: 500px; overflow: hidden; background: #0a2c57; top: 0px; touch-action: pan-y; cursor: grab; }
+.hero:active { cursor: grabbing; }
+.hero :deep(.el-carousel__indicators--horizontal) { bottom: 18px; }
+.hero :deep(.el-carousel__button) { width: 28px; height: 4px; border-radius: 4px; }
 .slide {
   width: 100%;
   height: 100%;

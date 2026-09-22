@@ -15,7 +15,7 @@
             <span class="sub-category">{{ item.category }}</span>
             <h4>{{ item.name }}</h4>
             <small>{{ item.englishName }}</small>
-            <p>{{ plainText(item.description) }}</p>
+            <p>{{ item.summary || plainText(item.description) }}</p>
           </div>
         </router-link>
       </div>
