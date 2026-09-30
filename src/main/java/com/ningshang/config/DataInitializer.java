@@ -199,6 +199,7 @@ public class DataInitializer implements CommandLineRunner {
         upsertContent("contact_phone", "电话", "13365745652", 2);
         upsertContent("contact_email", "邮箱", "NStechnology@163.com", 3);
         upsertContent("site_logo", "网站主Logo", "/images/logo.png", 5);
+        upsertContent("footer_logo", "底部Logo", "/images/logo.png", 6);
         upsertContent("office_hours", "办公时间", "周一至周五　09:00 - 18:00", 4);
         upsertContent("about_intro_meta", "集团简介-副标题", "一徽藏一城，一潮见格局", 10);
         upsertContent("about_intro_s1_title", "集团简介-第一段标题", "徽韵承城，扎根本土根基", 11);
