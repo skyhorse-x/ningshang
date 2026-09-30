@@ -32,6 +32,7 @@ public class AdminApiController {
     @Autowired private SiteContentService siteContentService;
     @Autowired private PartnerService partnerService;
     @Autowired private AdminService adminService;
+    @Autowired private NewsCategoryService newsCategoryService;
 
     /** 业务列表批量删除；逐条调用现有服务以复用不存在校验和保护规则。 */
     @PostMapping("/{module}/batch-delete")
@@ -42,6 +43,7 @@ public class AdminApiController {
         for (Long id : uniqueIds) {
             switch (module) {
                 case "news": newsService.delete(id); break;
+                case "news-categories": newsCategoryService.delete(id); break;
                 case "jobs": jobService.delete(id); break;
                 case "messages": messageService.delete(id); break;
                 case "subsidiaries": subsidiaryService.delete(id); break;
@@ -82,6 +84,29 @@ public class AdminApiController {
     @DeleteMapping("/news/{id}")
     public ApiResponse<String> deleteNews(@PathVariable Long id) {
         newsService.delete(id);
+        return ApiResponse.success("删除成功");
+    }
+
+    // ==================== 新闻分类管理 ====================
+    @GetMapping("/news-categories")
+    public ApiResponse<List<NewsCategory>> listNewsCategories() {
+        return ApiResponse.success(newsCategoryService.findAll());
+    }
+
+    @PostMapping("/news-categories")
+    public ApiResponse<NewsCategory> createNewsCategory(@Valid @RequestBody NewsCategory category) {
+        return ApiResponse.success(newsCategoryService.save(category));
+    }
+
+    @PutMapping("/news-categories/{id}")
+    public ApiResponse<NewsCategory> updateNewsCategory(@PathVariable Long id, @Valid @RequestBody NewsCategory category) {
+        category.setId(id);
+        return ApiResponse.success(newsCategoryService.save(category));
+    }
+
+    @DeleteMapping("/news-categories/{id}")
+    public ApiResponse<String> deleteNewsCategory(@PathVariable Long id) {
+        newsCategoryService.delete(id);
         return ApiResponse.success("删除成功");
     }
 

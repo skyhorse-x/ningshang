@@ -8,10 +8,7 @@
       <el-form-item label="分类">
         <el-select v-model="searchForm.category" placeholder="全部分类" clearable style="width:140px">
           <el-option label="全部分类" value="" />
-          <el-option label="集团新闻" value="group" />
-          <el-option label="产业动态" value="industry" />
-          <el-option label="行业资讯" value="trend" />
-          <el-option label="员工风采" value="staff" />
+          <el-option v-for="item in categories" :key="item.key" :label="item.name" :value="item.key" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -51,7 +48,7 @@
     <el-dialog v-model="dialogVisible" :title="form.id ? '编辑新闻' : '新建新闻'" width="min(960px, 94vw)" top="5vh" destroy-on-close>
       <el-form :model="form" label-width="80px">
         <el-form-item label="标题"><el-input v-model="form.title" /></el-form-item>
-        <el-form-item label="分类"><el-select v-model="form.category" placeholder="请选择" @change="onCategoryChange"><el-option label="集团新闻" value="group" /><el-option label="产业动态" value="industry" /><el-option label="行业资讯" value="trend" /><el-option label="员工风采" value="staff" /></el-select></el-form-item>
+        <el-form-item label="分类"><el-select v-model="form.category" placeholder="请选择" @change="onCategoryChange"><el-option v-for="item in categories" :key="item.key" :label="item.name" :value="item.key" /></el-select></el-form-item>
         <el-form-item label="作者"><el-input v-model="form.author" /></el-form-item>
         <el-form-item label="发布时间"><el-date-picker v-model="form.date" type="month" value-format="YYYY-MM" placeholder="选择发布时间" style="width: 220px" /></el-form-item>
         <el-form-item label="封面图"><ImageUpload v-model="form.image" /></el-form-item>
@@ -72,8 +69,8 @@ import ImageUpload from '@/components/admin/ImageUpload.vue'
 import { hasPermission } from '@/utils/permission'
 import { useBatchDelete } from '@/utils/batchDelete'
 
-const CATS = { group: '集团新闻', industry: '产业动态', trend: '行业资讯', staff: '员工风采' }
 const list = ref([])
+const categories = ref([])
 const searchForm = ref({ title: '', category: '' })
 const dialogVisible = ref(false)
 const saving = ref(false)
@@ -81,7 +78,10 @@ const loading = ref(false)
 const form = ref({})
 const pagination = reactive({ page: 1, size: 10, total: 0 })
 
-const emptyForm = () => ({ id: null, title: '', category: 'group', categoryName: '集团新闻', date: new Date().toISOString().slice(0, 7), author: '', source: '内部资料', image: '', summary: '', body: '', newsId: '' })
+const emptyForm = () => {
+  const firstCategory = categories.value[0] || { key: 'group', name: '集团新闻' }
+  return { id: null, title: '', category: firstCategory.key, categoryName: firstCategory.name, date: new Date().toISOString().slice(0, 7), author: '', source: '内部资料', image: '', summary: '', body: '', newsId: '' }
+}
 
 const formatTime = (t) => {
   if (!t) return '-'
@@ -105,13 +105,23 @@ const load = async () => {
   } finally { loading.value = false }
 }
 const { selectedIds, onSelectionChange, onBatchDelete } = useBatchDelete('news', load)
-onMounted(load)
+const loadCategories = async () => {
+  const res = await api.getNewsCategories()
+  if (res.code === 200) categories.value = (res.data || []).filter(item => item.isActive !== false)
+}
+onMounted(async () => {
+  await loadCategories()
+  await load()
+})
 
 const onSearch = () => { pagination.page = 1; load() }
 const onReset = () => { searchForm.value = { title: '', category: '' }; pagination.page = 1; load() }
 const onSizeChange = () => { pagination.page = 1; load() }
 
-const onCategoryChange = (val) => { form.value.categoryName = CATS[val] || val }
+const onCategoryChange = (val) => {
+  const category = categories.value.find(item => item.key === val)
+  form.value.categoryName = category?.name || val
+}
 
 const openDialog = (row) => {
   form.value = row ? { ...row } : emptyForm()

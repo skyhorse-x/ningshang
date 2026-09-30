@@ -42,6 +42,7 @@ const routes = [
       { path: '', redirect: '/ningshang-admin/dashboard' },
       { path: 'dashboard', component: () => import('@/views/admin/Dashboard.vue'), meta: { title: '控制台' } },
       { path: 'news', component: () => import('@/views/admin/NewsManage.vue'), meta: { title: '新闻管理' } },
+      { path: 'news-categories', component: () => import('@/views/admin/NewsCategoryManage.vue'), meta: { title: '新闻分类管理' } },
       { path: 'team', component: () => import('@/views/admin/TeamManage.vue'), meta: { title: '团队管理' } },
       { path: 'honors', component: () => import('@/views/admin/HonorManage.vue'), meta: { title: '荣誉管理' } },
       { path: 'partners', component: () => import('@/views/admin/PartnerManage.vue'), meta: { title: '合作伙伴' } },
