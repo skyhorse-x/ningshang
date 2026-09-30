@@ -396,6 +396,7 @@ public class DataInitializer implements CommandLineRunner {
         ensureMenu(about, "党建工作", "/ningshang-admin/content/party", "Star", 7);
         ensureMenu(about, "合作伙伴", "/ningshang-admin/partners", "Connection", 8);
         ensureMenu(news, "新闻列表", "/ningshang-admin/news", "Document", 1);
+        ensureMenu(news, "新闻分类管理", "/ningshang-admin/news-categories", "CollectionTag", 2);
         ensureMenu(industry, "子公司管理", "/ningshang-admin/subsidiaries", "OfficeBuilding", 1);
         ensureMenu(interaction, "人才理念", "/ningshang-admin/content/recruit", "User", 1);
         ensureMenu(interaction, "招聘岗位", "/ningshang-admin/jobs", "Briefcase", 2);
@@ -511,12 +512,29 @@ public class DataInitializer implements CommandLineRunner {
             // 菜单重新分组后，为已有角色补齐其已授权子菜单的新父级。
             for (AdminGroup group : adminGroupRepository.findAll()) {
                 java.util.Set<Long> assigned = new java.util.HashSet<>(adminGroupMenuRepository.findMenuIdByGroupId(group.getId()));
+                if ("超级管理员".equals(group.getName())) {
+                    for (AdminMenu menu : allMenus) {
+                        if (!assigned.contains(menu.getId())) {
+                            bindGroupMenu(group.getId(), menu.getId());
+                            assigned.add(menu.getId());
+                        }
+                    }
+                }
                 if ("管理员".equals(group.getName())) {
                     for (AdminMenu menu : allMenus) {
                         String path = menu.getPath();
                         if (path != null && !path.startsWith("/ningshang-admin/menus")
                                 && !path.startsWith("/ningshang-admin/groups")
                                 && !path.startsWith("/ningshang-admin/admins") && !assigned.contains(menu.getId())) {
+                            bindGroupMenu(group.getId(), menu.getId());
+                            assigned.add(menu.getId());
+                        }
+                    }
+                }
+                if ("编辑".equals(group.getName())) {
+                    for (AdminMenu menu : allMenus) {
+                        if (java.util.Set.of("/ningshang-admin/news", "/ningshang-admin/news-categories").contains(menu.getPath())
+                                && !assigned.contains(menu.getId())) {
                             bindGroupMenu(group.getId(), menu.getId());
                             assigned.add(menu.getId());
                         }
@@ -572,7 +590,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void initPermissions() {
-        String[][] modules = {{"news","新闻管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"partners","合作伙伴"},{"core-businesses","核心业务领域"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
+        String[][] modules = {{"news","新闻管理"},{"news-categories","新闻分类管理"},{"content","页面内容"},{"subsidiaries","子公司管理"},{"partners","合作伙伴"},{"core-businesses","核心业务领域"},{"team","团队管理"},{"honors","荣誉管理"},{"milestones","大事记管理"},{"jobs","招聘管理"},{"messages","留言管理"},{"menus","菜单管理"},{"groups","管理员分组"},{"admins","管理员账号"}};
         String[][] actions = {{"list","查看列表"},{"create","新增"},{"update","修改"},{"delete","删除"},{"batch_delete","批量删除"}};
         int order = 0;
         for (String[] m : modules) for (String[] a : actions) {
@@ -584,7 +602,7 @@ public class DataInitializer implements CommandLineRunner {
         }
         for (AdminGroup g : adminGroupRepository.findAll()) {
             for (AdminPermission p : adminPermissionRepository.findAll()) {
-                boolean grant = Long.valueOf(1).equals(g.getId()) || ("管理员".equals(g.getName()) && !java.util.Set.of("menus","groups","admins").contains(p.getModule())) || ("编辑".equals(g.getName()) && "news".equals(p.getModule()));
+                boolean grant = Long.valueOf(1).equals(g.getId()) || ("管理员".equals(g.getName()) && !java.util.Set.of("menus","groups","admins").contains(p.getModule())) || ("编辑".equals(g.getName()) && java.util.Set.of("news","news-categories").contains(p.getModule()));
                 if (grant && !adminGroupPermissionRepository.existsByGroupIdAndPermissionId(g.getId(), p.getId())) { AdminGroupPermission gp = new AdminGroupPermission(); gp.setGroupId(g.getId()); gp.setPermissionId(p.getId()); adminGroupPermissionRepository.save(gp); }
             }
         }
