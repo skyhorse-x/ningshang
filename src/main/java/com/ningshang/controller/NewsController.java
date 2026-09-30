@@ -3,6 +3,8 @@ package com.ningshang.controller;
 import com.ningshang.dto.ApiResponse;
 import com.ningshang.exception.BusinessException;
 import com.ningshang.entity.News;
+import com.ningshang.entity.NewsCategory;
+import com.ningshang.service.NewsCategoryService;
 import com.ningshang.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,9 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
+    @Autowired
+    private NewsCategoryService newsCategoryService;
+
     @GetMapping("/api/news")
     public ApiResponse<List<News>> newsApi() {
         return ApiResponse.success(newsService.findAll());
@@ -27,5 +32,10 @@ public class NewsController {
         News news = newsService.findByNewsId(newsId);
         if (news == null) throw new BusinessException(404, "文章未找到");
         return ApiResponse.success(news);
+    }
+
+    @GetMapping("/api/news-categories")
+    public ApiResponse<List<NewsCategory>> newsCategoriesApi() {
+        return ApiResponse.success(newsCategoryService.findAll());
     }
 }

@@ -40,6 +40,7 @@ export default {
   // News
   getNews: () => request.get("/news", { params: { _t: Date.now() } }),
   getNewsDetail: (id) => request.get("/news/" + encodeURIComponent(id), { params: { _t: Date.now() } }),
+  getNewsCategories: () => request.get("/news-categories", { params: { _t: Date.now() } }),
 
   // About
   getTeam: () => request.get("/team", { params: { _t: Date.now() } }),
